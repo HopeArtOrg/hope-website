@@ -1,5 +1,5 @@
 ---
-import Test from "../components/test.svelte";
+import { Button } from "@/components/ui/button";
 ---
 
 <html lang="en">
@@ -11,7 +11,7 @@ import Test from "../components/test.svelte";
     <meta name="generator" content={Astro.generator} />
     <title>Astro</title>
   </head>
-  <body>
-    <Test />
+  <body class="font-primary">
+    <Button>Hello</Button>
   </body>
 </html>
