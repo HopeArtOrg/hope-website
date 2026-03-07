@@ -1,4 +1,5 @@
 ---
+import Footer from "@/components/footer/index.astro";
 import Navbar from "@/components/navbar/index.astro";
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 
@@ -46,5 +47,6 @@ const {
     <main class="pt-20 sm:pt-28">
       <slot />
     </main>
+    <Footer />
   </body>
 </html>

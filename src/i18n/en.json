@@ -8,5 +8,17 @@
   "site": {
     "title": "Hope:Re",
     "description": "Hope:Re - minimalistic artistic development tool"
+  },
+  "footer": {
+    "license": "Released under",
+    "copyright": "Copyright",
+    "email": "Email",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "miscellaneous": "Miscellaneous",
+    "blog": "Blog",
+    "sitemap": "Sitemap",
+    "rss": "RSS Feed",
+    "rights": "All rights reserved."
   }
 }

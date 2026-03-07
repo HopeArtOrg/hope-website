@@ -8,5 +8,17 @@
   "site": {
     "title": "Hope:Re",
     "description": "Hope:Re - công cụ phòng chống đánh cắp chất xám hiệu quả, gọn nhẹ"
+  },
+  "footer": {
+    "license": "Phát hành theo",
+    "copyright": "Bản quyền",
+    "email": "Email",
+    "terms": "Điều khoản Dịch vụ",
+    "privacy": "Chính sách Bảo mật",
+    "miscellaneous": "Tổng hợp",
+    "blog": "Bài viết",
+    "sitemap": "Sơ đồ trang",
+    "rss": "Nguồn RSS",
+    "rights": "Mọi quyền được bảo lưu."
   }
 }
