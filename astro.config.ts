@@ -11,6 +11,14 @@ export default defineConfig({
     icon(),
   ],
 
+  i18n: {
+    defaultLocale: "vn",
+    locales: ["en", "vn"],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
+
   server: {
     port: 3000,
   },

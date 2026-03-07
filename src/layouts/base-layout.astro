@@ -1,0 +1,50 @@
+---
+import Navbar from "@/components/navbar/index.astro";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+
+type Props = {
+  title?: string;
+  description?: string;
+};
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const {
+  title = t("site.title"),
+  description = t("site.description"),
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <script is:inline>
+(function () {
+  const theme = localStorage.getItem("hope-theme") || "system";
+  const resolved
+    = theme === "system"
+      ? window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light"
+      : theme;
+  if (resolved === "dark")
+    document.documentElement.classList.add("dark");
+  document.documentElement.style.colorScheme = resolved;
+})();
+</script>
+  </head>
+
+  <body class="min-h-screen bg-background font-primary text-foreground antialiased">
+    <Navbar />
+    <main class="pt-20 sm:pt-28">
+      <slot />
+    </main>
+  </body>
+</html>

@@ -2,10 +2,13 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "paths": {
+      "@/i18n/*": ["./src/i18n/*"],
       "@/lib/*": ["./src/lib/*"],
+      "@/stores/*": ["./src/stores/*"],
       "@/layouts/*": ["./src/layouts/*"],
       "@/components/*": ["./src/components/*"]
     },
+    "resolveJsonModule": true,
     "verbatimModuleSyntax": true
   },
   "include": [".astro/types.d.ts", "**/*"],

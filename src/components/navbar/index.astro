@@ -1,0 +1,21 @@
+---
+import { getLangFromUrl, getLocalePath, useTranslations } from "@/i18n/utils";
+import { navLinks } from "@/lib/constants";
+
+import Navbar from "./navbar.svelte";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const homePath = getLocalePath(lang, "/");
+const links = navLinks.map(({ key, path }) => ({
+  label: t(key),
+  href: getLocalePath(lang, path),
+}));
+---
+
+<Navbar
+  homePath={homePath}
+  links={links}
+  client:load
+/>

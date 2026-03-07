@@ -1,0 +1,12 @@
+{
+  "nav": {
+    "download": "Download",
+    "blogs": "Blogs",
+    "about": "About Us",
+    "contact": "Contact"
+  },
+  "site": {
+    "title": "Hope:Re",
+    "description": "Hope:Re - minimalistic artistic development tool"
+  }
+}
