@@ -27,7 +27,7 @@ function flatten(obj: Record<string, string | Record<string, string>>, prefix = 
 }
 
 export const languages = {
-  vn: "Tieng Viet",
+  vn: "Tiếng Việt",
   en: "English",
 } as const;
 
