@@ -51,27 +51,7 @@ const locales = Object.keys(languages).map(code => ({
       </p>
     </div>
 
-    <div class="flex flex-col gap-2">
-      <span class="text-sm font-bold text-foreground">{t("footer.blog")}</span>
-      <a
-        href="/sitemap-index.xml"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="w-fit text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
-      >
-        {t("footer.sitemap")}
-      </a>
-      <a
-        href="/rss.xml"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="w-fit text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
-      >
-        {t("footer.rss")}
-      </a>
-    </div>
-
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-3">
       <span class="text-sm font-bold text-foreground">{t("footer.miscellaneous")}</span>
       <a
         href="mailto:trananhquan1009@gmail.com"
@@ -90,6 +70,26 @@ const locales = Object.keys(languages).map(code => ({
         class="w-fit text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
       >
         {t("footer.privacy")}
+      </a>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <span class="text-sm font-bold text-foreground">{t("footer.blog")}</span>
+      <a
+        href="/sitemap-index.xml"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="w-fit text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
+      >
+        {t("footer.sitemap")}
+      </a>
+      <a
+        href="/rss.xml"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="w-fit text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
+      >
+        {t("footer.rss")}
       </a>
     </div>
 
