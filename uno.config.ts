@@ -1,5 +1,6 @@
 import type { Preset } from "unocss";
 
+import extractorSvelte from "@unocss/extractor-svelte";
 import {
   defineConfig,
   presetWebFonts,
@@ -79,6 +80,10 @@ const zenDark = {
 } as const;
 
 export default defineConfig({
+  extractors: [
+    extractorSvelte(),
+  ],
+
   presets: [
     presetWind4({ preflights: { reset: true } }),
     presetAnimations() as Preset,
@@ -99,6 +104,15 @@ export default defineConfig({
         mono: "JetBrains Mono",
       },
     }),
+  ],
+
+  rules: [
+    ["group", { "--un-group": "1" }],
+    ["peer", { "--un-peer": "1" }],
+  ],
+
+  safelist: [
+    "container",
   ],
 
   content: {
