@@ -1,10 +1,19 @@
 ---
-import { Button } from "@/components/ui/button";
+import { HeroSection } from "@/components/landing/hero-section";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import BaseLayout from "@/layouts/base-layout.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <BaseLayout>
-  <div class="flex min-h-[calc(100vh-7rem)] items-center justify-center">
-    <Button>Hello</Button>
-  </div>
+  <HeroSection
+    description={t("hero.description")}
+    downloadLabel={t("hero.download")}
+    downloadForLabel={t("hero.downloadFor")}
+    githubLabel={t("hero.github")}
+    comingSoonLabel={t("hero.comingSoon")}
+    client:load
+  />
 </BaseLayout>

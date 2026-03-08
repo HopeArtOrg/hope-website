@@ -1,6 +1,6 @@
 import { THEME_STORAGE_KEY } from "@/lib/constants";
 
-type Theme = "light" | "dark" | "system";
+export type Theme = "light" | "dark" | "system";
 
 function getStoredTheme(): Theme {
   if (typeof localStorage === "undefined")
@@ -11,23 +11,23 @@ function getStoredTheme(): Theme {
   return "system";
 }
 
-function getSystemPreference(): "light" | "dark" {
+function resolveTheme(theme: Theme): "light" | "dark" {
+  if (theme !== "system")
+    return theme;
   if (typeof window === "undefined")
     return "light";
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
 function applyTheme(theme: Theme) {
-  const resolved = theme === "system" ? getSystemPreference() : theme;
-  const root = document.documentElement;
-
-  root.classList.toggle("dark", resolved === "dark");
-  root.style.colorScheme = resolved;
+  const resolved = resolveTheme(theme);
+  document.documentElement.classList.toggle("dark", resolved === "dark");
+  document.documentElement.style.colorScheme = resolved;
 }
 
-export function useThemeStore() {
-  let theme = $state<Theme>(getStoredTheme());
+let theme = $state<Theme>(getStoredTheme());
 
+export function useThemeStore() {
   $effect(() => {
     applyTheme(theme);
     localStorage.setItem(THEME_STORAGE_KEY, theme);

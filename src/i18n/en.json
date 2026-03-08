@@ -9,6 +9,13 @@
     "title": "Hope:Re",
     "description": "Hope:Re - An effective and compact tool for preventing the theft of artistic intellectual property"
   },
+  "hero": {
+    "description": "A small friend of the artistic souls",
+    "download": "Download",
+    "downloadFor": "Download for",
+    "github": "View on GitHub",
+    "comingSoon": "Coming soon to"
+  },
   "theme": {
     "light": "Light",
     "dark": "Dark",
@@ -16,7 +23,6 @@
   },
   "footer": {
     "license": "Released under",
-    "copyright": "Copyright",
     "email": "Email",
     "terms": "Terms of Service",
     "privacy": "Privacy Policy",

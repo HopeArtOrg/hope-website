@@ -9,6 +9,13 @@
     "title": "Hope:Re",
     "description": "Hope:Re - Công cụ phòng chống đánh cắp chất xám nghệ thuật hiệu quả, gọn nhẹ"
   },
+  "hero": {
+    "description": "Người bạn nhỏ của những tâm hồn nghệ thuật",
+    "download": "Tải xuống",
+    "downloadFor": "Tải xuống cho",
+    "github": "Xem trên GitHub",
+    "comingSoon": "Sắp ra mắt trên"
+  },
   "theme": {
     "light": "Sáng",
     "dark": "Tối",
@@ -16,7 +23,6 @@
   },
   "footer": {
     "license": "Phát hành theo",
-    "copyright": "Bản quyền",
     "email": "Email",
     "terms": "Điều khoản Dịch vụ",
     "privacy": "Chính sách Bảo mật",

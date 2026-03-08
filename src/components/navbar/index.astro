@@ -8,9 +8,10 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const homePath = getLocalePath(lang, "/");
-const links = navLinks.map(({ key, path }) => ({
+const links = navLinks.map(({ key, path, icon }) => ({
   label: t(key),
   href: getLocalePath(lang, path),
+  icon,
 }));
 ---
 
