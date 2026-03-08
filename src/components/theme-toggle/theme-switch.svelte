@@ -1,19 +1,27 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
 
+  import type { Locale } from "@/i18n/ui";
+
+  import { useTranslations } from "@/i18n/utils";
   import { useThemeStore } from "@/stores/use-theme.svelte";
+
+  const { lang }: { lang: Locale } = $props();
 
   const themeStore = useThemeStore();
 
-  const options = [
-    { value: "light" as const, icon: "lucide:sun", label: "Light" },
-    { value: "dark" as const, icon: "lucide:moon", label: "Dark" },
-    { value: "system" as const, icon: "lucide:monitor", label: "System" },
-  ];
+  const options = $derived.by(() => {
+    const t = useTranslations(lang);
+    return [
+      { value: "light" as const, icon: "lucide:sun", label: t("theme.light") },
+      { value: "dark" as const, icon: "lucide:moon", label: t("theme.dark") },
+      { value: "system" as const, icon: "lucide:monitor", label: t("theme.system") },
+    ];
+  });
 </script>
 
 <div
-  class="inline-flex h-8 w-fit items-center rounded-md bg-muted p-0.5"
+  class="inline-flex h-8 w-fit items-center rounded-sm bg-muted p-0.5"
   role="radiogroup"
   aria-label="Theme"
 >

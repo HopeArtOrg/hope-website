@@ -7,7 +7,12 @@
   },
   "site": {
     "title": "Hope:Re",
-    "description": "Hope:Re - công cụ phòng chống đánh cắp chất xám hiệu quả, gọn nhẹ"
+    "description": "Hope:Re - Công cụ phòng chống đánh cắp chất xám nghệ thuật hiệu quả, gọn nhẹ"
+  },
+  "theme": {
+    "light": "Sáng",
+    "dark": "Tối",
+    "system": "Hệ thống"
   },
   "footer": {
     "license": "Phát hành theo",

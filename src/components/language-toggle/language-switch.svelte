@@ -10,7 +10,7 @@
 </script>
 
 <div
-  class="inline-flex h-8 w-fit items-center rounded-md bg-muted p-0.5"
+  class="inline-flex h-8 w-fit items-center rounded-sm bg-muted p-0.5"
   role="radiogroup"
   aria-label="Language"
 >

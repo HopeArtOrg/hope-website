@@ -7,7 +7,12 @@
   },
   "site": {
     "title": "Hope:Re",
-    "description": "Hope:Re - minimalistic artistic development tool"
+    "description": "Hope:Re - An effective and compact tool for preventing the theft of artistic intellectual property"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
   },
   "footer": {
     "license": "Released under",

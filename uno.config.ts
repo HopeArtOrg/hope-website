@@ -94,7 +94,7 @@ export default defineConfig({
           light: zenLight,
           dark: zenDark,
         } as never,
-        radius: 0.25,
+        radius: 0.1,
       },
     ),
     presetWebFonts({

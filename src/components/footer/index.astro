@@ -109,7 +109,10 @@ const locales = Object.keys(languages).map(code => ({
         locales={locales}
         client:load
       />
-      <ThemeSwitch client:load />
+      <ThemeSwitch
+        lang={lang}
+        client:load
+      />
     </div>
   </div>
 </footer>
