@@ -9,6 +9,7 @@
 
 <script lang="ts">
   import Icon from "@iconify/svelte";
+  import gsap from "gsap";
 
   import { ThemeToggle } from "@/components/theme-toggle";
   import { Button } from "@/components/ui/button";
@@ -26,10 +27,22 @@
 
   const { homePath, links }: NavbarProps = $props();
   let sheetOpen = $state(false);
+  let navRef = $state<HTMLElement | null>(null);
+
+  $effect(() => {
+    if (!navRef)
+      return;
+    gsap.from(navRef, {
+      y: -80,
+      autoAlpha: 0,
+      duration: 1,
+      ease: "power3.out",
+    });
+  });
 </script>
 
-<nav class="fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-3 pointer-events-none sm:px-6 sm:pt-5">
-  <div class="pointer-events-auto flex h-14 w-full max-w-screen-xl items-center justify-between rounded-full border border-border/50 bg-background/60 px-4 shadow-lg ring-1 ring-inset ring-white/10 backdrop-blur-xl backdrop-saturate-150 sm:h-20 sm:px-12">
+<nav bind:this={navRef} class="invisible fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-3 pointer-events-none sm:px-6 sm:pt-5">
+  <div class="pointer-events-auto flex h-14 w-full max-w-screen-xl items-center justify-between rounded-lg border border-border/50 bg-background/60 px-4 shadow-lg ring-1 ring-inset ring-white/10 backdrop-blur-xl backdrop-saturate-150 sm:h-20 sm:px-12">
     <a
       href={homePath}
       class="group flex items-center gap-2 sm:gap-3"

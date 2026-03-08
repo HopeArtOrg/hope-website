@@ -1,0 +1,118 @@
+---
+import { Icon } from "astro-icon/components";
+
+import type { Locale } from "@/i18n/ui";
+
+import StarIcon from "@/components/icons/star-icon.svelte";
+import { LanguageSwitch } from "@/components/language-toggle";
+import { ThemeSwitch } from "@/components/theme-toggle";
+import { languages } from "@/i18n/ui";
+import { getLangFromUrl, getLocalePath, useTranslations } from "@/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const currentPath = Astro.url.pathname.replace(/^\/(en|vn)/, "") || "/";
+const locales = Object.keys(languages).map(code => ({
+  code,
+  href: getLocalePath(code as Locale, currentPath),
+}));
+---
+
+<footer class="border-t border-border/50 bg-background">
+  <div class="mx-auto grid max-w-screen-xl grid-cols-1 gap-8 px-6 py-10 sm:grid-cols-2 lg:grid-cols-4 sm:py-14">
+    <div class="flex flex-col gap-3">
+      <a
+        href="https://github.com/HopeArtOrg/hope-website"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="w-fit text-muted-foreground transition-colors duration-300 hover:text-primary"
+        aria-label="GitHub"
+      >
+        <Icon name="lucide:github" class="size-5" />
+      </a>
+      <p class="text-sm text-muted-foreground">
+        {t("footer.license")}{" "}
+        <a
+          href="https://github.com/HopeArtOrg/hope-website/blob/main/LICENSE"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-foreground underline decoration-border underline-offset-4 transition-colors duration-300 hover:text-primary hover:decoration-primary"
+        >
+          MIT License
+        </a>
+      </p>
+      <p class="text-sm text-muted-foreground">
+        &copy; 2025 &ndash; 2026 HopeArtOrg
+      </p>
+      <hr class="h-px w-28 border-0 bg-border" />
+      <p class="text-sm text-muted-foreground">
+        {t("footer.rights")}
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <span class="text-sm font-bold text-foreground">{t("footer.miscellaneous")}</span>
+      <a
+        href="mailto:trananhquan1009@gmail.com"
+        class="w-fit text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
+      >
+        {t("footer.email")}
+      </a>
+      <a
+        href={getLocalePath(lang, "/terms")}
+        class="w-fit text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
+      >
+        {t("footer.terms")}
+      </a>
+      <a
+        href={getLocalePath(lang, "/privacy")}
+        class="w-fit text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
+      >
+        {t("footer.privacy")}
+      </a>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <span class="text-sm font-bold text-foreground">{t("footer.blog")}</span>
+      <a
+        href="/sitemap-index.xml"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="w-fit text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
+      >
+        {t("footer.sitemap")}
+      </a>
+      <a
+        href="/rss.xml"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="w-fit text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
+      >
+        {t("footer.rss")}
+      </a>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <a
+        href="https://github.com/HopeArtOrg"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group flex w-fit items-center gap-1"
+      >
+        <StarIcon class="size-8 text-muted-foreground transition-colors duration-300 group-hover:text-foreground" />
+        <span class="font-mono text-sm font-medium text-muted-foreground transition-colors duration-300 group-hover:text-foreground">Hope Art Org</span>
+      </a>
+      <hr class="h-px w-28 border-0 bg-border" />
+      <LanguageSwitch
+        currentLocale={lang}
+        locales={locales}
+        client:load
+      />
+      <ThemeSwitch
+        lang={lang}
+        client:load
+      />
+    </div>
+  </div>
+</footer>
