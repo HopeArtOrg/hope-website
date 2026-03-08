@@ -9,15 +9,13 @@
   const { lang }: { lang: Locale } = $props();
 
   const themeStore = useThemeStore();
+  const t = useTranslations(lang);
 
-  const options = $derived.by(() => {
-    const t = useTranslations(lang);
-    return [
-      { value: "light" as const, icon: "lucide:sun", label: t("theme.light") },
-      { value: "dark" as const, icon: "lucide:moon", label: t("theme.dark") },
-      { value: "system" as const, icon: "lucide:monitor", label: t("theme.system") },
-    ];
-  });
+  const options = [
+    { value: "light" as const, icon: "lucide:sun", label: t("theme.light") },
+    { value: "dark" as const, icon: "lucide:moon", label: t("theme.dark") },
+    { value: "system" as const, icon: "lucide:monitor", label: t("theme.system") },
+  ];
 </script>
 
 <div

@@ -1,15 +1,12 @@
 <script lang="ts" module>
-  export type { NavLinkProps as NavLink } from "./navlink.svelte";
-
   export type NavbarProps = {
     homePath: string;
-    links: Array<{ label: string; href: string }>;
+    links: Array<{ label: string; href: string; icon: string }>;
   };
 </script>
 
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import gsap from "gsap";
 
   import { ThemeToggle } from "@/components/theme-toggle";
   import { Button } from "@/components/ui/button";
@@ -23,6 +20,7 @@
   } from "@/components/ui/sheet";
   import { SITE_NAME } from "@/lib/constants";
 
+  import { setupNavbarVisibility } from "./animations";
   import NavLink from "./navlink.svelte";
 
   const { homePath, links }: NavbarProps = $props();
@@ -32,12 +30,7 @@
   $effect(() => {
     if (!navRef)
       return;
-    gsap.from(navRef, {
-      y: -80,
-      autoAlpha: 0,
-      duration: 1,
-      ease: "power3.out",
-    });
+    return setupNavbarVisibility(navRef);
   });
 </script>
 
@@ -66,6 +59,7 @@
           <NavLink
             label={link.label}
             href={link.href}
+            icon={link.icon}
           />
         {/each}
       </div>
