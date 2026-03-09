@@ -1,5 +1,7 @@
 import gsap from "gsap";
 
+import { prefersReducedMotion } from "@/lib/utils";
+
 const SCROLL_THRESHOLD = 50;
 const HOVER_ZONE_HEIGHT = 60;
 
@@ -15,6 +17,10 @@ function showNavbar(
   if (state.visible)
     return;
   state.visible = true;
+  if (prefersReducedMotion()) {
+    gsap.set(el, { y: 0, autoAlpha: 1 });
+    return;
+  }
   gsap.fromTo(el, {
     y: -80,
     autoAlpha: 0,
@@ -33,6 +39,10 @@ function hideNavbar(
   if (!state.visible)
     return;
   state.visible = false;
+  if (prefersReducedMotion()) {
+    gsap.set(el, { y: -80, autoAlpha: 0 });
+    return;
+  }
   gsap.to(el, {
     y: -80,
     autoAlpha: 0,
@@ -79,13 +89,27 @@ export function setupNavbarVisibility(el: HTMLElement): () => void {
     }
   }
 
+  function handleFocusIn() {
+    showNavbar(el, state);
+  }
+
+  function handleFocusOut(e: FocusEvent) {
+    if (!el.contains(e.relatedTarget as Node) && window.scrollY <= SCROLL_THRESHOLD) {
+      hideNavbar(el, state);
+    }
+  }
+
   window.addEventListener("scroll", handleScroll, { passive: true });
   document.addEventListener("mousemove", handleMouseMove);
   document.addEventListener("mouseleave", handleMouseLeave);
+  el.addEventListener("focusin", handleFocusIn);
+  el.addEventListener("focusout", handleFocusOut);
 
   return () => {
     window.removeEventListener("scroll", handleScroll);
     document.removeEventListener("mousemove", handleMouseMove);
     document.removeEventListener("mouseleave", handleMouseLeave);
+    el.removeEventListener("focusin", handleFocusIn);
+    el.removeEventListener("focusout", handleFocusOut);
   };
 }

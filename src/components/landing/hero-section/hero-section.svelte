@@ -23,6 +23,7 @@
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu";
   import { detectPlatform, GITHUB_REPO, GITHUB_REPO_URL, platforms } from "@/lib/constants";
+  import { prefersReducedMotion } from "@/lib/utils";
 
   import { animateBigBang, animateBounce, animateFloatDown, animateStarDrift } from "./animations";
   import { setupAuroraBg } from "./aurora-bg";
@@ -60,6 +61,14 @@
     if (isDesktop)
       return;
 
+    if (prefersReducedMotion()) {
+      gsap.set(mobileStar, { autoAlpha: 1 });
+      gsap.set(heroContent, { autoAlpha: 1 });
+      auroraCleanup = setupAuroraBg(auroraRef);
+      gsap.set(auroraRef, { opacity: 1 });
+      return;
+    }
+
     const tl = gsap.timeline();
     tl.add(animateBigBang(mobileStar, true));
     tl.add(() => {
@@ -81,6 +90,15 @@
     const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
     if (!isDesktop)
       return;
+
+    if (prefersReducedMotion()) {
+      gsap.set(desktopStar, { autoAlpha: 1, left: "33.333%" });
+      gsap.set(heroContent, { autoAlpha: 1 });
+      gsap.set(definitionRef, { autoAlpha: 1 });
+      auroraCleanup = setupAuroraBg(auroraRef);
+      gsap.set(auroraRef, { opacity: 1 });
+      return;
+    }
 
     const master = gsap.timeline();
 
@@ -124,7 +142,7 @@
   }
 
   function scrollToNextSection() {
-    document.querySelector("footer")?.scrollIntoView({ behavior: "smooth" });
+    document.querySelector("#introduction")?.scrollIntoView({ behavior: "smooth" });
   }
 </script>
 
@@ -179,7 +197,10 @@
   </div>
 
   <div bind:this={heroContent} class="invisible relative z-10 flex w-full flex-col items-center gap-6 lg:items-start">
-    <h1 class="font-mono text-5xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl">
+    <h1
+      aria-label="Hope:Re"
+      class="font-mono text-5xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl"
+    >
       Hope:Re
     </h1>
 
@@ -197,6 +218,7 @@
           target="_blank"
           rel="noopener noreferrer"
           class="gap-2 rounded-r-none"
+          aria-label={detectedPlatform ? `${downloadForLabel} ${detectedPlatform.name}` : downloadLabel}
           onclick={detectedPlatform ? undefined : () => { downloadOpen = !downloadOpen; }}
         >
           <Icon
@@ -217,6 +239,7 @@
                 {...props}
                 size="lg"
                 class="rounded-l-none border-l border-primary-foreground/20 px-2.5"
+                aria-label="More download options"
               >
                 <Icon
                   icon="lucide:chevron-down"
@@ -230,20 +253,17 @@
               {#if i > 0}
                 <DropdownMenuSeparator />
               {/if}
-              <DropdownMenuItem>
-                <a
-                  href={platform.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex w-full items-center gap-2"
-                >
-                  <Icon
-                    icon={platform.icon}
-                    class="size-4"
-                  />
-                  {platform.name}
-                  <span class="font-mono text-muted-foreground">{platform.arch}</span>
-                </a>
+              <DropdownMenuItem
+                onSelect={() => window.open(platform.href, "_blank", "noopener,noreferrer")}
+                class="flex cursor-pointer items-center gap-2"
+              >
+                <Icon
+                  icon={platform.icon}
+                  class="size-4"
+                  aria-hidden="true"
+                />
+                {platform.name}
+                <span class="font-mono text-muted-foreground">{platform.arch}</span>
               </DropdownMenuItem>
             {/each}
           </DropdownMenuContent>
@@ -257,6 +277,7 @@
         target="_blank"
         rel="noopener noreferrer"
         class="gap-2"
+        aria-label={githubLabel}
       >
         <Icon
           icon="lucide:github"

@@ -45,10 +45,6 @@ const locales = Object.keys(languages).map(code => ({
       <p class="text-sm text-muted-foreground">
         &copy; 2025 &ndash; 2026 HopeArtOrg
       </p>
-      <hr class="h-px w-28 border-0 bg-border" />
-      <p class="text-sm text-muted-foreground">
-        {t("footer.rights")}
-      </p>
     </div>
 
     <div class="flex flex-col gap-3">
@@ -70,6 +66,14 @@ const locales = Object.keys(languages).map(code => ({
         class="w-fit text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
       >
         {t("footer.privacy")}
+      </a>
+      <a
+        href="/feedback"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="w-fit text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
+      >
+        {t("footer.feedback")}
       </a>
     </div>
 

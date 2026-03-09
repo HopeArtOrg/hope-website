@@ -3,7 +3,8 @@
     "download": "Download",
     "blogs": "Blogs",
     "about": "About Us",
-    "contact": "Contact"
+    "contact": "Contact",
+    "skipToContent": "Skip to content"
   },
   "site": {
     "title": "Hope:Re",
@@ -21,6 +22,14 @@
     "dark": "Dark",
     "system": "System"
   },
+  "intro": {
+    "heading": "What is Hope?",
+    "description1": "Hope:Re is an <strong>open-source</strong> tool that <strong>shields your artwork</strong> from unauthorized AI training and style mimicry.",
+    "description2": "It applies <strong>invisible adversarial perturbations</strong> to your images, making them <strong>resistant</strong> to generative AI systems that attempt to learn or reproduce your unique style without consent.",
+    "cta": "Learn more",
+    "appScreenshot": "Hope:Re application screenshot",
+    "repoScreenshot": "Hope:Re open-source repository"
+  },
   "footer": {
     "license": "Released under",
     "email": "Email",
@@ -30,6 +39,6 @@
     "blog": "Blog",
     "sitemap": "Sitemap",
     "rss": "RSS Feed",
-    "rights": "All rights reserved."
+    "feedback": "Feedback"
   }
 }

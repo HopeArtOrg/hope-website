@@ -3,7 +3,8 @@
     "download": "Tải xuống",
     "blogs": "Bài viết",
     "about": "Về chúng tôi",
-    "contact": "Liên hệ"
+    "contact": "Liên hệ",
+    "skipToContent": "Chuyển đến nội dung chính"
   },
   "site": {
     "title": "Hope:Re",
@@ -21,6 +22,14 @@
     "dark": "Tối",
     "system": "Hệ thống"
   },
+  "intro": {
+    "heading": "Hope:Re là gì?",
+    "description1": "Hope:Re là công cụ <strong>mã nguồn mở</strong> <strong>bảo vệ tác phẩm nghệ thuật của bạn</strong> khỏi việc bị AI học và bắt chước phong cách trái phép.",
+    "description2": "Ứng dụng áp dụng <strong>nhiễu loạn đối kháng vô hình</strong> lên hình ảnh, khiến các hệ thống AI tạo sinh <strong>không thể</strong> học hỏi hoặc tái tạo phong cách độc đáo của bạn mà không có sự đồng ý.",
+    "cta": "Tìm hiểu thêm",
+    "appScreenshot": "Ảnh chụp màn hình ứng dụng Hope:Re",
+    "repoScreenshot": "Kho mã nguồn mở Hope:Re"
+  },
   "footer": {
     "license": "Phát hành theo",
     "email": "Email",
@@ -30,6 +39,6 @@
     "blog": "Bài viết",
     "sitemap": "Sơ đồ trang",
     "rss": "Nguồn RSS",
-    "rights": "Mọi quyền được bảo lưu."
+    "feedback": "Góp ý"
   }
 }
