@@ -23,6 +23,7 @@
     animateDoodleArrows,
     animateScrollReveal,
     createBringForwardState,
+    setupHeadingRipple,
     setupImageInteractions,
     tiltCornerStar,
   } from "./animations";
@@ -47,6 +48,10 @@
   let doodleArrow1 = $state<HTMLImageElement | null>(null);
   let doodleArrow2 = $state<HTMLImageElement | null>(null);
   let doodleArrow3 = $state<HTMLImageElement | null>(null);
+
+  let headingContainer = $state<HTMLDivElement | null>(null);
+
+  let headingJpLayer = $state<HTMLSpanElement | null>(null);
 
   const bringForwardState = createBringForwardState();
 
@@ -77,6 +82,13 @@
       return;
 
     return animateDoodleArrows(rightCol, [doodleArrow1, doodleArrow2, doodleArrow3]);
+  });
+
+  $effect(() => {
+    if (!headingContainer || !headingJpLayer)
+      return;
+
+    return setupHeadingRipple(headingContainer, headingJpLayer);
   });
 </script>
 
@@ -154,13 +166,25 @@
       class="invisible order-1 flex flex-col items-center text-center lg:order-2 lg:items-start lg:text-left"
     >
       <div class="relative">
-        <h2 class="font-mono text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl lg:text-5xl">
-          {heading}
-        </h2>
+        <div
+          bind:this={headingContainer}
+          class="relative cursor-crosshair"
+        >
+          <h2 class="font-mono text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl lg:text-5xl">
+            {heading}
+          </h2>
+          <span
+            bind:this={headingJpLayer}
+            aria-hidden="true"
+            class="pointer-events-none absolute -inset-16 z-10 flex items-center justify-center bg-foreground font-notojp text-2xl font-bold tracking-tight text-background sm:text-3xl md:text-4xl lg:justify-start lg:pl-16 lg:text-5xl"
+          >
+            Hopeとは？
+          </span>
+        </div>
         <button
           bind:this={cornerStarEl}
           type="button"
-          class="absolute -top-4 -right-8 rotate-15 cursor-pointer text-muted-foreground/30 transition-colors duration-200 hover:text-muted-foreground/50 sm:-top-6 sm:-right-10 md:-top-8 md:-right-12"
+          class="absolute -top-4 -right-8 z-20 rotate-15 cursor-pointer text-muted-foreground/30 transition-colors duration-200 hover:text-muted-foreground/50 sm:-top-6 sm:-right-10 md:-top-8 md:-right-12"
           onclick={() => cornerStarEl && tiltCornerStar(cornerStarEl)}
           aria-hidden="true"
         >
@@ -179,21 +203,24 @@
           src="/doodle-arrow-1.svg"
           alt=""
           aria-hidden="true"
-          class="pointer-events-none invisible absolute top-full right-full size-8 rotate-[-30deg] opacity-20 dark:invert sm:size-12 md:size-16 lg:size-18"
+          loading="lazy"
+          class="pointer-events-none invisible absolute top-full left-1/2 hidden mt-2 -translate-x-1/2 -scale-y-100 rotate-[-90deg] opacity-20 dark:invert sm:block sm:mt-3 sm:size-12 md:mt-4 md:size-16 lg:size-18"
         />
         <img
           bind:this={doodleArrow2}
           src="/doodle-arrow-2.svg"
           alt=""
           aria-hidden="true"
-          class="pointer-events-none invisible absolute bottom-full left-full -mb-2 -ml-2 size-8 rotate-[150deg] opacity-20 dark:invert sm:-mb-3 sm:-ml-3 sm:size-12 md:size-16 lg:size-18"
+          loading="lazy"
+          class="pointer-events-none invisible absolute bottom-full left-full hidden -mb-2 -ml-2 rotate-[150deg] opacity-20 dark:invert sm:-mb-3 sm:-ml-3 sm:block sm:size-12 md:size-16 lg:size-18"
         />
         <img
           bind:this={doodleArrow3}
           src="/doodle-arrow-3.svg"
           alt=""
           aria-hidden="true"
-          class="pointer-events-none invisible absolute top-full left-full mt-1 ml-1 size-8 -scale-x-100 opacity-20 dark:invert sm:mt-2 sm:ml-2 sm:size-12 md:size-16 lg:size-18"
+          loading="lazy"
+          class="pointer-events-none invisible absolute top-full left-full hidden mt-1 ml-1 -scale-x-100 opacity-20 dark:invert sm:mt-2 sm:ml-2 sm:block sm:size-12 md:size-16 lg:size-18"
         />
         <Button
           variant="outline"
