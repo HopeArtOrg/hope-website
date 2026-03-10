@@ -170,7 +170,10 @@
           bind:this={headingContainer}
           class="relative cursor-crosshair"
         >
-          <h2 class="font-mono text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl lg:text-5xl">
+          <h2
+            aria-label={heading}
+            class="font-mono text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl lg:text-5xl"
+          >
             {heading}
           </h2>
           <span
@@ -226,6 +229,7 @@
           variant="outline"
           size="lg"
           href={ctaHref}
+          aria-label={ctaLabel}
           class="group relative overflow-hidden"
         >
           <span class="flex items-center gap-2">
