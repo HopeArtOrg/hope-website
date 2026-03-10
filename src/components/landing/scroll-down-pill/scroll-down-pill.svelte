@@ -7,13 +7,15 @@
 <script lang="ts">
   import gsap from "gsap";
 
+  import { prefersReducedMotion } from "@/lib/utils";
+
   const { onclick }: ScrollDownPillProps = $props();
 
   let pillRef = $state<HTMLButtonElement | null>(null);
   let dotRef = $state<HTMLSpanElement | null>(null);
 
   $effect(() => {
-    if (!dotRef)
+    if (!dotRef || prefersReducedMotion())
       return;
 
     const tween = gsap.to(dotRef, {
@@ -32,6 +34,11 @@
   $effect(() => {
     if (!pillRef)
       return;
+
+    if (prefersReducedMotion()) {
+      gsap.set(pillRef, { autoAlpha: 1 });
+      return;
+    }
 
     const tween = gsap.fromTo(pillRef, {
       autoAlpha: 0,
@@ -52,7 +59,7 @@
 
 <button
   bind:this={pillRef}
-  class="invisible group flex cursor-pointer flex-col items-center gap-2 border-none bg-transparent p-0"
+  class="invisible group flex cursor-pointer flex-col items-center gap-2 border-none bg-transparent p-0 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-full"
   aria-label="Scroll down"
   {onclick}
 >

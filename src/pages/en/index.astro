@@ -1,6 +1,7 @@
 ---
 import { HeroSection } from "@/components/landing/hero-section";
-import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import { IntroductionSection } from "@/components/landing/introduction";
+import { getLangFromUrl, getLocalePath, useTranslations } from "@/i18n/utils";
 import BaseLayout from "@/layouts/base-layout.astro";
 
 const lang = getLangFromUrl(Astro.url);
@@ -15,5 +16,15 @@ const t = useTranslations(lang);
     githubLabel={t("hero.github")}
     comingSoonLabel={t("hero.comingSoon")}
     client:load
+  />
+  <IntroductionSection
+    heading={t("intro.heading")}
+    description1={t("intro.description1")}
+    description2={t("intro.description2")}
+    ctaLabel={t("intro.cta")}
+    ctaHref={getLocalePath(lang, "/blogs")}
+    appScreenshotAlt={t("intro.appScreenshot")}
+    repoScreenshotAlt={t("intro.repoScreenshot")}
+    client:visible
   />
 </BaseLayout>

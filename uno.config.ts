@@ -101,6 +101,7 @@ export default defineConfig({
       provider: "google",
       fonts: {
         primary: "Be Vietnam Pro",
+        notojp: "Noto Serif JP",
         mono: "JetBrains Mono",
       },
     }),

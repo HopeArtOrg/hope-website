@@ -29,9 +29,10 @@ type UniverseResult = {
 function createMiniStar(
   container: HTMLElement,
   size: number,
+  color: string,
 ): HTMLDivElement {
   const wrapper = document.createElement("div");
-  wrapper.style.cssText = "position:absolute;top:50%;left:50%;pointer-events:none;opacity:0";
+  wrapper.style.cssText = `position:absolute;top:50%;left:50%;pointer-events:none;opacity:0;color:${color}`;
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("viewBox", "0 0 3000 3000");
   svg.setAttribute("fill", "none");
@@ -55,11 +56,12 @@ function cleanupElements(elements: HTMLElement[]) {
 function addFragmentCirclePhase(
   tl: gsap.core.Timeline,
   container: HTMLElement,
+  color: string,
 ): HTMLDivElement[] {
   const fragments: HTMLDivElement[] = [];
   for (let i = 0; i < FRAGMENT_COUNT; i++) {
     const size = 20 + Math.random() * 25;
-    fragments.push(createMiniStar(container, size));
+    fragments.push(createMiniStar(container, size, color));
   }
   const circleRadius = Math.min(container.offsetWidth, container.offsetHeight) * 0.3;
 
@@ -143,6 +145,7 @@ function addExplodePhase(
   container: HTMLElement,
   starCount: number,
   mobile: boolean,
+  color: string,
 ): UniverseResult {
   const universeWrapper = document.createElement("div");
   universeWrapper.style.cssText = "position:absolute;inset:0;pointer-events:none";
@@ -160,7 +163,7 @@ function addExplodePhase(
   const stars: StarMeta[] = [];
   for (let i = 0; i < starCount; i++) {
     const size = sizeBase + Math.random() * sizeRange;
-    const el = createMiniStar(universeWrapper, size);
+    const el = createMiniStar(universeWrapper, size, color);
     const targetScale = scaleBase + Math.random() * scaleRange;
     const targetOpacity = 0.2 + Math.random() * 0.6;
     gsap.set(el, { x: 0, y: 0, scale: 0, opacity: 0 });
@@ -174,7 +177,7 @@ function addExplodePhase(
     });
   }
 
-  const heroEl = createMiniStar(universeWrapper, HERO_STAR_SIZE);
+  const heroEl = createMiniStar(universeWrapper, HERO_STAR_SIZE, color);
   gsap.set(heroEl, { x: 0, y: 0, scale: 0, opacity: 0 });
   const heroStar: StarMeta = {
     el: heroEl,
@@ -230,7 +233,6 @@ function addZoomIntoStarPhase(
   const otherEls = universe.stars
     .filter(s => s !== chosen)
     .map(s => s.el);
-  const targetColor = getComputedStyle(starSvg).color;
   const targetScale = starSvgNaturalSize / chosen.baseSize;
 
   tl.add("zoom");
@@ -248,7 +250,6 @@ function addZoomIntoStarPhase(
     scale: targetScale,
     rotation: 0,
     opacity: 1,
-    color: targetColor,
     duration: 1.0,
     ease: "power2.inOut",
   }, "zoom");
@@ -283,14 +284,15 @@ export function animateBigBang(
   const starSvg = el.querySelector("svg")!;
   const starSvgNaturalSize = starSvg.getBoundingClientRect().width;
   const starCount = mobile ? MOBILE_STAR_COUNT : DESKTOP_STAR_COUNT;
+  const starColor = getComputedStyle(starSvg).color;
 
   gsap.set(starSvg, { scale: 0, opacity: 0 });
 
-  const fragments = addFragmentCirclePhase(tl, el);
+  const fragments = addFragmentCirclePhase(tl, el, starColor);
 
   addCollapsePhase(tl, fragments);
 
-  const universe = addExplodePhase(tl, el, starCount, mobile);
+  const universe = addExplodePhase(tl, el, starCount, mobile, starColor);
 
   addUniverseLingerPhase(tl, universe.stars);
 
