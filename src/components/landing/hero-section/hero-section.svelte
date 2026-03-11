@@ -142,7 +142,7 @@
   }
 
   function scrollToNextSection() {
-    document.querySelector("#introduction")?.scrollIntoView({ behavior: "smooth" });
+    document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
   }
 </script>
 

@@ -1,6 +1,7 @@
 ---
+import { AboutSection } from "@/components/landing/about";
 import { HeroSection } from "@/components/landing/hero-section";
-import { IntroductionSection } from "@/components/landing/introduction";
+import { TechAnimationSection } from "@/components/landing/tech-animation";
 import { getLangFromUrl, getLocalePath, useTranslations } from "@/i18n/utils";
 import BaseLayout from "@/layouts/base-layout.astro";
 
@@ -17,14 +18,18 @@ const t = useTranslations(lang);
     comingSoonLabel={t("hero.comingSoon")}
     client:load
   />
-  <IntroductionSection
-    heading={t("intro.heading")}
-    description1={t("intro.description1")}
-    description2={t("intro.description2")}
-    ctaLabel={t("intro.cta")}
+  <AboutSection
+    heading={t("about.heading")}
+    description1={t("about.description1")}
+    description2={t("about.description2")}
+    ctaLabel={t("about.cta")}
     ctaHref={getLocalePath(lang, "/blogs")}
-    appScreenshotAlt={t("intro.appScreenshot")}
-    repoScreenshotAlt={t("intro.repoScreenshot")}
+    appScreenshotAlt={t("about.appScreenshot")}
+    repoScreenshotAlt={t("about.repoScreenshot")}
+    client:visible
+  />
+  <TechAnimationSection
+    label={t("techAnimation.label")}
     client:visible
   />
 </BaseLayout>
