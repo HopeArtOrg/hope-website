@@ -62,7 +62,7 @@ export const TECH_LIST: TechItem[] = [
 
 export const navLinks: NavLink[] = [
   { key: "nav.download", path: "/#download", icon: "lucide:download" },
-  { key: "nav.blogs", path: "/blogs", icon: "lucide:pen-line" },
   { key: "nav.about", path: "/#about", icon: "lucide:info" },
-  { key: "nav.contact", path: "/contact", icon: "lucide:mail" },
+  { key: "nav.demo", path: "/#demo", icon: "lucide:play" },
+  { key: "nav.blogs", path: "/blogs", icon: "lucide:pen-line" },
 ];

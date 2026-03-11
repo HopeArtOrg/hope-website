@@ -3,8 +3,8 @@ import gsap from "gsap";
 import { STAR_SVG_PATH, STAR_SVG_STROKE_WIDTH } from "@/lib/constants";
 
 const FRAGMENT_COUNT = 10;
-const DESKTOP_STAR_COUNT = 50;
-const MOBILE_STAR_COUNT = 25;
+const DESKTOP_STAR_COUNT = 36;
+const MOBILE_STAR_COUNT = 18;
 const HERO_STAR_X_RATIO = 0.25;
 const HERO_STAR_Y_RATIO = -0.2;
 const HERO_STAR_SIZE = 18;

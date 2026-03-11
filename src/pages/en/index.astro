@@ -1,5 +1,6 @@
 ---
 import { AboutSection } from "@/components/landing/about";
+import { DemoSection } from "@/components/landing/demo";
 import { HeroSection } from "@/components/landing/hero-section";
 import { TechAnimationSection } from "@/components/landing/tech-animation";
 import { getLangFromUrl, getLocalePath, useTranslations } from "@/i18n/utils";
@@ -30,6 +31,12 @@ const t = useTranslations(lang);
   />
   <TechAnimationSection
     label={t("techAnimation.label")}
+    client:visible
+  />
+  <DemoSection
+    heading={t("demo.heading")}
+    description={t("demo.description")}
+    courtesy={t("demo.courtesy")}
     client:visible
   />
 </BaseLayout>

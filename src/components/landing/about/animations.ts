@@ -146,11 +146,7 @@ export function animateScrollReveal(
     ? SCROLL_REVEAL_Y_MOBILE
     : SCROLL_REVEAL_Y;
 
-  const tween1 = gsap.from(leftCol, {
-    y: yOffset,
-    autoAlpha: 0,
-    duration: SCROLL_REVEAL_DURATION,
-    ease: "power3.out",
+  const tl = gsap.timeline({
     scrollTrigger: {
       trigger,
       start: SCROLL_TRIGGER_START,
@@ -158,42 +154,32 @@ export function animateScrollReveal(
     },
   });
 
-  const tween2 = gsap.from(rightCol, {
+  tl.from(leftCol, {
     y: yOffset,
     autoAlpha: 0,
     duration: SCROLL_REVEAL_DURATION,
-    delay: SCROLL_REVEAL_DELAY,
     ease: "power3.out",
-    scrollTrigger: {
-      trigger,
-      start: SCROLL_TRIGGER_START,
-      toggleActions: "play none none none",
-    },
-  });
+  }, 0);
 
-  let tween3: gsap.core.Tween | undefined;
+  tl.from(rightCol, {
+    y: yOffset,
+    autoAlpha: 0,
+    duration: SCROLL_REVEAL_DURATION,
+    ease: "power3.out",
+  }, SCROLL_REVEAL_DELAY);
+
   if (definitionEl) {
-    tween3 = gsap.from(definitionEl, {
+    tl.from(definitionEl, {
       y: yOffset * 0.75,
       autoAlpha: 0,
       duration: SCROLL_REVEAL_DURATION,
-      delay: SCROLL_REVEAL_DELAY * 2,
       ease: "power3.out",
-      scrollTrigger: {
-        trigger,
-        start: SCROLL_TRIGGER_START,
-        toggleActions: "play none none none",
-      },
-    });
+    }, SCROLL_REVEAL_DELAY * 2);
   }
 
   return () => {
-    tween1.scrollTrigger?.kill();
-    tween1.kill();
-    tween2.scrollTrigger?.kill();
-    tween2.kill();
-    tween3?.scrollTrigger?.kill();
-    tween3?.kill();
+    tl.scrollTrigger?.kill();
+    tl.kill();
   };
 }
 
