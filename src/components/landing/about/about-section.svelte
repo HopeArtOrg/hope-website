@@ -1,5 +1,5 @@
 <script lang="ts" module>
-  export type IntroductionSectionProps = {
+  export type AboutSectionProps = {
     heading: string;
     description1: string;
     description2: string;
@@ -36,7 +36,7 @@
     ctaHref,
     appScreenshotAlt,
     repoScreenshotAlt,
-  }: IntroductionSectionProps = $props();
+  }: AboutSectionProps = $props();
 
   let sectionEl = $state<HTMLElement | null>(null);
   let leftCol = $state<HTMLDivElement | null>(null);
@@ -94,7 +94,7 @@
 
 <section
   bind:this={sectionEl}
-  id="introduction"
+  id="about"
   class="relative mx-auto flex min-h-dvh max-w-screen-xl items-center justify-center px-4 py-12 sm:px-6 sm:py-16 lg:py-24"
 >
   <div
@@ -144,7 +144,7 @@
           style="z-index: 1; background: none;"
         >
           <img
-            src="/repo-screenshot.jpg"
+            src="/landing/about/repo-screenshot.jpg"
             alt={repoScreenshotAlt}
             loading="lazy"
             class="h-full w-full object-cover"
@@ -152,7 +152,7 @@
         </button>
         <img
           bind:this={appImgEl}
-          src="/app-screenshot.png"
+          src="/landing/about/app-screenshot.png"
           alt={appScreenshotAlt}
           loading="lazy"
           class="absolute inset-0 h-full w-full translate-x-4 -translate-y-3 rounded-sm border border-border/50 object-cover shadow-lg transition-transform duration-200 ease-out sm:translate-x-8 sm:-translate-y-5 lg:translate-x-10 lg:-translate-y-6"
@@ -203,7 +203,7 @@
       <div class="relative mt-6 sm:mt-8 lg:mt-10">
         <img
           bind:this={doodleArrow1}
-          src="/doodle-arrow-1.svg"
+          src="/landing/about/doodle-arrow-1.svg"
           alt=""
           aria-hidden="true"
           loading="lazy"
@@ -211,7 +211,7 @@
         />
         <img
           bind:this={doodleArrow2}
-          src="/doodle-arrow-2.svg"
+          src="/landing/about/doodle-arrow-2.svg"
           alt=""
           aria-hidden="true"
           loading="lazy"
@@ -219,7 +219,7 @@
         />
         <img
           bind:this={doodleArrow3}
-          src="/doodle-arrow-3.svg"
+          src="/landing/about/doodle-arrow-3.svg"
           alt=""
           aria-hidden="true"
           loading="lazy"

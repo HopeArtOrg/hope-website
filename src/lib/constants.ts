@@ -47,9 +47,22 @@ type NavLink = {
   icon: string;
 };
 
+type TechItem = {
+  name: string;
+  color: string;
+};
+
+export const TECH_LIST: TechItem[] = [
+  { name: "SvelteKit", color: "#f96743" },
+  { name: "Tauri", color: "#ffc131" },
+  { name: "TailwindCSS", color: "#38bdf8" },
+  { name: "ONNX", color: "#a1a1aa" },
+  { name: "JAX", color: "#a78bfa" },
+];
+
 export const navLinks: NavLink[] = [
   { key: "nav.download", path: "/#download", icon: "lucide:download" },
   { key: "nav.blogs", path: "/blogs", icon: "lucide:pen-line" },
-  { key: "nav.about", path: "/about", icon: "lucide:users" },
+  { key: "nav.about", path: "/#about", icon: "lucide:info" },
   { key: "nav.contact", path: "/contact", icon: "lucide:mail" },
 ];
