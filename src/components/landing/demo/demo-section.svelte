@@ -9,6 +9,7 @@
 <script lang="ts">
   import gsap from "gsap";
 
+  import { DEMO_IMAGE_STACK_OFFSET_X, DEMO_IMAGE_STACK_OFFSET_Y, DEMO_IMAGES, PROTECTION_METHODS } from "@/lib/constants";
   import { prefersReducedMotion } from "@/lib/utils";
 
   import {
@@ -18,7 +19,6 @@
     explodeStars,
     setupImageTilt,
   } from "./animations";
-  import { DEMO_IMAGES, PROTECTION_METHODS } from "./constants";
 
   const {
     heading,
@@ -175,7 +175,7 @@
           <div
             bind:this={imageEls[i]}
             class="absolute inset-0 overflow-hidden rounded-lg border border-border/50 shadow-lg transition-transform duration-200 ease-out"
-            style="z-index: {i + 1}; transform: translate({-(DEMO_IMAGES.length - 1 - i) * 8}px, {(DEMO_IMAGES.length - 1 - i) * 6}px);"
+            style="z-index: {i + 1}; transform: translate({-(DEMO_IMAGES.length - 1 - i) * DEMO_IMAGE_STACK_OFFSET_X}px, {(DEMO_IMAGES.length - 1 - i) * DEMO_IMAGE_STACK_OFFSET_Y}px);"
           >
             <img
               src={image.src}
