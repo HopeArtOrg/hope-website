@@ -147,6 +147,7 @@
             src="/landing/about/repo-screenshot.jpg"
             alt={repoScreenshotAlt}
             loading="lazy"
+            decoding="async"
             class="h-full w-full object-cover"
           />
         </button>
@@ -155,6 +156,7 @@
           src="/landing/about/app-screenshot.png"
           alt={appScreenshotAlt}
           loading="lazy"
+          decoding="async"
           class="absolute inset-0 h-full w-full translate-x-4 -translate-y-3 rounded-sm border border-border/50 object-cover shadow-lg transition-transform duration-200 ease-out sm:translate-x-8 sm:-translate-y-5 lg:translate-x-10 lg:-translate-y-6"
           style="z-index: 10;"
         />

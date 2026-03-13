@@ -1,6 +1,7 @@
 import type { Preset } from "unocss";
 
 import extractorSvelte from "@unocss/extractor-svelte";
+import { createLocalFontProcessor } from "@unocss/preset-web-fonts/local";
 import {
   defineConfig,
   presetWebFonts,
@@ -104,6 +105,11 @@ export default defineConfig({
         notojp: "Noto Serif JP",
         mono: "JetBrains Mono",
       },
+      processors: createLocalFontProcessor({
+        cacheDir: "node_modules/.cache/unocss/fonts",
+        fontAssetsDir: "public/assets/fonts",
+        fontServeBaseUrl: "/assets/fonts",
+      }),
     }),
   ],
 

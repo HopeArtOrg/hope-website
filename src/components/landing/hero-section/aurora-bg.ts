@@ -237,15 +237,29 @@ export function setupAuroraBg(canvas: HTMLCanvasElement): () => void {
     gsap.to(mouse, { s: 0, duration: MOUSE_FADE_DURATION, ease: "power2.out" });
   }
 
+  let paused = false;
+
+  function isCanvasVisible() {
+    const rect = canvas.getBoundingClientRect();
+    return rect.bottom > 0 && rect.top < window.innerHeight;
+  }
+
   function tick(_: number, dt: number) {
+    if (paused)
+      return;
     zOffset += Z_SPEED * dt;
     computeGrid();
     render();
   }
 
+  function onScroll() {
+    paused = !isCanvasVisible();
+  }
+
   window.addEventListener("resize", onResize);
   window.addEventListener("mousemove", onMouseMove);
   window.addEventListener("mouseleave", onMouseLeave);
+  window.addEventListener("scroll", onScroll, { passive: true });
   gsap.ticker.add(tick);
 
   return () => {
@@ -254,6 +268,7 @@ export function setupAuroraBg(canvas: HTMLCanvasElement): () => void {
     window.removeEventListener("resize", onResize);
     window.removeEventListener("mousemove", onMouseMove);
     window.removeEventListener("mouseleave", onMouseLeave);
+    window.removeEventListener("scroll", onScroll);
     gsap.ticker.remove(tick);
   };
 }

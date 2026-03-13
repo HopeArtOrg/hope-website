@@ -3,7 +3,7 @@
     "download": "Download",
     "blogs": "Blogs",
     "about": "About Us",
-    "contact": "Contact",
+    "demo": "Demo",
     "skipToContent": "Skip to content"
   },
   "site": {
@@ -32,6 +32,11 @@
   },
   "techAnimation": {
     "label": "Technologies used to build Hope:Re"
+  },
+  "demo": {
+    "heading": "How does it work?",
+    "description": "Hope:Re integrates algorithms from <strong>The Glaze Project</strong> (University of Chicago) — including <strong>Glaze</strong>, <strong>Nightshade</strong>, and <strong>Noise</strong> — to generate an invisible adversarial perturbation layer over your artwork, effectively neutralizing img2img reproduction across most generative AI models.",
+    "courtesy": "Courtesy of"
   },
   "footer": {
     "license": "Released under",
