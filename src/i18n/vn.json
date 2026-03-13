@@ -36,7 +36,7 @@
   "demo": {
     "heading": "Hoạt động như thế nào?",
     "description": "Hope:Re tích hợp các thuật toán từ <strong>The Glaze Project</strong> (Đại học Chicago) — bao gồm <strong>Glaze</strong>, <strong>Nightshade</strong>, và <strong>Noise</strong> — để tạo ra một lớp nhiễu loạn đối kháng vô hình trên tác phẩm nghệ thuật của bạn, vô hiệu hóa khả năng tái tạo img2img trên hầu hết các mô hình AI tạo sinh.",
-    "courtesy": "Hình ảnh từ"
+    "courtesy": "Tài sản của"
   },
   "footer": {
     "license": "Phát hành theo",

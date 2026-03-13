@@ -258,16 +258,16 @@ export function animateScrollReveal(
   definitionEl?: HTMLElement,
 ): () => void {
   if (prefersReducedMotion()) {
-    gsap.set(leftCol, { autoAlpha: 1 });
-    gsap.set(rightCol, { autoAlpha: 1 });
+    gsap.set(leftCol, { opacity: 1 });
+    gsap.set(rightCol, { opacity: 1 });
     if (definitionEl)
       gsap.set(definitionEl, { autoAlpha: 1 });
     return () => {};
   }
 
   if (isTriggerAlreadyPassed(trigger)) {
-    gsap.set(leftCol, { autoAlpha: 1 });
-    gsap.set(rightCol, { autoAlpha: 1 });
+    gsap.set(leftCol, { opacity: 1 });
+    gsap.set(rightCol, { opacity: 1 });
     if (definitionEl)
       gsap.set(definitionEl, { autoAlpha: 1 });
     return () => {};
@@ -285,16 +285,22 @@ export function animateScrollReveal(
     },
   });
 
-  tl.from(leftCol, {
+  tl.fromTo(leftCol, {
     y: yOffset,
-    autoAlpha: 0,
+    opacity: 0,
+  }, {
+    y: 0,
+    opacity: 1,
     duration: DEMO_SCROLL_REVEAL_DURATION,
     ease: "power3.out",
   }, 0);
 
-  tl.from(rightCol, {
+  tl.fromTo(rightCol, {
     y: yOffset,
-    autoAlpha: 0,
+    opacity: 0,
+  }, {
+    y: 0,
+    opacity: 1,
     duration: DEMO_SCROLL_REVEAL_DURATION,
     ease: "power3.out",
   }, DEMO_SCROLL_REVEAL_DELAY);

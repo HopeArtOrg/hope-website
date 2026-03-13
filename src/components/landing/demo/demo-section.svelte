@@ -74,8 +74,8 @@
       return;
 
     if (prefersReducedMotion()) {
-      gsap.set(leftCol, { autoAlpha: 1 });
-      gsap.set(rightCol, { autoAlpha: 1 });
+      gsap.set(leftCol, { opacity: 1 });
+      gsap.set(rightCol, { opacity: 1 });
       if (definitionRef)
         gsap.set(definitionRef, { autoAlpha: 1 });
       return;
@@ -125,7 +125,7 @@
   <div class="grid w-full items-center gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-16">
     <div
       bind:this={leftCol}
-      class="invisible order-2 flex flex-col items-center text-center lg:order-1 lg:items-start lg:text-left"
+      class="opacity-0 order-2 flex flex-col items-center text-center lg:order-1 lg:items-start lg:text-left"
     >
       <h2
         class="font-mono text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl lg:text-5xl"
@@ -158,13 +158,14 @@
           class="underline decoration-muted-foreground/30 underline-offset-2 transition-colors duration-200 hover:text-muted-foreground hover:decoration-muted-foreground/60"
         >
           Haruyu Sato
+          <span class="sr-only">(opens in a new tab)</span>
         </a>
       </p>
     </div>
 
     <div
       bind:this={rightCol}
-      class="invisible relative order-1 flex flex-col items-center lg:order-2"
+      class="opacity-0 relative order-1 flex flex-col items-center lg:order-2"
     >
       <div
         bind:this={imageStackEl}
