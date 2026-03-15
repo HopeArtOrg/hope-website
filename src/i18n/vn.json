@@ -4,7 +4,8 @@
     "blogs": "Bài viết",
     "about": "Về chúng tôi",
     "demo": "Demo",
-    "skipToContent": "Chuyển đến nội dung chính"
+    "skipToContent": "Chuyển đến nội dung chính",
+    "author": "Tác giả"
   },
   "site": {
     "title": "Hope:Re",
@@ -37,6 +38,19 @@
     "heading": "Hoạt động như thế nào?",
     "description": "Hope:Re tích hợp các thuật toán từ <strong>The Glaze Project</strong> (Đại học Chicago) — bao gồm <strong>Glaze</strong>, <strong>Nightshade</strong>, và <strong>Noise</strong> — để tạo ra một lớp nhiễu loạn đối kháng vô hình trên tác phẩm nghệ thuật của bạn, vô hiệu hóa khả năng tái tạo img2img trên hầu hết các mô hình AI tạo sinh.",
     "courtesy": "Tài sản của"
+  },
+  "author": {
+    "heading": "Tác giả",
+    "haruyuName": "Hải Đăng",
+    "haruyuQuote": "Mình không nghĩ ứng dụng này có thể nổi tiếng đến vậy chỉ sau một đêm. Cảm ơn mọi người đã ủng hộ mình.",
+    "noahName": "Sh1ro",
+    "noahQuote": "Mình có một tầm nhìn về một công cụ mã nguồn mở miễn phí có thể giúp đỡ được càng nhiều họa sĩ càng tốt.",
+    "github": "GitHub",
+    "vgen": "Vgen",
+    "facebook": "Facebook",
+    "portfolio": "Trang cá nhân",
+    "prevSlide": "Tác giả trước",
+    "nextSlide": "Tác giả sau"
   },
   "footer": {
     "license": "Phát hành theo",

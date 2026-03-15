@@ -4,7 +4,8 @@
     "blogs": "Blogs",
     "about": "About Us",
     "demo": "Demo",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "author": "Authors"
   },
   "site": {
     "title": "Hope:Re",
@@ -37,6 +38,19 @@
     "heading": "How does it work?",
     "description": "Hope:Re integrates algorithms from <strong>The Glaze Project</strong> (University of Chicago) — including <strong>Glaze</strong>, <strong>Nightshade</strong>, and <strong>Noise</strong> — to generate an invisible adversarial perturbation layer over your artwork, effectively neutralizing img2img reproduction across most generative AI models.",
     "courtesy": "Courtesy of"
+  },
+  "author": {
+    "heading": "The creator",
+    "haruyuName": "Haruyu Sato",
+    "haruyuQuote": "I didn't think this app could become this famous overnight. Thank you everyone for supporting me.",
+    "noahName": "Noah Tran",
+    "noahQuote": "I have a vision of a free, open-source tool that can help as many artists as possible.",
+    "github": "GitHub",
+    "vgen": "Vgen",
+    "facebook": "Facebook",
+    "portfolio": "Portfolio",
+    "prevSlide": "Previous author",
+    "nextSlide": "Next author"
   },
   "footer": {
     "license": "Released under",
