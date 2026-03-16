@@ -5,7 +5,7 @@
 </script>
 
 <script lang="ts">
-  import CornerBrackets from "@/components/ui/corner-brackets/corner-brackets.svelte";
+  import { CornerBrackets } from "@/components/ui/corner-brackets";
   import { TECH_LIST } from "@/lib/constants";
 
   import { animateTechRows } from "./animations";
@@ -41,8 +41,8 @@
       aria-hidden="true"
     >
       <TechRow
-        name={tech.name}
-        color={tech.color}
+        techName={tech.name}
+        techColor={tech.color}
         repeatCount={REPEAT_COUNT}
         centerIndex={CENTER_INDEX}
       />
