@@ -6,8 +6,8 @@ import UnoCSS from "unocss/astro";
 
 export default defineConfig({
   integrations: [
-    svelte(),
     UnoCSS(),
+    svelte(),
     icon(),
   ],
 

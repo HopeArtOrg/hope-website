@@ -9,16 +9,20 @@
 <script lang="ts">
   import gsap from "gsap";
 
-  import { DEMO_IMAGE_STACK_OFFSET_X, DEMO_IMAGE_STACK_OFFSET_Y, DEMO_IMAGES, PROTECTION_METHODS } from "@/lib/constants";
+  import { CornerBrackets } from "@/components/ui/corner-brackets";
+  import { DefinitionPanel } from "@/components/ui/definition-panel";
+  import { animateScrollReveal } from "@/lib/animation-utils";
+  import { DEMO_IMAGES, PROTECTION_METHODS } from "@/lib/constants";
   import { prefersReducedMotion } from "@/lib/utils";
 
   import {
     animateDottedFrame,
-    animateScrollReveal,
     cycleImage,
     explodeStars,
     setupImageTilt,
   } from "./animations";
+  import DemoImageStack from "./demo-image-stack.svelte";
+  import DemoTriggerButton from "./demo-trigger-button.svelte";
 
   const {
     heading,
@@ -30,7 +34,7 @@
   let leftCol = $state<HTMLDivElement | null>(null);
   let rightCol = $state<HTMLDivElement | null>(null);
   let definitionRef = $state<HTMLDivElement | null>(null);
-  const imageEls = $state<HTMLDivElement[]>([]);
+  let imageEls = $state<HTMLDivElement[]>([]);
   let triggerBtnEl = $state<HTMLButtonElement | null>(null);
   let explosionContainer = $state<HTMLDivElement | null>(null);
   let frameSvg = $state<SVGSVGElement | null>(null);
@@ -81,7 +85,12 @@
       return;
     }
 
-    return animateScrollReveal(sectionEl, leftCol, rightCol, definitionRef ?? undefined);
+    return animateScrollReveal({
+      trigger: sectionEl,
+      elements: [leftCol, rightCol],
+      definitionEl: definitionRef ?? undefined,
+      useAutoAlpha: false,
+    });
   });
 </script>
 
@@ -90,18 +99,13 @@
   id="demo"
   class="relative mx-auto flex min-h-dvh max-w-screen-xl items-center justify-center px-4 py-12 sm:px-6 sm:py-16 lg:py-24"
 >
-  <div
-    class="pointer-events-none absolute inset-4 sm:inset-6 lg:inset-10"
-    aria-hidden="true"
-  >
-    <span class="absolute right-0 top-0 h-10 w-10 border-t border-r border-muted-foreground/40 sm:h-14 sm:w-14 lg:h-20 lg:w-20"></span>
-    <span class="absolute bottom-0 left-0 h-10 w-10 border-b border-l border-muted-foreground/40 sm:h-14 sm:w-14 lg:h-20 lg:w-20"></span>
-  </div>
+  <CornerBrackets corners={["tr", "bl"]} />
 
-  <div
-    bind:this={definitionRef}
-    class="invisible pointer-events-none absolute right-12 bottom-16 hidden select-none flex-col gap-1.5 text-right font-primary text-xs tracking-wide text-muted-foreground/40 lg:flex xl:right-16"
-    aria-hidden="true"
+  <DefinitionPanel
+    bind:ref={definitionRef}
+    position="right"
+    gap="gap-1.5"
+    class="text-right font-primary"
   >
     <span class="text-sm">
       <span class="text-base font-semibold">l'espoir</span>
@@ -120,7 +124,7 @@
       <br />
       de ce que l'on desire.
     </span>
-  </div>
+  </DefinitionPanel>
 
   <div class="grid w-full items-center gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-16">
     <div
@@ -167,58 +171,17 @@
       bind:this={rightCol}
       class="opacity-0 relative order-1 flex flex-col items-center lg:order-2"
     >
-      <div
-        bind:this={imageStackEl}
-        class="relative aspect-4/3 w-full max-w-xs sm:max-w-sm md:max-w-md"
-        style="perspective: 800px;"
-      >
-        {#each DEMO_IMAGES as image, i}
-          <div
-            bind:this={imageEls[i]}
-            class="absolute inset-0 overflow-hidden rounded-lg border border-border/50 shadow-lg transition-transform duration-200 ease-out"
-            style="z-index: {i + 1}; transform: translate({-(DEMO_IMAGES.length - 1 - i) * DEMO_IMAGE_STACK_OFFSET_X}px, {(DEMO_IMAGES.length - 1 - i) * DEMO_IMAGE_STACK_OFFSET_Y}px);"
-          >
-            <img
-              src={image.src}
-              alt=""
-              loading="lazy"
-              decoding="async"
-              class="h-full w-full object-cover"
-            />
-          </div>
-        {/each}
+      <DemoImageStack
+        bind:imageEls
+        bind:imageStackRef={imageStackEl}
+        bind:frameSvgRef={frameSvg}
+      />
 
-        <svg
-          bind:this={frameSvg}
-          class="pointer-events-none absolute inset-0 z-50 opacity-0"
-          aria-hidden="true"
-        ></svg>
-      </div>
-
-      <div class="relative mt-6 flex items-center justify-center sm:mt-8">
-        <div
-          bind:this={explosionContainer}
-          class="pointer-events-none absolute inset-0 z-10 flex items-center justify-center overflow-visible text-muted-foreground/60"
-          aria-hidden="true"
-        >
-        </div>
-        <button
-          bind:this={triggerBtnEl}
-          type="button"
-          class="relative z-20 cursor-pointer transition-transform duration-200 ease-out hover:scale-110 active:scale-95"
-          onclick={handleTrigger}
-          aria-label="Cycle demo images"
-        >
-          <img
-            src="/logo.svg"
-            alt=""
-            loading="lazy"
-            decoding="async"
-            class="size-10 sm:size-12"
-            aria-hidden="true"
-          />
-        </button>
-      </div>
+      <DemoTriggerButton
+        onclick={handleTrigger}
+        bind:explosionContainerRef={explosionContainer}
+        bind:triggerBtnRef={triggerBtnEl}
+      />
     </div>
   </div>
 </section>

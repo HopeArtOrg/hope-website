@@ -16,7 +16,6 @@
 
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import gsap from "gsap";
 
   import type { CarouselAPI } from "@/components/ui/carousel/context";
   import type { AuthorSocialLink } from "@/lib/constants";
@@ -26,10 +25,11 @@
     CarouselContent,
     CarouselItem,
   } from "@/components/ui/carousel";
+  import { CornerBrackets } from "@/components/ui/corner-brackets";
+  import { DefinitionPanel } from "@/components/ui/definition-panel";
+  import { animateScrollReveal } from "@/lib/animation-utils";
   import { HARUYU_LINKS, NOAH_LINKS } from "@/lib/constants";
-  import { prefersReducedMotion } from "@/lib/utils";
 
-  import { animateScrollReveal } from "./animations";
   import AuthorSlide from "./author-slide.svelte";
 
   const {
@@ -70,18 +70,11 @@
     if (!sectionEl || !carouselWrapper)
       return;
 
-    if (prefersReducedMotion()) {
-      gsap.set(carouselWrapper, { autoAlpha: 1 });
-      if (definitionRef)
-        gsap.set(definitionRef, { autoAlpha: 1 });
-      return;
-    }
-
-    return animateScrollReveal(
-      sectionEl,
-      [carouselWrapper],
-      definitionRef ?? undefined,
-    );
+    return animateScrollReveal({
+      trigger: sectionEl,
+      elements: [carouselWrapper],
+      definitionEl: definitionRef ?? undefined,
+    });
   });
 </script>
 
@@ -90,21 +83,13 @@
   id="author"
   class="relative mx-auto flex min-h-dvh max-w-screen-xl items-center justify-center px-4 py-12 sm:px-6 sm:py-16 lg:py-24"
 >
-  <div
-    class="pointer-events-none absolute inset-4 sm:inset-6 lg:inset-10"
-    aria-hidden="true"
-  >
-    <span class="absolute top-0 left-0 h-10 w-10 border-t border-l border-muted-foreground/40 sm:h-14 sm:w-14 lg:h-20 lg:w-20"></span>
-    <span class="absolute top-0 right-0 h-10 w-10 border-t border-r border-muted-foreground/40 sm:h-14 sm:w-14 lg:h-20 lg:w-20"></span>
-    <span class="absolute bottom-0 left-0 h-10 w-10 border-b border-l border-muted-foreground/40 sm:h-14 sm:w-14 lg:h-20 lg:w-20"></span>
-    <span class="absolute right-0 bottom-0 h-10 w-10 border-b border-r border-muted-foreground/40 sm:h-14 sm:w-14 lg:h-20 lg:w-20"></span>
-  </div>
+  <CornerBrackets />
 
-  <div
-    bind:this={definitionRef}
-    class="invisible pointer-events-none absolute bottom-16 left-12 hidden select-none flex-col gap-3 font-primary text-xs tracking-wide text-muted-foreground/40 lg:flex xl:left-16"
-    style="writing-mode: vertical-rl;"
-    aria-hidden="true"
+  <DefinitionPanel
+    bind:ref={definitionRef}
+    position="left"
+    vertical
+    class="font-primary"
   >
     <span class="text-right text-sm">
       Hi vọng
@@ -125,7 +110,7 @@
       <br />
       trong tương lai.
     </span>
-  </div>
+  </DefinitionPanel>
 
   <div
     bind:this={carouselWrapper}

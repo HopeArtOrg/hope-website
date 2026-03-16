@@ -1,23 +1,16 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import { explodeStars as sharedExplodeStars } from "@/lib/animation-utils";
 import {
-  AUTHOR_SCROLL_REVEAL_DELAY,
-  AUTHOR_SCROLL_REVEAL_DURATION,
-  AUTHOR_SCROLL_REVEAL_Y,
-  AUTHOR_SCROLL_REVEAL_Y_MOBILE,
-  AUTHOR_SCROLL_TRIGGER_START,
   AUTHOR_SHUFFLE_DURATION,
   AUTHOR_SHUFFLE_OFFSET_X,
   AUTHOR_SHUFFLE_OFFSET_Y,
-  AUTHOR_SMALL_BREAKPOINT,
   AUTHOR_STAR_EXPLOSION_COUNT,
   AUTHOR_STAR_EXPLOSION_DURATION,
   AUTHOR_STAR_EXPLOSION_RADIUS,
   AUTHOR_TILT_MAX_DEG,
   AUTHOR_TILT_PERSPECTIVE,
-  STAR_SVG_PATH,
-  STAR_SVG_STROKE_WIDTH,
 } from "@/lib/constants";
 import { prefersReducedMotion } from "@/lib/utils";
 
@@ -162,126 +155,10 @@ export function setupImageShuffle(
   return () => controller.abort();
 }
 
-function createMiniStar(
-  container: HTMLElement,
-  size: number,
-): HTMLDivElement {
-  const wrapper = document.createElement("div");
-  wrapper.style.cssText = `position:absolute;top:50%;left:50%;pointer-events:none;opacity:0;`;
-  wrapper.style.color = "currentColor";
-  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  svg.setAttribute("viewBox", "0 0 3000 3000");
-  svg.setAttribute("fill", "none");
-  svg.style.width = `${size}px`;
-  svg.style.height = `${size}px`;
-  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-  path.setAttribute("d", STAR_SVG_PATH);
-  path.setAttribute("fill", "none");
-  path.setAttribute("stroke", "currentColor");
-  path.setAttribute("stroke-width", STAR_SVG_STROKE_WIDTH);
-  svg.appendChild(path);
-  wrapper.appendChild(svg);
-  container.appendChild(wrapper);
-  return wrapper;
-}
-
-export function explodeStars(
-  container: HTMLElement,
-): gsap.core.Timeline {
-  const tl = gsap.timeline();
-  const stars: HTMLDivElement[] = [];
-
-  for (let i = 0; i < AUTHOR_STAR_EXPLOSION_COUNT; i++) {
-    const size = 6 + Math.random() * 14;
-    stars.push(createMiniStar(container, size));
-  }
-
-  const angles = stars.map((_, i) =>
-    (i / AUTHOR_STAR_EXPLOSION_COUNT) * Math.PI * 2 + (Math.random() - 0.5) * 0.4,
-  );
-
-  tl.set(stars, { opacity: 1, scale: 0 });
-
-  tl.to(stars, {
-    x: (i: number) => Math.cos(angles[i]) * (AUTHOR_STAR_EXPLOSION_RADIUS * (0.5 + Math.random() * 0.5)),
-    y: (i: number) => Math.sin(angles[i]) * (AUTHOR_STAR_EXPLOSION_RADIUS * (0.5 + Math.random() * 0.5)),
-    scale: () => 0.5 + Math.random() * 1,
-    rotation: () => Math.random() * 360,
-    opacity: 1,
-    duration: AUTHOR_STAR_EXPLOSION_DURATION * 0.5,
-    ease: "power2.out",
-    stagger: { amount: 0.1, from: "random" },
+export function explodeStars(container: HTMLElement): gsap.core.Timeline {
+  return sharedExplodeStars(container, {
+    count: AUTHOR_STAR_EXPLOSION_COUNT,
+    radius: AUTHOR_STAR_EXPLOSION_RADIUS,
+    duration: AUTHOR_STAR_EXPLOSION_DURATION,
   });
-
-  tl.to(stars, {
-    opacity: 0,
-    scale: 0,
-    duration: AUTHOR_STAR_EXPLOSION_DURATION * 0.5,
-    ease: "power1.in",
-    stagger: { amount: 0.05, from: "random" },
-    onComplete: () => stars.forEach(el => el.remove()),
-  });
-
-  return tl;
-}
-
-function isTriggerAlreadyPassed(trigger: HTMLElement): boolean {
-  const rect = trigger.getBoundingClientRect();
-  const threshold = window.innerHeight * 0.85;
-  return rect.top < threshold;
-}
-
-export function animateScrollReveal(
-  trigger: HTMLElement,
-  elements: HTMLElement[],
-  definitionEl?: HTMLElement,
-): () => void {
-  if (prefersReducedMotion()) {
-    elements.forEach(el => gsap.set(el, { autoAlpha: 1 }));
-    if (definitionEl)
-      gsap.set(definitionEl, { autoAlpha: 1 });
-    return () => {};
-  }
-
-  if (isTriggerAlreadyPassed(trigger)) {
-    elements.forEach(el => gsap.set(el, { autoAlpha: 1 }));
-    if (definitionEl)
-      gsap.set(definitionEl, { autoAlpha: 1 });
-    return () => {};
-  }
-
-  const yOffset = window.innerWidth < AUTHOR_SMALL_BREAKPOINT
-    ? AUTHOR_SCROLL_REVEAL_Y_MOBILE
-    : AUTHOR_SCROLL_REVEAL_Y;
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger,
-      start: AUTHOR_SCROLL_TRIGGER_START,
-      toggleActions: "play none none none",
-    },
-  });
-
-  elements.forEach((el, i) => {
-    tl.from(el, {
-      y: yOffset,
-      autoAlpha: 0,
-      duration: AUTHOR_SCROLL_REVEAL_DURATION,
-      ease: "power3.out",
-    }, i * AUTHOR_SCROLL_REVEAL_DELAY);
-  });
-
-  if (definitionEl) {
-    tl.from(definitionEl, {
-      y: yOffset * 0.75,
-      autoAlpha: 0,
-      duration: AUTHOR_SCROLL_REVEAL_DURATION,
-      ease: "power3.out",
-    }, elements.length * AUTHOR_SCROLL_REVEAL_DELAY);
-  }
-
-  return () => {
-    tl.scrollTrigger?.kill();
-    tl.kill();
-  };
 }
