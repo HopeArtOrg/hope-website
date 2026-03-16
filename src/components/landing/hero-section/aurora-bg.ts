@@ -44,6 +44,7 @@ export function setupAuroraBg(canvas: HTMLCanvasElement): () => void {
   const ctx = canvas.getContext("2d")!;
   const noise3D = createNoise3D();
   const { values, opacities, widths } = buildThresholds();
+  const isMobile = "ontouchstart" in window;
 
   let cols = 0;
   let rows = 0;
@@ -52,6 +53,7 @@ export function setupAuroraBg(canvas: HTMLCanvasElement): () => void {
   let zOffset = 0;
   let grid = new Float64Array(0);
   let baseColor = resolveBaseColor();
+  let frameCount = 0;
 
   const mouse = { x: -9999, y: -9999, s: 0 };
   const smoothX = gsap.quickTo(mouse, "x", { duration: MOUSE_LERP, ease: "none" });
@@ -80,7 +82,7 @@ export function setupAuroraBg(canvas: HTMLCanvasElement): () => void {
     const mx = mouse.x;
     const my = mouse.y;
     const ms = mouse.s;
-    const useM = ms > 0.001;
+    const useM = !isMobile && ms > 0.001;
 
     for (let r = 0; r < rows; r++) {
       const py = r * GRID_STEP;
@@ -247,6 +249,9 @@ export function setupAuroraBg(canvas: HTMLCanvasElement): () => void {
   function tick(_: number, dt: number) {
     if (paused)
       return;
+    frameCount++;
+    if (frameCount % 2 !== 0)
+      return;
     zOffset += Z_SPEED * dt;
     computeGrid();
     render();
@@ -257,8 +262,10 @@ export function setupAuroraBg(canvas: HTMLCanvasElement): () => void {
   }
 
   window.addEventListener("resize", onResize);
-  window.addEventListener("mousemove", onMouseMove);
-  window.addEventListener("mouseleave", onMouseLeave);
+  if (!isMobile) {
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    window.addEventListener("mouseleave", onMouseLeave);
+  }
   window.addEventListener("scroll", onScroll, { passive: true });
   gsap.ticker.add(tick);
 
@@ -266,8 +273,10 @@ export function setupAuroraBg(canvas: HTMLCanvasElement): () => void {
     clearTimeout(resizeTimer);
     themeObserver.disconnect();
     window.removeEventListener("resize", onResize);
-    window.removeEventListener("mousemove", onMouseMove);
-    window.removeEventListener("mouseleave", onMouseLeave);
+    if (!isMobile) {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseleave", onMouseLeave);
+    }
     window.removeEventListener("scroll", onScroll);
     gsap.ticker.remove(tick);
   };

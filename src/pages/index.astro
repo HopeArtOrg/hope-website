@@ -1,5 +1,6 @@
 ---
 import { AboutSection } from "@/components/landing/about";
+import { AuthorSection } from "@/components/landing/author";
 import { DemoSection } from "@/components/landing/demo";
 import { HeroSection } from "@/components/landing/hero-section";
 import { TechAnimationSection } from "@/components/landing/tech-animation";
@@ -38,5 +39,19 @@ const t = useTranslations(lang);
     description={t("demo.description")}
     courtesy={t("demo.courtesy")}
     client:visible
+  />
+  <AuthorSection
+    heading={t("author.heading")}
+    haruyuName={t("author.haruyuName")}
+    haruyuQuote={t("author.haruyuQuote")}
+    noahName={t("author.noahName")}
+    noahQuote={t("author.noahQuote")}
+    githubLabel={t("author.github")}
+    vgenLabel={t("author.vgen")}
+    facebookLabel={t("author.facebook")}
+    portfolioLabel={t("author.portfolio")}
+    prevSlideLabel={t("author.prevSlide")}
+    nextSlideLabel={t("author.nextSlide")}
+    client:idle
   />
 </BaseLayout>

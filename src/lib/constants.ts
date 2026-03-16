@@ -107,3 +107,41 @@ export const DEMO_SCROLL_TRIGGER_START = "top 85%";
 export const DEMO_SMALL_BREAKPOINT = 640;
 
 export const DEMO_CYCLE_TRANSITION_DURATION = 0.4;
+
+export const AUTHOR_TILT_MAX_DEG = 8;
+export const AUTHOR_TILT_PERSPECTIVE = 800;
+
+export const AUTHOR_SHUFFLE_DURATION = 0.5;
+export const AUTHOR_SHUFFLE_OFFSET_X = 20;
+export const AUTHOR_SHUFFLE_OFFSET_Y = 15;
+
+export const AUTHOR_SCROLL_REVEAL_DURATION = 1;
+export const AUTHOR_SCROLL_REVEAL_DELAY = 0.2;
+export const AUTHOR_SCROLL_REVEAL_Y = 80;
+export const AUTHOR_SCROLL_REVEAL_Y_MOBILE = 40;
+export const AUTHOR_SCROLL_TRIGGER_START = "top 85%";
+export const AUTHOR_SMALL_BREAKPOINT = 640;
+
+export const AUTHOR_STAR_EXPLOSION_COUNT = 6;
+export const AUTHOR_STAR_EXPLOSION_RADIUS = 80;
+export const AUTHOR_STAR_EXPLOSION_DURATION = 0.6;
+
+export type AuthorSocialLink = {
+  labelKey: TranslationKey;
+  href: string;
+  icon: string;
+  color: string;
+};
+
+export const HARUYU_LINKS: AuthorSocialLink[] = [
+  { labelKey: "author.github", href: "https://github.com/quachdang122-jpg", icon: "lucide:github", color: "#a78bfa" },
+  { labelKey: "author.vgen", href: "https://vgen.co/iceyDh", icon: "lucide:palette", color: "#f97316" },
+  { labelKey: "author.facebook", href: "https://www.facebook.com/aksd021s", icon: "lucide:facebook", color: "#3b82f6" },
+  { labelKey: "author.portfolio", href: "https://haruyasato.carrd.co", icon: "lucide:globe", color: "#22c55e" },
+];
+
+export const NOAH_LINKS: AuthorSocialLink[] = [
+  { labelKey: "author.github", href: "https://github.com/Coder-Blue", icon: "lucide:github", color: "#a78bfa" },
+  { labelKey: "author.facebook", href: "https://www.facebook.com/noah.tran1109", icon: "lucide:facebook", color: "#3b82f6" },
+  { labelKey: "author.portfolio", href: "https://noah-pblog.vercel.app/en", icon: "lucide:globe", color: "#22c55e" },
+];

@@ -2,18 +2,17 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import {
+  resetTilt,
+  applyTilt as sharedApplyTilt,
+  explodeStars as sharedExplodeStars,
+} from "@/lib/animation-utils";
+import {
   DEMO_CYCLE_TRANSITION_DURATION,
   DEMO_FRAME_BORDER_RADIUS,
   DEMO_FRAME_DASH_ARRAY,
   DEMO_FRAME_JUMP_DURATION,
   DEMO_FRAME_PADDING,
   DEMO_FRAME_STROKE_WIDTH,
-  DEMO_SCROLL_REVEAL_DELAY,
-  DEMO_SCROLL_REVEAL_DURATION,
-  DEMO_SCROLL_REVEAL_Y,
-  DEMO_SCROLL_REVEAL_Y_MOBILE,
-  DEMO_SCROLL_TRIGGER_START,
-  DEMO_SMALL_BREAKPOINT,
   DEMO_STAR_EXPLOSION_COUNT,
   DEMO_STAR_EXPLOSION_DURATION,
   DEMO_STAR_EXPLOSION_RADIUS,
@@ -21,23 +20,21 @@ import {
   DEMO_TILT_PERSPECTIVE,
   DEMO_TILT_SCALE,
   PROTECTION_METHODS,
-  STAR_SVG_PATH,
-  STAR_SVG_STROKE_WIDTH,
 } from "@/lib/constants";
 import { prefersReducedMotion } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function applyTilt(e: MouseEvent, el: HTMLElement) {
-  const rect = el.getBoundingClientRect();
-  const offsetX = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
-  const offsetY = ((rect.top + rect.height / 2) - e.clientY) / (rect.height / 2);
-  el.style.transform
-    = `perspective(${DEMO_TILT_PERSPECTIVE}px) rotateX(${offsetY * DEMO_TILT_MAX_DEG}deg) rotateY(${offsetX * DEMO_TILT_MAX_DEG}deg) scale(${DEMO_TILT_SCALE})`;
+  sharedApplyTilt(e, el, DEMO_TILT_MAX_DEG, DEMO_TILT_PERSPECTIVE, DEMO_TILT_SCALE);
 }
 
-export function resetTilt(el: HTMLElement) {
-  el.style.transform = "";
+export function explodeStars(container: HTMLElement): gsap.core.Timeline {
+  return sharedExplodeStars(container, {
+    count: DEMO_STAR_EXPLOSION_COUNT,
+    radius: DEMO_STAR_EXPLOSION_RADIUS,
+    duration: DEMO_STAR_EXPLOSION_DURATION,
+  });
 }
 
 export function setupImageTilt(
@@ -55,69 +52,6 @@ export function setupImageTilt(
   });
 
   return () => controller.abort();
-}
-
-function createMiniStar(
-  container: HTMLElement,
-  size: number,
-): HTMLDivElement {
-  const wrapper = document.createElement("div");
-  wrapper.style.cssText = `position:absolute;top:50%;left:50%;pointer-events:none;opacity:0;`;
-  wrapper.style.color = "currentColor";
-  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  svg.setAttribute("viewBox", "0 0 3000 3000");
-  svg.setAttribute("fill", "none");
-  svg.style.width = `${size}px`;
-  svg.style.height = `${size}px`;
-  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-  path.setAttribute("d", STAR_SVG_PATH);
-  path.setAttribute("fill", "none");
-  path.setAttribute("stroke", "currentColor");
-  path.setAttribute("stroke-width", STAR_SVG_STROKE_WIDTH);
-  svg.appendChild(path);
-  wrapper.appendChild(svg);
-  container.appendChild(wrapper);
-  return wrapper;
-}
-
-export function explodeStars(
-  container: HTMLElement,
-): gsap.core.Timeline {
-  const tl = gsap.timeline();
-  const stars: HTMLDivElement[] = [];
-
-  for (let i = 0; i < DEMO_STAR_EXPLOSION_COUNT; i++) {
-    const size = 6 + Math.random() * 14;
-    stars.push(createMiniStar(container, size));
-  }
-
-  const angles = stars.map((_, i) =>
-    (i / DEMO_STAR_EXPLOSION_COUNT) * Math.PI * 2 + (Math.random() - 0.5) * 0.4,
-  );
-
-  tl.set(stars, { opacity: 1, scale: 0 });
-
-  tl.to(stars, {
-    x: (i: number) => Math.cos(angles[i]) * (DEMO_STAR_EXPLOSION_RADIUS * (0.5 + Math.random() * 0.5)),
-    y: (i: number) => Math.sin(angles[i]) * (DEMO_STAR_EXPLOSION_RADIUS * (0.5 + Math.random() * 0.5)),
-    scale: () => 0.5 + Math.random() * 1,
-    rotation: () => Math.random() * 360,
-    opacity: 1,
-    duration: DEMO_STAR_EXPLOSION_DURATION * 0.5,
-    ease: "power2.out",
-    stagger: { amount: 0.1, from: "random" },
-  });
-
-  tl.to(stars, {
-    opacity: 0,
-    scale: 0,
-    duration: DEMO_STAR_EXPLOSION_DURATION * 0.5,
-    ease: "power1.in",
-    stagger: { amount: 0.05, from: "random" },
-    onComplete: () => stars.forEach(el => el.remove()),
-  });
-
-  return tl;
 }
 
 export function cycleImage(
@@ -243,79 +177,4 @@ export function animateDottedFrame(
   });
 
   return tl;
-}
-
-function isTriggerAlreadyPassed(trigger: HTMLElement): boolean {
-  const rect = trigger.getBoundingClientRect();
-  const threshold = window.innerHeight * 0.85;
-  return rect.top < threshold;
-}
-
-export function animateScrollReveal(
-  trigger: HTMLElement,
-  leftCol: HTMLElement,
-  rightCol: HTMLElement,
-  definitionEl?: HTMLElement,
-): () => void {
-  if (prefersReducedMotion()) {
-    gsap.set(leftCol, { opacity: 1 });
-    gsap.set(rightCol, { opacity: 1 });
-    if (definitionEl)
-      gsap.set(definitionEl, { autoAlpha: 1 });
-    return () => {};
-  }
-
-  if (isTriggerAlreadyPassed(trigger)) {
-    gsap.set(leftCol, { opacity: 1 });
-    gsap.set(rightCol, { opacity: 1 });
-    if (definitionEl)
-      gsap.set(definitionEl, { autoAlpha: 1 });
-    return () => {};
-  }
-
-  const yOffset = window.innerWidth < DEMO_SMALL_BREAKPOINT
-    ? DEMO_SCROLL_REVEAL_Y_MOBILE
-    : DEMO_SCROLL_REVEAL_Y;
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger,
-      start: DEMO_SCROLL_TRIGGER_START,
-      toggleActions: "play none none none",
-    },
-  });
-
-  tl.fromTo(leftCol, {
-    y: yOffset,
-    opacity: 0,
-  }, {
-    y: 0,
-    opacity: 1,
-    duration: DEMO_SCROLL_REVEAL_DURATION,
-    ease: "power3.out",
-  }, 0);
-
-  tl.fromTo(rightCol, {
-    y: yOffset,
-    opacity: 0,
-  }, {
-    y: 0,
-    opacity: 1,
-    duration: DEMO_SCROLL_REVEAL_DURATION,
-    ease: "power3.out",
-  }, DEMO_SCROLL_REVEAL_DELAY);
-
-  if (definitionEl) {
-    tl.from(definitionEl, {
-      y: yOffset * 0.75,
-      autoAlpha: 0,
-      duration: DEMO_SCROLL_REVEAL_DURATION,
-      ease: "power3.out",
-    }, DEMO_SCROLL_REVEAL_DELAY * 2);
-  }
-
-  return () => {
-    tl.scrollTrigger?.kill();
-    tl.kill();
-  };
 }

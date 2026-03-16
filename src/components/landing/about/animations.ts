@@ -1,6 +1,11 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import {
+  applyTilt,
+  resetTilt,
+  animateScrollReveal as sharedScrollReveal,
+} from "@/lib/animation-utils";
 import { prefersReducedMotion } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -20,26 +25,7 @@ const BRING_FORWARD_SCALE = 1.05;
 const BRING_FORWARD_Z_INDEX = 20;
 const BRING_FORWARD_DURATION = 0.5;
 
-const SCROLL_REVEAL_DURATION = 1;
-const SCROLL_REVEAL_DELAY = 0.2;
-const SCROLL_REVEAL_Y = 80;
-const SCROLL_REVEAL_Y_MOBILE = 40;
-const SCROLL_TRIGGER_START = "top 85%";
-
 const MOBILE_BREAKPOINT = 1024;
-const SMALL_BREAKPOINT = 640;
-
-function applyTilt(e: MouseEvent, el: HTMLElement) {
-  const rect = el.getBoundingClientRect();
-  const offsetX = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
-  const offsetY = ((rect.top + rect.height / 2) - e.clientY) / (rect.height / 2);
-  el.style.transform
-    = `perspective(${TILT_PERSPECTIVE}px) rotateX(${offsetY * TILT_MAX_DEG}deg) rotateY(${offsetX * TILT_MAX_DEG}deg) scale(${TILT_SCALE})`;
-}
-
-function resetTilt(el: HTMLElement) {
-  el.style.transform = "";
-}
 
 type BringForwardState = {
   active: boolean;
@@ -96,12 +82,12 @@ export function setupImageInteractions(
   const controller = new AbortController();
   const { signal } = controller;
 
-  appImg.addEventListener("mousemove", e => applyTilt(e, appImg), { signal });
+  appImg.addEventListener("mousemove", e => applyTilt(e, appImg, TILT_MAX_DEG, TILT_PERSPECTIVE, TILT_SCALE), { signal });
   appImg.addEventListener("mouseleave", () => resetTilt(appImg), { signal });
 
   repoBtn.addEventListener("mousemove", (e) => {
     if (!state.active)
-      applyTilt(e, repoBtn);
+      applyTilt(e, repoBtn, TILT_MAX_DEG, TILT_PERSPECTIVE, TILT_SCALE);
   }, { signal });
 
   repoBtn.addEventListener("mouseleave", () => {
@@ -122,65 +108,17 @@ export function setupImageInteractions(
   return () => controller.abort();
 }
 
-function isTriggerAlreadyPassed(trigger: HTMLElement): boolean {
-  const rect = trigger.getBoundingClientRect();
-  const threshold = window.innerHeight * 0.85;
-  return rect.top < threshold;
-}
-
 export function animateScrollReveal(
   trigger: HTMLElement,
   leftCol: HTMLElement,
   rightCol: HTMLElement,
   definitionEl?: HTMLElement,
 ): () => void {
-  if (isTriggerAlreadyPassed(trigger)) {
-    gsap.set(leftCol, { autoAlpha: 1 });
-    gsap.set(rightCol, { autoAlpha: 1 });
-    if (definitionEl)
-      gsap.set(definitionEl, { autoAlpha: 1 });
-    return () => {};
-  }
-
-  const yOffset = window.innerWidth < SMALL_BREAKPOINT
-    ? SCROLL_REVEAL_Y_MOBILE
-    : SCROLL_REVEAL_Y;
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger,
-      start: SCROLL_TRIGGER_START,
-      toggleActions: "play none none none",
-    },
+  return sharedScrollReveal({
+    trigger,
+    elements: [leftCol, rightCol],
+    definitionEl,
   });
-
-  tl.from(leftCol, {
-    y: yOffset,
-    autoAlpha: 0,
-    duration: SCROLL_REVEAL_DURATION,
-    ease: "power3.out",
-  }, 0);
-
-  tl.from(rightCol, {
-    y: yOffset,
-    autoAlpha: 0,
-    duration: SCROLL_REVEAL_DURATION,
-    ease: "power3.out",
-  }, SCROLL_REVEAL_DELAY);
-
-  if (definitionEl) {
-    tl.from(definitionEl, {
-      y: yOffset * 0.75,
-      autoAlpha: 0,
-      duration: SCROLL_REVEAL_DURATION,
-      ease: "power3.out",
-    }, SCROLL_REVEAL_DELAY * 2);
-  }
-
-  return () => {
-    tl.scrollTrigger?.kill();
-    tl.kill();
-  };
 }
 
 const RIPPLE_RADIUS = 60;

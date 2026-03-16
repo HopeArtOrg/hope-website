@@ -14,19 +14,14 @@
 
   import { StarIcon } from "@/components/icons";
   import { ScrollDownPill } from "@/components/landing/scroll-down-pill";
-  import { Button } from "@/components/ui/button";
-  import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu";
-  import { detectPlatform, GITHUB_REPO, GITHUB_REPO_URL, platforms } from "@/lib/constants";
+  import { CornerBrackets } from "@/components/ui/corner-brackets";
+  import { DefinitionPanel } from "@/components/ui/definition-panel";
   import { prefersReducedMotion } from "@/lib/utils";
 
   import { animateBigBang, animateBounce, animateFloatDown, animateStarDrift } from "./animations";
   import { setupAuroraBg } from "./aurora-bg";
+  import ComingSoonBadge from "./coming-soon-badge.svelte";
+  import DownloadActions from "./download-actions.svelte";
 
   const {
     description,
@@ -41,15 +36,6 @@
   let heroContent = $state<HTMLDivElement | null>(null);
   let definitionRef = $state<HTMLDivElement | null>(null);
   let auroraRef = $state<HTMLCanvasElement | null>(null);
-  let starCount = $state<number | null>(null);
-  let downloadOpen = $state(false);
-
-  const detectedPlatform = detectPlatform();
-  const altPlatforms = $derived(
-    detectedPlatform
-      ? platforms.filter(p => p !== detectedPlatform)
-      : platforms,
-  );
 
   let auroraCleanup: (() => void) | undefined;
 
@@ -123,24 +109,6 @@
     };
   });
 
-  $effect(() => {
-    const controller = new AbortController();
-    fetch(`https://api.github.com/repos/${GITHUB_REPO}`, { signal: controller.signal })
-      .then(res => res.json())
-      .then((data) => {
-        if (typeof data.stargazers_count === "number")
-          starCount = data.stargazers_count;
-      })
-      .catch(() => {});
-    return () => controller.abort();
-  });
-
-  function formatStars(count: number): string {
-    if (count >= 1000)
-      return `${(count / 1000).toFixed(1)}k`;
-    return count.toString();
-  }
-
   function scrollToNextSection() {
     document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
   }
@@ -156,24 +124,32 @@
     style="opacity: 0;"
     aria-hidden="true"
   ></canvas>
-  <div class="pointer-events-none absolute inset-6 sm:inset-10" aria-hidden="true">
-    <span class="absolute top-0 left-0 h-12 w-12 border-t border-l border-muted-foreground/60 sm:h-20 sm:w-20"></span>
-    <span class="absolute top-0 right-0 h-12 w-12 border-t border-r border-muted-foreground/60 sm:h-20 sm:w-20"></span>
-    <span class="absolute bottom-0 left-0 h-12 w-12 border-b border-l border-muted-foreground/60 sm:h-20 sm:w-20"></span>
-    <span class="absolute right-0 bottom-0 h-12 w-12 border-b border-r border-muted-foreground/60 sm:h-20 sm:w-20"></span>
-  </div>
-  <div bind:this={desktopStar} class="invisible pointer-events-none absolute inset-y-0 left-0 right-0 hidden items-center justify-center lg:flex">
+
+  <CornerBrackets
+    inset="inset-6 sm:inset-10"
+    size="h-12 w-12 sm:h-20 sm:w-20"
+    borderColor="border-muted-foreground/60"
+  />
+
+  <div
+    bind:this={desktopStar}
+    class="invisible pointer-events-none absolute inset-y-0 left-0 right-0 hidden items-center justify-center lg:flex"
+  >
     <StarIcon class="h-[80dvh] w-[80dvh] text-[oklch(0.18_0.01_60/0.35)] dark:text-[oklch(0.55_0.04_255/0.25)] xl:h-[90dvh] xl:w-[90dvh]" />
   </div>
 
-  <div bind:this={mobileStar} class="invisible relative flex items-center justify-center lg:hidden">
+  <div
+    bind:this={mobileStar}
+    class="invisible relative flex items-center justify-center lg:hidden"
+  >
     <StarIcon class="size-48 text-[oklch(0.18_0.01_60/0.45)] dark:text-[oklch(0.55_0.04_255/0.35)] sm:size-64" />
   </div>
 
-  <div
-    bind:this={definitionRef}
-    class="invisible pointer-events-none absolute bottom-32 right-12 hidden select-none flex-col gap-3 text-xs tracking-wide text-muted-foreground/40 lg:flex xl:right-16"
-    style="writing-mode: vertical-rl;"
+  <DefinitionPanel
+    bind:ref={definitionRef}
+    position="right"
+    vertical
+    class="bottom-32"
   >
     <span class="text-right text-sm">
       Hope
@@ -182,7 +158,7 @@
         class="inline size-3.5"
       />
       -
-      <span class="font-mono">/həʊp/</span>
+      <span class="font-mono">/h&#x0259;&#x028A;p/</span>
       <br />
       <span class="italic">noun</span>
     </span>
@@ -194,9 +170,12 @@
       <br />
       good may happen
     </span>
-  </div>
+  </DefinitionPanel>
 
-  <div bind:this={heroContent} class="invisible relative z-10 flex w-full flex-col items-center gap-6 lg:items-start">
+  <div
+    bind:this={heroContent}
+    class="invisible relative z-10 flex w-full flex-col items-center gap-6 lg:items-start"
+  >
     <h1
       aria-label="Hope:Re"
       class="font-mono text-5xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl"
@@ -210,106 +189,13 @@
 
     <hr class="h-px w-24 border-0 bg-border sm:w-32" />
 
-    <div class="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-      <div class="inline-flex items-center">
-        <Button
-          size="lg"
-          href={detectedPlatform?.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="gap-2 rounded-r-none"
-          aria-label={detectedPlatform ? `${downloadForLabel} ${detectedPlatform.name}` : downloadLabel}
-          onclick={detectedPlatform ? undefined : () => { downloadOpen = !downloadOpen; }}
-        >
-          <Icon
-            icon={detectedPlatform?.icon ?? "lucide:download"}
-            class="size-4"
-          />
-          {#if detectedPlatform}
-            {downloadForLabel} {detectedPlatform.name}
-            <span class="font-mono text-primary-foreground/70">{detectedPlatform.arch}</span>
-          {:else}
-            {downloadLabel}
-          {/if}
-        </Button>
-        <DropdownMenu bind:open={downloadOpen}>
-          <DropdownMenuTrigger>
-            {#snippet child({ props })}
-              <Button
-                {...props}
-                size="lg"
-                class="rounded-l-none border-l border-primary-foreground/20 px-2.5"
-                aria-label="More download options"
-              >
-                <Icon
-                  icon="lucide:chevron-down"
-                  class="size-3.5 transition-transform duration-200 {downloadOpen ? "rotate-180" : ""}"
-                />
-              </Button>
-            {/snippet}
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {#each altPlatforms as platform, i}
-              {#if i > 0}
-                <DropdownMenuSeparator />
-              {/if}
-              <DropdownMenuItem
-                onSelect={() => window.open(platform.href, "_blank", "noopener,noreferrer")}
-                class="flex cursor-pointer items-center gap-2"
-              >
-                <Icon
-                  icon={platform.icon}
-                  class="size-4"
-                  aria-hidden="true"
-                />
-                {platform.name}
-                <span class="font-mono text-muted-foreground">{platform.arch}</span>
-              </DropdownMenuItem>
-            {/each}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+    <DownloadActions
+      {downloadLabel}
+      {downloadForLabel}
+      {githubLabel}
+    />
 
-      <Button
-        variant="outline"
-        size="lg"
-        href={GITHUB_REPO_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="gap-2"
-        aria-label={githubLabel}
-      >
-        <Icon
-          icon="lucide:github"
-          class="size-4"
-        />
-        {githubLabel}
-        {#if starCount !== null}
-          <span class="flex items-center gap-1 border-l border-border pl-2 text-muted-foreground">
-            <Icon
-              icon="lucide:star"
-              class="size-3.5"
-            />
-            {formatStars(starCount)}
-          </span>
-        {/if}
-      </Button>
-    </div>
-
-    <div class="mt-8 flex items-center gap-2 text-sm text-muted-foreground sm:mt-12 sm:text-base">
-      <span>{comingSoonLabel}</span>
-      <Icon
-        icon="cib:apple"
-        class="size-4 sm:size-5"
-      />
-      <span>iOS</span>
-      <span class="text-border">/</span>
-      <Icon
-        icon="cib:android"
-        class="size-4 sm:size-5"
-      />
-      <span>Android</span>
-    </div>
+    <ComingSoonBadge label={comingSoonLabel} />
   </div>
 
   <div class="absolute inset-x-0 bottom-8 z-10 flex justify-center sm:bottom-12">

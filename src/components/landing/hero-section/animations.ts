@@ -2,9 +2,9 @@ import gsap from "gsap";
 
 import { STAR_SVG_PATH, STAR_SVG_STROKE_WIDTH } from "@/lib/constants";
 
-const FRAGMENT_COUNT = 10;
-const DESKTOP_STAR_COUNT = 36;
-const MOBILE_STAR_COUNT = 18;
+const FRAGMENT_COUNT = 6;
+const DESKTOP_STAR_COUNT = 20;
+const MOBILE_STAR_COUNT = 10;
 const HERO_STAR_X_RATIO = 0.25;
 const HERO_STAR_Y_RATIO = -0.2;
 const HERO_STAR_SIZE = 18;
@@ -79,9 +79,9 @@ function addFragmentCirclePhase(
 
   tl.to(fragments, {
     opacity: 0.7,
-    duration: 0.5,
+    duration: 0.35,
     ease: "power1.out",
-    stagger: { amount: 0.2, from: "random" },
+    stagger: { amount: 0.15, from: "random" },
   });
 
   return fragments;
@@ -97,15 +97,15 @@ function addCollapsePhase(
     scale: 0.3,
     rotation: 0,
     opacity: 1,
-    duration: 0.7,
+    duration: 0.5,
     ease: "power3.in",
-    stagger: 0.08,
-  }, "+=0.2");
+    stagger: 0.06,
+  }, "+=0.1");
 
   tl.to(fragments, {
     scale: 0,
     opacity: 0,
-    duration: 0.15,
+    duration: 0.1,
     ease: "power2.in",
   });
 }
@@ -199,9 +199,9 @@ function addExplodePhase(
     rotation: () => Math.random() * 540 - 270,
     scale: (i: number) => stars[i].targetScale,
     opacity: (i: number) => stars[i].targetOpacity,
-    duration: 1.0,
+    duration: 0.7,
     ease: "power2.out",
-    stagger: { amount: 0.25, from: "center" },
+    stagger: 0.03,
   }, "explode");
 
   return { wrapper: universeWrapper, stars, heroStar };
@@ -216,10 +216,8 @@ function addUniverseLingerPhase(
     y: "+=8",
     duration: 0.8,
     ease: "sine.inOut",
-    yoyo: true,
-    repeat: 1,
     stagger: { amount: 0.3, from: "random" },
-  }, "explode+=0.8");
+  }, "explode+=0.5");
 }
 
 function addZoomIntoStarPhase(
@@ -239,9 +237,9 @@ function addZoomIntoStarPhase(
 
   tl.to(otherEls, {
     opacity: 0,
-    duration: 0.5,
+    duration: 0.35,
     ease: "power1.in",
-    stagger: { amount: 0.15, from: "random" },
+    stagger: { amount: 0.1, from: "random" },
   }, "zoom");
 
   tl.to(chosen.el, {
@@ -250,7 +248,7 @@ function addZoomIntoStarPhase(
     scale: targetScale,
     rotation: 0,
     opacity: 1,
-    duration: 1.0,
+    duration: 0.7,
     ease: "power2.inOut",
   }, "zoom");
 
@@ -310,13 +308,13 @@ export function animateStarDrift(
 
   tl.to(el, {
     left: targetLeft,
-    duration: 2,
+    duration: 1.5,
     ease: "power1.inOut",
   });
 
   tl.to(starSvg, {
     rotation: 15,
-    duration: 1,
+    duration: 0.75,
     ease: "sine.inOut",
     yoyo: true,
     repeat: 1,
@@ -324,7 +322,7 @@ export function animateStarDrift(
 
   tl.to(starSvg, {
     scale: 1.05,
-    duration: 1,
+    duration: 0.75,
     ease: "sine.inOut",
     yoyo: true,
     repeat: 1,
@@ -337,12 +335,12 @@ export function animateBounce(el: HTMLElement) {
   const tl = gsap.timeline();
   tl.to(el, {
     y: "-8vh",
-    duration: 0.25,
+    duration: 0.2,
     ease: "power2.out",
   });
   tl.to(el, {
     y: 0,
-    duration: 0.25,
+    duration: 0.2,
     ease: "power2.in",
   });
   return tl;
