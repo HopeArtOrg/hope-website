@@ -1,8 +1,8 @@
 import gsap from "gsap";
 import { createNoise3D } from "simplex-noise";
 
-const GRID_STEP = 20;
-const THRESHOLD_COUNT = 2;
+const GRID_STEP = 12;
+const THRESHOLD_COUNT = 3;
 const THRESHOLD_MIN = -0.6;
 const THRESHOLD_MAX = 0.6;
 const NOISE_SCALE = 0.0018;
@@ -11,7 +11,7 @@ const LINE_WIDTH_MIN = 0.4;
 const LINE_WIDTH_MAX = 1.0;
 const LINE_OPACITY_MIN = 0.1;
 const LINE_OPACITY_MAX = 0.22;
-const MOUSE_RADIUS = 150;
+const MOUSE_RADIUS = 200;
 const MOUSE_STRENGTH = 0.4;
 const MOUSE_LERP = 0.08;
 const MOUSE_FADE_DURATION = 0.6;
