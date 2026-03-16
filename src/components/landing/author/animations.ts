@@ -16,29 +16,6 @@ import { prefersReducedMotion } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function applyTilt(e: MouseEvent, el: HTMLElement) {
-  const rect = el.getBoundingClientRect();
-  const offsetX = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
-  const offsetY = ((rect.top + rect.height / 2) - e.clientY) / (rect.height / 2);
-  gsap.to(el, {
-    rotateX: offsetY * AUTHOR_TILT_MAX_DEG,
-    rotateY: offsetX * AUTHOR_TILT_MAX_DEG,
-    duration: 0.2,
-    ease: "power1.out",
-    overwrite: "auto",
-  });
-}
-
-function resetTilt(el: HTMLElement) {
-  gsap.to(el, {
-    rotateX: 0,
-    rotateY: 0,
-    duration: 0.3,
-    ease: "power2.out",
-    overwrite: "auto",
-  });
-}
-
 export type ShuffleState = {
   flipped: boolean;
   animating: boolean;
@@ -112,20 +89,38 @@ export function setupImageTilt(
     y: AUTHOR_SHUFFLE_OFFSET_Y,
   });
 
-  if (prefersReducedMotion())
+  if (prefersReducedMotion() || "ontouchstart" in window)
     return () => {};
+
+  const frontRx = gsap.quickTo(frontEl, "rotateX", { duration: 0.2, ease: "power1.out" });
+  const frontRy = gsap.quickTo(frontEl, "rotateY", { duration: 0.2, ease: "power1.out" });
+  const backRx = gsap.quickTo(backEl, "rotateX", { duration: 0.2, ease: "power1.out" });
+  const backRy = gsap.quickTo(backEl, "rotateY", { duration: 0.2, ease: "power1.out" });
 
   const controller = new AbortController();
   const { signal } = controller;
 
   container.addEventListener("mousemove", (e) => {
-    const target = state.flipped ? backEl : frontEl;
-    applyTilt(e, target);
-  }, { signal });
+    const rect = container.getBoundingClientRect();
+    const offsetX = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+    const offsetY = ((rect.top + rect.height / 2) - e.clientY) / (rect.height / 2);
+    const rx = offsetY * AUTHOR_TILT_MAX_DEG;
+    const ry = offsetX * AUTHOR_TILT_MAX_DEG;
+
+    if (state.flipped) {
+      backRx(rx);
+      backRy(ry);
+    }
+    else {
+      frontRx(rx);
+      frontRy(ry);
+    }
+  }, { signal, passive: true });
 
   container.addEventListener("mouseleave", () => {
-    resetTilt(frontEl);
-    resetTilt(backEl);
+    const target = state.flipped ? { rx: backRx, ry: backRy } : { rx: frontRx, ry: frontRy };
+    target.rx(0);
+    target.ry(0);
   }, { signal });
 
   return () => controller.abort();

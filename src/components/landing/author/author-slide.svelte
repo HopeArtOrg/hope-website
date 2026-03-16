@@ -71,7 +71,7 @@
     >
       <div
         bind:this={frontImg}
-        class="absolute inset-0 rounded-lg border border-border/50 shadow-lg will-change-transform"
+        class="absolute inset-0 rounded-lg border border-border/50 shadow-lg"
         style="z-index: 10;"
       >
         <div class="h-full w-full overflow-hidden rounded-lg">
@@ -83,7 +83,7 @@
         role="button"
         tabindex="0"
         aria-label="Shuffle {name} photos"
-        class="absolute inset-0 cursor-pointer rounded-lg border border-border/50 shadow-lg will-change-transform focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
+        class="absolute inset-0 cursor-pointer rounded-lg border border-border/50 shadow-lg focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
         style="z-index: 1;"
       >
         <div class="h-full w-full overflow-hidden rounded-lg">
