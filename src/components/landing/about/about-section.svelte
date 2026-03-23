@@ -94,7 +94,7 @@
 <section
   bind:this={sectionEl}
   id="about"
-  class="relative mx-auto flex min-h-dvh max-w-screen-xl items-center justify-center px-4 py-12 sm:px-6 sm:py-16 lg:py-24"
+  class="mx-auto px-4 py-12 flex max-w-screen-xl items-center justify-center relative min-h-dvh lg:py-24 sm:px-6 sm:py-16"
 >
   <CornerBrackets corners={["tl", "br"]} />
 
@@ -107,14 +107,14 @@
       <span class="text-base font-semibold">望</span>
       <Icon
         icon="lucide:star"
-        class="inline size-3.5"
+        class="size-3.5 inline"
       />
-      <span class="font-mono font-primary text-xs">/bou/</span>
+      <span class="text-xs font-mono font-primary">/bou/</span>
       <br />
       <span class="italic">名詞</span>
     </span>
-    <div class="h-px w-8 bg-muted-foreground/30"></div>
-    <span class="text-sm italic leading-relaxed">
+    <div class="bg-muted-foreground/30 h-px w-8"></div>
+    <span class="text-sm leading-relaxed italic">
       望み、願い、希望。
       <br />
       良いことが起こると
@@ -123,10 +123,10 @@
     </span>
   </DefinitionPanel>
 
-  <div class="grid w-full items-center gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-16">
+  <div class="gap-8 grid w-full items-center lg:gap-16 sm:gap-12 lg:grid-cols-2">
     <div
       bind:this={leftCol}
-      class="invisible relative order-2 flex items-center justify-center lg:order-1"
+      class="flex invisible items-center justify-center order-2 relative lg:order-1"
       style="perspective: 800px;"
     >
       <AboutImages
@@ -139,17 +139,17 @@
 
     <div
       bind:this={rightCol}
-      class="invisible order-1 flex flex-col items-center text-center lg:order-2 lg:items-start lg:text-left"
+      class="text-center flex flex-col invisible items-center order-1 lg:text-left lg:items-start lg:order-2"
     >
       <AboutHeading
         {heading}
         bind:headingContainerRef
         bind:headingJpLayerRef
       />
-      <p class="mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground sm:mt-4 sm:text-base md:mt-6 md:text-lg">
+      <p class="text-sm text-muted-foreground leading-relaxed mt-3 max-w-lg md:text-lg sm:text-base md:mt-6 sm:mt-4">
         {@html description1}
       </p>
-      <p class="mt-2 max-w-lg text-sm leading-relaxed text-muted-foreground sm:text-base md:mt-3 md:text-lg">
+      <p class="text-sm text-muted-foreground leading-relaxed mt-2 max-w-lg md:text-lg sm:text-base md:mt-3">
         {@html description2}
       </p>
       <AboutCta

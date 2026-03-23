@@ -57,7 +57,7 @@
   >
     {@render children?.()}
     <SheetPrimitive.Close
-      class="ring-offset-background focus-visible:ring-ring absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none"
+      class="rounded-sm opacity-70 ring-offset-background transition-opacity right-4 top-4 absolute focus-visible:outline-none hover:opacity-100 disabled:pointer-events-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
     >
       <Icon icon="lucide:x" class="size-4" />
       <span class="sr-only">Close</span>

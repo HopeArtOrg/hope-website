@@ -81,7 +81,7 @@
 <section
   bind:this={sectionEl}
   id="author"
-  class="relative mx-auto flex min-h-dvh max-w-screen-xl items-center justify-center px-4 py-12 sm:px-6 sm:py-16 lg:py-24"
+  class="mx-auto px-4 py-12 flex max-w-screen-xl items-center justify-center relative min-h-dvh lg:py-24 sm:px-6 sm:py-16"
 >
   <CornerBrackets />
 
@@ -91,19 +91,19 @@
     vertical
     class="font-primary"
   >
-    <span class="text-right text-sm">
+    <span class="text-sm text-right">
       Hi vọng
       <Icon
         icon="lucide:star"
-        class="inline size-3.5"
+        class="size-3.5 inline"
       />
       <br />
       <span class="font-mono">/hi vɔŋ/</span>
       <br />
       <span class="italic">danh từ</span>
     </span>
-    <div class="h-8 w-px self-end bg-muted-foreground/30"></div>
-    <span class="text-right text-sm italic leading-relaxed">
+    <div class="bg-muted-foreground/30 h-8 w-px self-end"></div>
+    <span class="text-sm leading-relaxed text-right italic">
       Tin tưởng, mong chờ
       <br />
       điều tốt đẹp sẽ đến
@@ -114,7 +114,7 @@
 
   <div
     bind:this={carouselWrapper}
-    class="invisible w-full"
+    class="w-full invisible"
   >
     <Carousel
       opts={{ loop: true, align: "center" }}
@@ -180,10 +180,10 @@
         </CarouselItem>
       </CarouselContent>
 
-      <div class="mt-8 flex items-center justify-center gap-4 sm:mt-12">
+      <div class="mt-8 flex gap-4 items-center justify-center sm:mt-12">
         <button
           type="button"
-          class="inline-flex size-9 cursor-pointer items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-colors duration-200 hover:border-border hover:text-foreground disabled:pointer-events-none disabled:opacity-50"
+          class="text-muted-foreground border border-border/50 rounded-full inline-flex size-9 cursor-pointer transition-colors duration-200 items-center justify-center hover:text-foreground hover:border-border disabled:opacity-50 disabled:pointer-events-none"
           onclick={() => carouselApi?.scrollPrev()}
           disabled={!carouselApi?.canScrollPrev()}
           aria-label={prevSlideLabel}
@@ -192,7 +192,7 @@
         </button>
         <button
           type="button"
-          class="inline-flex size-9 cursor-pointer items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-colors duration-200 hover:border-border hover:text-foreground disabled:pointer-events-none disabled:opacity-50"
+          class="text-muted-foreground border border-border/50 rounded-full inline-flex size-9 cursor-pointer transition-colors duration-200 items-center justify-center hover:text-foreground hover:border-border disabled:opacity-50 disabled:pointer-events-none"
           onclick={() => carouselApi?.scrollNext()}
           disabled={!carouselApi?.canScrollNext()}
           aria-label={nextSlideLabel}

@@ -34,27 +34,27 @@
   });
 </script>
 
-<nav bind:this={navRef} class="invisible fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-3 pointer-events-none sm:px-6 sm:pt-5">
-  <div class="pointer-events-auto flex h-14 w-full max-w-screen-xl items-center justify-between rounded-xl border border-border/50 bg-background/60 px-4 shadow-lg ring-1 ring-inset ring-white/10 backdrop-blur-xl backdrop-saturate-150 sm:h-20 sm:px-12">
+<nav bind:this={navRef} class="px-3 pt-3 flex invisible pointer-events-none inset-x-0 top-0 justify-center fixed z-50 sm:px-6 sm:pt-5">
+  <div class="px-4 border border-border/50 rounded-xl bg-background/60 flex h-14 w-full max-w-screen-xl pointer-events-auto ring-1 ring-white/10 ring-inset shadow-lg items-center justify-between backdrop-blur-xl backdrop-saturate-150 sm:px-12 sm:h-20">
     <a
       href={homePath}
-      class="group flex items-center gap-2 sm:gap-3"
+      class="flex gap-2 items-center group sm:gap-3"
     >
       <img
         src="/logo.svg"
         alt="Hope:Re"
         class="h-8 w-8 sm:h-12 sm:w-12"
       />
-      <span class="font-mono text-base font-semibold tracking-tight text-foreground transition-all duration-300 group-hover:text-primary group-hover:drop-shadow-[0_0_10px_oklch(0.55_0.04_255/0.6)] dark:group-hover:drop-shadow-[0_0_12px_oklch(var(--color-primary)/0.7)] sm:text-xl">
+      <span class="text-base text-foreground tracking-tight font-mono font-semibold transition-all duration-300 sm:text-xl group-hover:text-primary group-hover:drop-shadow-[0_0_10px_oklch(0.55_0.04_255/0.6)] dark:group-hover:drop-shadow-[0_0_12px_oklch(var(--color-primary)/0.7)]">
         {SITE_NAME}
       </span>
     </a>
 
-    <div class="flex items-center gap-1 sm:gap-2">
+    <div class="flex gap-1 items-center sm:gap-2">
       <div class="hidden items-center md:flex">
         {#each links as link, i}
           {#if i > 0}
-            <span class="select-none text-base text-border">/</span>
+            <span class="text-base text-border select-none">/</span>
           {/if}
           <NavLink
             label={link.label}
@@ -64,7 +64,7 @@
         {/each}
       </div>
 
-      <span class="hidden select-none text-base text-border md:inline">/</span>
+      <span class="text-base text-border hidden select-none md:inline">/</span>
       <ThemeToggle />
 
       <div class="md:hidden">
@@ -89,14 +89,14 @@
             <SheetHeader>
               <SheetTitle class="sr-only">Navigation</SheetTitle>
             </SheetHeader>
-            <nav class="flex flex-col gap-1 px-2">
+            <nav class="px-2 flex flex-col gap-1">
               {#each links as link}
                 <SheetClose>
                   {#snippet child({ props })}
                     <a
                       {...props}
                       href={link.href}
-                      class="rounded-sm px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                      class="text-sm text-muted-foreground font-medium px-3 py-2.5 rounded-sm transition-colors hover:text-foreground hover:bg-accent"
                     >
                       {link.label}
                     </a>

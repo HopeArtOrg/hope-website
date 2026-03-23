@@ -5,14 +5,31 @@ export default antfu(
     type: "app",
     astro: true,
     svelte: true,
+    react: {
+      files: ["**/*.tsx", "**/*.jsx"],
+    },
     typescript: true,
+    unocss: true,
+    yaml: {
+      overrides: {
+        "yaml/indent": ["error", 2],
+      },
+    },
     formatters: true,
     stylistic: {
       indent: 2,
       semi: true,
       quotes: "double",
     },
+    gitignore: true,
     ignores: [".pnpm-store/**"],
+  },
+  {
+    files: ["**/*.tsx", "**/*.jsx"],
+    rules: {
+      "react/no-implicit-key": "off",
+      "react/no-array-index-key": "off",
+    },
   },
   {
     rules: {

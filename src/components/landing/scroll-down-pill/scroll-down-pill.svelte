@@ -15,19 +15,37 @@
   let dotRef = $state<HTMLSpanElement | null>(null);
 
   $effect(() => {
-    if (!dotRef || prefersReducedMotion())
+    if (!dotRef || !pillRef || prefersReducedMotion())
       return;
 
-    const tween = gsap.to(dotRef, {
-      y: 10,
-      duration: 1.2,
-      ease: "sine.inOut",
-      yoyo: true,
-      repeat: -1,
-    });
+    let tween: gsap.core.Tween | null = null;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const isVisible = entries[0]?.isIntersecting ?? false;
+        if (isVisible && !tween) {
+          tween = gsap.to(dotRef!, {
+            y: 10,
+            duration: 1.2,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+          });
+        }
+        else if (!isVisible && tween) {
+          tween.kill();
+          tween = null;
+          gsap.set(dotRef!, { y: 0 });
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    observer.observe(pillRef);
 
     return () => {
-      tween.kill();
+      observer.disconnect();
+      tween?.kill();
     };
   });
 
@@ -46,8 +64,8 @@
     }, {
       autoAlpha: 1,
       y: 0,
-      duration: 0.8,
-      delay: 0.5,
+      duration: 0.6,
+      delay: 0.3,
       ease: "power2.out",
     });
 
@@ -59,14 +77,14 @@
 
 <button
   bind:this={pillRef}
-  class="invisible group flex cursor-pointer flex-col items-center gap-2 border-none bg-transparent p-0 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-full"
+  class="p-0 outline-none rounded-full border-none bg-transparent flex flex-col gap-2 invisible cursor-pointer items-center group focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
   aria-label="Scroll down"
   {onclick}
 >
-  <div class="relative flex h-10 w-6 items-start justify-center rounded-full border border-muted-foreground/40 pt-2 transition-colors duration-300 group-hover:border-foreground/60">
+  <div class="pt-2 border border-muted-foreground/40 rounded-full flex h-10 w-6 transition-colors duration-300 items-start justify-center relative group-hover:border-foreground/60">
     <span
       bind:this={dotRef}
-      class="block h-2 w-1.5 rounded-full bg-muted-foreground/60 transition-colors duration-300 group-hover:bg-foreground/80"
+      class="rounded-full bg-muted-foreground/60 h-2 w-1.5 block transition-colors duration-300 group-hover:bg-foreground/80"
     ></span>
   </div>
 </button>
