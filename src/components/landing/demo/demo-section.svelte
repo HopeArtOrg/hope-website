@@ -9,6 +9,7 @@
 
 <script lang="ts">
   import gsap from "gsap";
+  import { untrack } from "svelte";
 
   import { CornerBrackets } from "@/components/ui/corner-brackets";
   import { DefinitionPanel } from "@/components/ui/definition-panel";
@@ -45,9 +46,17 @@
   let frameSvg = $state<SVGSVGElement | null>(null);
   let imageStackEl = $state<HTMLDivElement | null>(null);
 
-  let currentImageIndex = $state(images.length - 1);
+  let currentImageIndex = $state(0);
   let methodCounter = $state(0);
   let isAnimating = $state(false);
+
+  $effect.pre(() => {
+    // Initialize currentImageIndex based on images length
+    // We untrack to avoid reset if handleTrigger changes it
+    untrack(() => {
+      currentImageIndex = images.length - 1;
+    });
+  });
 
   function handleTrigger() {
     if (isAnimating || !explosionContainer || !frameSvg || !imageStackEl)
