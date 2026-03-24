@@ -7,6 +7,7 @@ import path from "node:path";
 
 import DefaultOG from "@/components/templates/og/default-og";
 import en from "@/i18n/en.json";
+import { LATEST_VERSION } from "@/lib/constants";
 
 const beVietnamProData = await readFile(
   path.resolve(process.cwd(), "src/assets/fonts/be-vietnam-pro.ttf"),
@@ -41,6 +42,7 @@ export const GET: APIRoute = () => {
     DefaultOG({
       title: en.site.title,
       description: en.site.description,
+      version: LATEST_VERSION,
     }),
     {
       width: 1200,

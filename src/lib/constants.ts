@@ -1,5 +1,12 @@
 import type { TranslationKey } from "@/i18n/ui";
 
+import sample1 from "@/components/landing/demo/assets/sample-1.jpg";
+import sample2 from "@/components/landing/demo/assets/sample-2.png";
+import sample3 from "@/components/landing/demo/assets/sample-3.png";
+import sample4 from "@/components/landing/demo/assets/sample-4.png";
+import sample5 from "@/components/landing/demo/assets/sample-5.png";
+import sample6 from "@/components/landing/demo/assets/sample-6.jpg";
+
 export const SITE_NAME = "Hope Art";
 export const THEME_STORAGE_KEY = "hope-theme";
 export const GITHUB_REPO = "HopeArtOrg/hope-re";
@@ -68,12 +75,12 @@ export const navLinks: NavLink[] = [
 ];
 
 export const DEMO_IMAGES = [
-  { src: "/demo/sample-1.jpg", alt: "demo.imageAlt1" },
-  { src: "/demo/sample-2.png", alt: "demo.imageAlt2" },
-  { src: "/demo/sample-3.png", alt: "demo.imageAlt3" },
-  { src: "/demo/sample-4.png", alt: "demo.imageAlt4" },
-  { src: "/demo/sample-5.png", alt: "demo.imageAlt5" },
-  { src: "/demo/sample-6.jpg", alt: "demo.imageAlt6" },
+  { src: sample1, alt: "demo.imageAlt1" },
+  { src: sample2, alt: "demo.imageAlt2" },
+  { src: sample3, alt: "demo.imageAlt3" },
+  { src: sample4, alt: "demo.imageAlt4" },
+  { src: sample5, alt: "demo.imageAlt5" },
+  { src: sample6, alt: "demo.imageAlt6" },
 ] as const;
 
 export const PROTECTION_METHODS = [

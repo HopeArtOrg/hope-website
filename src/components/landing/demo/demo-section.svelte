@@ -3,16 +3,18 @@
     heading: string;
     description: string;
     courtesy: string;
+    images?: { src: string; alt: string }[];
   };
 </script>
 
 <script lang="ts">
   import gsap from "gsap";
+  import { untrack } from "svelte";
 
   import { CornerBrackets } from "@/components/ui/corner-brackets";
   import { DefinitionPanel } from "@/components/ui/definition-panel";
   import { animateScrollReveal } from "@/lib/animation-utils";
-  import { DEMO_IMAGES, PROTECTION_METHODS } from "@/lib/constants";
+  import { DEMO_IMAGES as DEFAULT_IMAGES, PROTECTION_METHODS } from "@/lib/constants";
   import { prefersReducedMotion } from "@/lib/utils";
 
   import {
@@ -28,6 +30,10 @@
     heading,
     description,
     courtesy,
+    images = DEFAULT_IMAGES.map(img => ({
+      src: typeof img.src === "string" ? img.src : img.src.src,
+      alt: img.alt,
+    })),
   }: DemoSectionProps = $props();
 
   let sectionEl = $state<HTMLElement | null>(null);
@@ -40,9 +46,15 @@
   let frameSvg = $state<SVGSVGElement | null>(null);
   let imageStackEl = $state<HTMLDivElement | null>(null);
 
-  let currentImageIndex = $state(DEMO_IMAGES.length - 1);
+  let currentImageIndex = $state(0);
   let methodCounter = $state(0);
   let isAnimating = $state(false);
+
+  $effect.pre(() => {
+    untrack(() => {
+      currentImageIndex = images.length - 1;
+    });
+  });
 
   function handleTrigger() {
     if (isAnimating || !explosionContainer || !frameSvg || !imageStackEl)
@@ -175,6 +187,7 @@
         bind:imageEls
         bind:imageStackRef={imageStackEl}
         bind:frameSvgRef={frameSvg}
+        {images}
       />
 
       <DemoTriggerButton

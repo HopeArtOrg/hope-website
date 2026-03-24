@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hope-art.app/sitemap-index.xml
