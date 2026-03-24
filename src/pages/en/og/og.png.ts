@@ -3,15 +3,16 @@ import type { APIRoute } from "astro";
 
 import { ImageResponse } from "@takumi-rs/image-response";
 import { readFile } from "node:fs/promises";
+import path from "node:path";
 
 import DefaultOG from "@/components/templates/og/default-og";
 import en from "@/i18n/en.json";
 
 const beVietnamProData = await readFile(
-  new URL("../../../assets/fonts/be-vietnam-pro.ttf", import.meta.url),
+  path.resolve(process.cwd(), "src/assets/fonts/be-vietnam-pro.ttf"),
 );
 const jetBrainsMonoData = await readFile(
-  new URL("../../../assets/fonts/jetbrains-mono.ttf", import.meta.url),
+  path.resolve(process.cwd(), "src/assets/fonts/jetbrains-mono.ttf"),
 );
 
 const fonts: Font[] = [

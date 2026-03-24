@@ -25,6 +25,9 @@ export default defineConfig({
     ssr: {
       external: ["@takumi-rs/core"],
     },
+    resolve: {
+      noExternal: ["bits-ui"],
+    },
   },
 
   i18n: {

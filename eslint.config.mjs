@@ -22,7 +22,13 @@ export default antfu(
       quotes: "double",
     },
     gitignore: true,
-    ignores: [".pnpm-store/**"],
+    ignores: [
+      ".pnpm-store/**",
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/.astro/**",
+      "**/public/**",
+    ],
   },
   {
     files: ["**/*.tsx", "**/*.jsx"],
