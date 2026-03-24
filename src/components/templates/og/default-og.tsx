@@ -1,8 +1,7 @@
-import { LATEST_VERSION } from "@/lib/constants";
-
 export type DefaultOGProps = {
   title: string;
   description: string;
+  version: string;
 };
 
 const zenColors = {
@@ -14,7 +13,7 @@ const zenColors = {
   accent: "rgba(43, 41, 36, 0.05)",
 };
 
-function CornerFrame({ position }: { position: "tl" | "tr" | "bl" | "br" }) {
+function CornerFrame({ position, version }: { position: "tl" | "tr" | "bl" | "br"; version: string }) {
   const size = 64;
   const strokeWidth = 2;
 
@@ -29,7 +28,7 @@ function CornerFrame({ position }: { position: "tl" | "tr" | "bl" | "br" }) {
     tl: "HUMAN.CREATIVITY",
     tr: "ART_RULES",
     bl: "HOPE.RE",
-    br: `V${LATEST_VERSION}`,
+    br: `V${version}`,
   };
 
   const labelStyles: Record<string, any> = {
@@ -128,7 +127,7 @@ function GridBackground() {
   );
 }
 
-function DefaultOG({ title, description }: DefaultOGProps) {
+function DefaultOG({ title, description, version }: DefaultOGProps) {
   return (
     <div
       tw="w-full h-full flex relative overflow-hidden"
@@ -140,16 +139,16 @@ function DefaultOG({ title, description }: DefaultOGProps) {
       <GridBackground />
 
       <div tw="absolute top-10 left-10 flex">
-        <CornerFrame position="tl" />
+        <CornerFrame position="tl" version={version} />
       </div>
       <div tw="absolute top-10 right-10 flex">
-        <CornerFrame position="tr" />
+        <CornerFrame position="tr" version={version} />
       </div>
       <div tw="absolute bottom-10 left-10 flex">
-        <CornerFrame position="bl" />
+        <CornerFrame position="bl" version={version} />
       </div>
       <div tw="absolute bottom-10 right-10 flex">
-        <CornerFrame position="br" />
+        <CornerFrame position="br" version={version} />
       </div>
 
       <div tw="flex w-full h-full px-24 py-20 relative z-10">

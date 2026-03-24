@@ -17,6 +17,7 @@
     "@astrojs/svelte": "^8.0.3",
     "@iconify/svelte": "^5.2.1",
     "@sveltejs/enhanced-img": "^0.10.4",
+    "@takumi-rs/core": "^0.73.1",
     "@takumi-rs/image-response": "^0.73.1",
     "@unocss/astro": "^66.6.7",
     "astro": "^6.0.8",
