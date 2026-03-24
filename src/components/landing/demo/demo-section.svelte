@@ -51,8 +51,6 @@
   let isAnimating = $state(false);
 
   $effect.pre(() => {
-    // Initialize currentImageIndex based on images length
-    // We untrack to avoid reset if handleTrigger changes it
     untrack(() => {
       currentImageIndex = images.length - 1;
     });
