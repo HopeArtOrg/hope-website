@@ -34,7 +34,11 @@
   });
 </script>
 
-<nav bind:this={navRef} class="px-3 pt-3 flex invisible pointer-events-none inset-x-0 top-0 justify-center fixed z-50 sm:px-6 sm:pt-5">
+<nav
+  bind:this={navRef}
+  class="px-3 pt-3 flex invisible pointer-events-none inset-x-0 top-0 justify-center fixed z-50 sm:px-6 sm:pt-5"
+  style="will-change: transform;"
+>
   <div class="px-4 border border-border/50 rounded-xl bg-background/60 flex h-14 w-full max-w-screen-xl pointer-events-auto ring-1 ring-white/10 ring-inset shadow-lg items-center justify-between backdrop-blur-xl backdrop-saturate-150 sm:px-12 sm:h-20">
     <a
       href={homePath}

@@ -6,6 +6,11 @@ import { prefersReducedMotion } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
 
+ScrollTrigger.config({
+  limitCallbacks: true,
+  ignoreMobileResize: true,
+});
+
 export function createMiniStar(
   container: HTMLElement,
   size: number,

@@ -74,13 +74,19 @@ export function setupNavbarVisibility(el: HTMLElement): () => void {
     state.lastScrollY = currentY;
   }
 
+  let mouseMoveTimer: number | null = null;
   function handleMouseMove(e: MouseEvent) {
-    if (e.clientY <= HOVER_ZONE_HEIGHT) {
-      showNavbar(el, state);
-    }
-    else if (state.visible && window.scrollY <= SCROLL_THRESHOLD) {
-      hideNavbar(el, state);
-    }
+    if (mouseMoveTimer)
+      return;
+    mouseMoveTimer = window.requestAnimationFrame(() => {
+      if (e.clientY <= HOVER_ZONE_HEIGHT) {
+        showNavbar(el, state);
+      }
+      else if (state.visible && window.scrollY <= SCROLL_THRESHOLD) {
+        hideNavbar(el, state);
+      }
+      mouseMoveTimer = null;
+    });
   }
 
   function handleMouseLeave() {

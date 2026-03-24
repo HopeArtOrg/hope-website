@@ -44,7 +44,7 @@ export const GET: APIRoute = () => {
     {
       width: 1200,
       height: 630,
-      format: "webp",
+      format: "png",
       fonts,
     },
   );

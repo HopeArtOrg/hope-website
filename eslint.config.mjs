@@ -32,12 +32,15 @@ export default antfu(
     },
   },
   {
+    files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "**/*.svelte", "**/*.astro"],
     rules: {
-      "svelte/max-attributes-per-line": [
+      "perfectionist/sort-imports": [
         "error",
         {
-          singleline: 2,
-          multiline: 1,
+          tsconfig: {
+            filename: "tsconfig.json",
+            rootDir: ".",
+          },
         },
       ],
       "ts/no-redeclare": "off",
@@ -46,12 +49,22 @@ export default antfu(
       "antfu/no-top-level-await": ["off"],
       "node/prefer-global/process": ["off"],
       "node/no-process-env": ["error"],
-      "perfectionist/sort-imports": [
+    },
+  },
+  {
+    files: ["**/*.svelte"],
+    rules: {
+      "svelte/max-attributes-per-line": [
         "error",
         {
-          tsconfigRootDir: ".",
+          singleline: 2,
+          multiline: 1,
         },
       ],
+    },
+  },
+  {
+    rules: {
       "unicorn/filename-case": [
         "error",
         {

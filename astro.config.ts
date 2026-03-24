@@ -6,6 +6,8 @@ import { defineConfig } from "astro/config";
 import UnoCSS from "unocss/astro";
 
 export default defineConfig({
+  site: "https://hope-art.app",
+
   integrations: [
     UnoCSS(),
     svelte(),

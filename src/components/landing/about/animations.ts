@@ -158,8 +158,13 @@ export function setupHeadingRipple(
 
   gsap.set(jpLayer, { clipPath: "circle(0px at 0px 0px)" });
 
+  let rect = container.getBoundingClientRect();
+  const updateRect = () => {
+    rect = container.getBoundingClientRect();
+  };
+
   container.addEventListener("mouseenter", (e) => {
-    const rect = container.getBoundingClientRect();
+    updateRect();
     pos.x = toLayerX(e.clientX, rect);
     pos.y = toLayerY(e.clientY, rect);
     state.active = true;
@@ -177,7 +182,6 @@ export function setupHeadingRipple(
     if (!state.active)
       return;
 
-    const rect = container.getBoundingClientRect();
     const x = toLayerX(e.clientX, rect);
     const y = toLayerY(e.clientY, rect);
 
@@ -192,7 +196,6 @@ export function setupHeadingRipple(
   }, { signal });
 
   container.addEventListener("mouseleave", (e) => {
-    const rect = container.getBoundingClientRect();
     pos.x = toLayerX(e.clientX, rect);
     pos.y = toLayerY(e.clientY, rect);
     state.active = false;

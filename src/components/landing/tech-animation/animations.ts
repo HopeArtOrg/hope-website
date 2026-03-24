@@ -5,7 +5,7 @@ import { prefersReducedMotion } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const SCRUB_SMOOTHING = 4;
+const SCRUB_SMOOTHING = 1;
 const TRAVEL_DISTANCE = 300;
 
 export function animateTechRows(
@@ -15,6 +15,8 @@ export function animateTechRows(
   if (prefersReducedMotion()) {
     return () => {};
   }
+
+  rows.forEach(row => row.style.willChange = "transform");
 
   const centers = rows.map((row) => {
     const center = (row.scrollWidth - sectionEl.clientWidth) / 2;
