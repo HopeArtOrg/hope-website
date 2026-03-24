@@ -1,3 +1,5 @@
+import { LATEST_VERSION } from "@/lib/constants";
+
 export type DefaultOGProps = {
   title: string;
   description: string;
@@ -24,10 +26,10 @@ function CornerFrame({ position }: { position: "tl" | "tr" | "bl" | "br" }) {
   };
 
   const labels: Record<string, string> = {
-    tl: "SYS.CORE",
-    tr: "ZEN.MOD",
-    bl: "HOPE.VN",
-    br: "V1.0.0",
+    tl: "HUMAN.CREATIVITY",
+    tr: "ART_RULES",
+    bl: "HOPE.RE",
+    br: `V${LATEST_VERSION}`,
   };
 
   const labelStyles: Record<string, any> = {
@@ -163,7 +165,7 @@ function DefaultOG({ title, description }: DefaultOGProps) {
               color: zenColors.foreground,
             }}
           >
-            [ SYSTEM_DESIGN_MANIFESTO ]
+            [ BY_HUMAN_FOR_HUMAN ]
           </div>
 
           <div
