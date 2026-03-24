@@ -54,14 +54,14 @@
   }
 </script>
 
-<div class="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+<div class="flex flex-wrap gap-3 items-center justify-center lg:justify-start">
   <div class="inline-flex items-center">
     <Button
       size="lg"
       href={detectedPlatform?.href}
       target="_blank"
       rel="noopener noreferrer"
-      class="gap-2 rounded-r-none"
+      class="rounded-r-none gap-2"
       aria-label={detectedPlatform ? `${downloadForLabel} ${detectedPlatform.name}` : downloadLabel}
       onclick={detectedPlatform ? undefined : () => { downloadOpen = !downloadOpen; }}
     >
@@ -71,7 +71,7 @@
       />
       {#if detectedPlatform}
         {downloadForLabel} {detectedPlatform.name}
-        <span class="font-mono text-primary-foreground/70">{detectedPlatform.arch}</span>
+        <span class="text-primary-foreground/70 font-mono">{detectedPlatform.arch}</span>
       {:else}
         {downloadLabel}
       {/if}
@@ -82,7 +82,7 @@
           <Button
             {...props}
             size="lg"
-            class="rounded-l-none border-l border-primary-foreground/20 px-2.5"
+            class="px-2.5 border-l border-primary-foreground/20 rounded-l-none"
             aria-label="More download options"
           >
             <Icon
@@ -99,7 +99,7 @@
           {/if}
           <DropdownMenuItem
             onSelect={() => window.open(platform.href, "_blank", "noopener,noreferrer")}
-            class="flex cursor-pointer items-center gap-2"
+            class="flex gap-2 cursor-pointer items-center"
           >
             <Icon
               icon={platform.icon}
@@ -107,7 +107,7 @@
               aria-hidden="true"
             />
             {platform.name}
-            <span class="font-mono text-muted-foreground">{platform.arch}</span>
+            <span class="text-muted-foreground font-mono">{platform.arch}</span>
           </DropdownMenuItem>
         {/each}
       </DropdownMenuContent>
@@ -129,7 +129,7 @@
     />
     {githubLabel}
     {#if starCount !== null}
-      <span class="flex items-center gap-1 border-l border-border pl-2 text-muted-foreground">
+      <span class="text-muted-foreground pl-2 border-l border-border flex gap-1 items-center">
         <Icon
           icon="lucide:star"
           class="size-3.5"

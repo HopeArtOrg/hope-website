@@ -5,22 +5,42 @@ export default antfu(
     type: "app",
     astro: true,
     svelte: true,
+    react: {
+      files: ["**/*.tsx", "**/*.jsx"],
+    },
     typescript: true,
+    unocss: true,
+    yaml: {
+      overrides: {
+        "yaml/indent": ["error", 2],
+      },
+    },
     formatters: true,
     stylistic: {
       indent: 2,
       semi: true,
       quotes: "double",
     },
+    gitignore: true,
     ignores: [".pnpm-store/**"],
   },
   {
+    files: ["**/*.tsx", "**/*.jsx"],
     rules: {
-      "svelte/max-attributes-per-line": [
+      "react/no-implicit-key": "off",
+      "react/no-array-index-key": "off",
+    },
+  },
+  {
+    files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "**/*.svelte", "**/*.astro"],
+    rules: {
+      "perfectionist/sort-imports": [
         "error",
         {
-          singleline: 2,
-          multiline: 1,
+          tsconfig: {
+            filename: "tsconfig.json",
+            rootDir: ".",
+          },
         },
       ],
       "ts/no-redeclare": "off",
@@ -29,12 +49,22 @@ export default antfu(
       "antfu/no-top-level-await": ["off"],
       "node/prefer-global/process": ["off"],
       "node/no-process-env": ["error"],
-      "perfectionist/sort-imports": [
+    },
+  },
+  {
+    files: ["**/*.svelte"],
+    rules: {
+      "svelte/max-attributes-per-line": [
         "error",
         {
-          tsconfigRootDir: ".",
+          singleline: 2,
+          multiline: 1,
         },
       ],
+    },
+  },
+  {
+    rules: {
       "unicorn/filename-case": [
         "error",
         {

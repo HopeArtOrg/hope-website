@@ -10,7 +10,7 @@
   const { label }: ComingSoonBadgeProps = $props();
 </script>
 
-<div class="mt-8 flex items-center gap-2 text-sm text-muted-foreground sm:mt-12 sm:text-base">
+<div class="text-sm text-muted-foreground mt-8 flex gap-2 items-center sm:text-base sm:mt-12">
   <span>{label}</span>
   <Icon
     icon="cib:apple"

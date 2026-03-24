@@ -1,0 +1,86 @@
+---
+import type { Link, Meta, SEOProps } from "astro-seo";
+
+import { SEO } from "astro-seo";
+import { joinURL } from "ufo";
+
+import type { Locale } from "@/i18n/ui";
+
+import { defaultLang, showDefaultLang } from "@/i18n/ui";
+import { SITE_NAME } from "@/lib/constants";
+
+type Props = {
+  title: string;
+  description: string;
+  overrideTitle?: boolean;
+  canonical?: string;
+  ogImage?: string;
+  locale?: Locale;
+};
+
+function getDefaultOgImage(locale: Locale): string {
+  if (locale === defaultLang && !showDefaultLang) {
+    return "/og/og.png";
+  }
+  return `/${locale}/og/og.png`;
+}
+
+const {
+  description,
+  overrideTitle = false,
+  locale = defaultLang,
+  canonical = Astro.url.href,
+  ogImage = getDefaultOgImage(locale),
+  ...props
+} = Astro.props;
+
+const title = overrideTitle || props.title === SITE_NAME ? props.title : `${props.title} - ${SITE_NAME}`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = joinURL(Astro.site?.toString() ?? "", ogImage);
+
+const meta: Partial<Meta>[] = [
+  { name: "generator", content: Astro.generator },
+  { name: "author", content: SITE_NAME },
+  { name: "viewport", content: "width=device-width, initial-scale=1.0" },
+  { name: "color-scheme", content: "dark light" },
+  { name: "theme-color", content: "#e3e1d9", media: "(prefers-color-scheme: light)" },
+  { name: "theme-color", content: "#3a3936", media: "(prefers-color-scheme: dark)" },
+];
+
+const link: Partial<Link>[] = [
+  { rel: "sitemap", href: "/sitemap-index.xml" },
+  { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+];
+
+const openGraph: SEOProps["openGraph"] = {
+  basic: {
+    type: "website",
+    url: canonicalURL,
+    title,
+    image: ogImageURL,
+  },
+  optional: {
+    description,
+    locale,
+    siteName: SITE_NAME,
+  },
+};
+
+const twitter: SEOProps["twitter"] = {
+  card: "summary_large_image",
+  title,
+  description,
+  image: ogImageURL,
+};
+---
+
+<SEO
+  {title}
+  {description}
+  charset="UTF-8"
+  canonical={canonical}
+  extend={{ meta, link }}
+  {openGraph}
+  {twitter}
+/>
+<script is:inline src="/scripts/theme-init.js"></script>

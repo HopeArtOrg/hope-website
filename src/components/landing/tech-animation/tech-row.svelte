@@ -15,12 +15,12 @@
 
 {#each Array.from({ length: repeatCount }) as _, colIndex}
   <span
-    class="shrink-0 font-mono text-2xl font-semibold lowercase tracking-tight text-muted-foreground/15 select-none sm:text-3xl md:text-4xl"
+    class="text-2xl text-muted-foreground/15 tracking-tight font-mono font-semibold shrink-0 select-none lowercase md:text-4xl sm:text-3xl"
     style={colIndex === centerIndex ? `color: ${techColor}` : undefined}
   >
     {techName}
   </span>
-  <span class="shrink-0 text-muted-foreground/15" aria-hidden="true">
+  <span class="text-muted-foreground/15 shrink-0" aria-hidden="true">
     <Icon
       icon="lucide:star"
       class="size-1.5 fill-current stroke-0 sm:size-2"

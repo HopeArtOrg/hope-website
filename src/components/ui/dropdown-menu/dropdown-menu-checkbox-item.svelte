@@ -33,7 +33,7 @@
 >
   {#snippet children({ checked, indeterminate })}
     <span
-      class="pointer-events-none absolute start-2 flex size-3.5 items-center justify-center"
+      class="flex size-3.5 pointer-events-none items-center start-2 justify-center absolute"
     >
       {#if indeterminate}
         <Icon icon="lucide:minus" class="size-4" />

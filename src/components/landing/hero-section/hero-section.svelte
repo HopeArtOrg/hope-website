@@ -55,13 +55,15 @@
       return;
     }
 
-    const tl = gsap.timeline();
+    const tl = gsap.timeline({ delay: 0.1 });
     tl.add(animateBigBang(mobileStar, true));
     tl.add(() => {
-      animateFloatDown(heroContent!, 80, 1, 0.2);
-      auroraCleanup = setupAuroraBg(auroraRef!);
-      gsap.to(auroraRef!, { opacity: 1, duration: 1.5, ease: "power2.inOut" });
+      animateFloatDown(heroContent!, 80, 0.8, 0.15);
     });
+    tl.add(() => {
+      auroraCleanup = setupAuroraBg(auroraRef!);
+      gsap.to(auroraRef!, { opacity: 1, duration: 1.2, ease: "power2.inOut" });
+    }, "-=0.4");
 
     return () => {
       tl.kill();
@@ -86,22 +88,23 @@
       return;
     }
 
-    const master = gsap.timeline();
+    const master = gsap.timeline({ delay: 0.1 });
 
     gsap.set(desktopStar, { left: "0%", right: "0%" });
 
     master.add(animateBigBang(desktopStar));
-
     master.add(animateStarDrift(desktopStar, "33.333%"));
-
     master.add(animateBounce(desktopStar));
 
     master.add(() => {
-      animateFloatDown(heroContent!, 80, 1);
-      animateFloatDown(definitionRef!, 60, 1.2, 0.2);
-      auroraCleanup = setupAuroraBg(auroraRef!);
-      gsap.to(auroraRef!, { opacity: 1, duration: 1.5, ease: "power2.inOut" });
+      animateFloatDown(heroContent!, 80, 0.8);
+      animateFloatDown(definitionRef!, 60, 1, 0.15);
     });
+
+    master.add(() => {
+      auroraCleanup = setupAuroraBg(auroraRef!);
+      gsap.to(auroraRef!, { opacity: 1, duration: 1.2, ease: "power2.inOut" });
+    }, "-=0.5");
 
     return () => {
       master.kill();
@@ -116,11 +119,11 @@
 
 <section
   id="download"
-  class="relative mx-auto flex h-dvh max-w-screen-xl flex-col items-center justify-center overflow-hidden px-6"
+  class="mx-auto px-6 flex flex-col max-w-screen-xl items-center justify-center relative overflow-hidden h-dvh"
 >
   <canvas
     bind:this={auroraRef}
-    class="pointer-events-none absolute inset-0 h-full w-full"
+    class="h-full w-full pointer-events-none inset-0 absolute"
     style="opacity: 0;"
     aria-hidden="true"
   ></canvas>
@@ -133,16 +136,16 @@
 
   <div
     bind:this={desktopStar}
-    class="invisible pointer-events-none absolute inset-y-0 left-0 right-0 hidden items-center justify-center lg:flex"
+    class="hidden invisible pointer-events-none items-center inset-y-0 left-0 right-0 justify-center absolute lg:flex"
   >
-    <StarIcon class="h-[80dvh] w-[80dvh] text-[oklch(0.18_0.01_60/0.35)] dark:text-[oklch(0.55_0.04_255/0.25)] xl:h-[90dvh] xl:w-[90dvh]" />
+    <StarIcon class="text-[oklch(0.18_0.01_60/0.35)] h-[80dvh] w-[80dvh] dark:text-[oklch(0.55_0.04_255/0.25)] xl:h-[90dvh] xl:w-[90dvh]" />
   </div>
 
   <div
     bind:this={mobileStar}
-    class="invisible relative flex items-center justify-center lg:hidden"
+    class="flex invisible items-center justify-center relative lg:hidden"
   >
-    <StarIcon class="size-48 text-[oklch(0.18_0.01_60/0.45)] dark:text-[oklch(0.55_0.04_255/0.35)] sm:size-64" />
+    <StarIcon class="text-[oklch(0.18_0.01_60/0.45)] size-48 dark:text-[oklch(0.55_0.04_255/0.35)] sm:size-64" />
   </div>
 
   <DefinitionPanel
@@ -151,19 +154,19 @@
     vertical
     class="bottom-32"
   >
-    <span class="text-right text-sm">
+    <span class="text-sm text-right">
       Hope
       <Icon
         icon="lucide:star"
-        class="inline size-3.5"
+        class="size-3.5 inline"
       />
       -
       <span class="font-mono">/h&#x0259;&#x028A;p/</span>
       <br />
       <span class="italic">noun</span>
     </span>
-    <div class="h-8 w-px self-end bg-muted-foreground/30"></div>
-    <span class="text-right text-sm italic">
+    <div class="bg-muted-foreground/30 h-8 w-px self-end"></div>
+    <span class="text-sm text-right italic">
       [uncountable] a reason
       <br />
       to believe that something
@@ -174,20 +177,20 @@
 
   <div
     bind:this={heroContent}
-    class="invisible relative z-10 flex w-full flex-col items-center gap-6 lg:items-start"
+    class="flex flex-col gap-6 w-full invisible items-center relative z-10 lg:items-start"
   >
     <h1
       aria-label="Hope:Re"
-      class="font-mono text-5xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl"
+      class="text-5xl text-foreground tracking-tight font-bold font-mono lg:text-7xl sm:text-6xl"
     >
       Hope:Re
     </h1>
 
-    <p class="text-center text-lg text-muted-foreground sm:text-xl lg:text-left">
+    <p class="text-lg text-muted-foreground text-center sm:text-xl lg:text-left">
       {description}
     </p>
 
-    <hr class="h-px w-24 border-0 bg-border sm:w-32" />
+    <hr class="border-0 bg-border h-px w-24 sm:w-32" />
 
     <DownloadActions
       {downloadLabel}
@@ -198,7 +201,7 @@
     <ComingSoonBadge label={comingSoonLabel} />
   </div>
 
-  <div class="absolute inset-x-0 bottom-8 z-10 flex justify-center sm:bottom-12">
+  <div class="flex inset-x-0 bottom-8 justify-center absolute z-10 sm:bottom-12">
     <ScrollDownPill onclick={scrollToNextSection} />
   </div>
 </section>

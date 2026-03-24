@@ -19,7 +19,7 @@
 </script>
 
 <div
-  class="inline-flex h-8 w-fit items-center rounded-sm bg-muted p-0.5"
+  class="p-0.5 rounded-sm bg-muted inline-flex h-8 w-fit items-center"
   role="radiogroup"
   aria-label="Theme"
 >
@@ -28,7 +28,7 @@
       role="radio"
       aria-checked={themeStore.current === option.value}
       aria-label={option.value}
-      class="inline-flex h-7 cursor-pointer items-center justify-center gap-1.5 rounded-sm px-2.5 text-xs font-medium transition-all duration-200 {themeStore.current === option.value ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}"
+      class="text-xs font-medium px-2.5 rounded-sm inline-flex gap-1.5 h-7 cursor-pointer transition-all duration-200 items-center justify-center {themeStore.current === option.value ? "text-foreground bg-background shadow-sm" : "text-muted-foreground hover:text-foreground"}"
       onclick={() => (themeStore.current = option.value)}
     >
       <Icon

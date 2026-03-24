@@ -100,8 +100,15 @@ export function setupImageTilt(
   const controller = new AbortController();
   const { signal } = controller;
 
+  let rect = container.getBoundingClientRect();
+  const updateRect = () => {
+    rect = container.getBoundingClientRect();
+  };
+
+  window.addEventListener("resize", updateRect, { signal, passive: true });
+  container.addEventListener("mouseenter", updateRect, { signal, passive: true });
+
   container.addEventListener("mousemove", (e) => {
-    const rect = container.getBoundingClientRect();
     const offsetX = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
     const offsetY = ((rect.top + rect.height / 2) - e.clientY) / (rect.height / 2);
     const rx = offsetY * AUTHOR_TILT_MAX_DEG;

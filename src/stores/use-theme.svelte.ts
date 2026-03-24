@@ -50,5 +50,9 @@ export function useThemeStore() {
     set current(value: Theme) {
       theme = value;
     },
+    toggle() {
+      const resolved = resolveTheme(theme);
+      theme = resolved === "dark" ? "light" : "dark";
+    },
   };
 }

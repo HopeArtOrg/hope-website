@@ -20,13 +20,13 @@ const locales = Object.keys(languages).map(code => ({
 ---
 
 <footer class="border-t border-border/50 bg-background">
-  <div class="mx-auto grid max-w-screen-xl grid-cols-1 gap-8 px-6 py-10 sm:grid-cols-2 lg:grid-cols-4 sm:py-14">
+  <div class="mx-auto px-6 py-10 gap-8 grid grid-cols-1 max-w-screen-xl sm:py-14 lg:grid-cols-4 sm:grid-cols-2">
     <div class="flex flex-col gap-3">
       <a
         href="https://github.com/HopeArtOrg/hope-website"
         target="_blank"
         rel="noopener noreferrer"
-        class="w-fit text-muted-foreground transition-colors duration-300 hover:text-primary"
+        class="text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
         aria-label="GitHub"
       >
         <Icon name="lucide:github" class="size-5" />
@@ -48,22 +48,22 @@ const locales = Object.keys(languages).map(code => ({
     </div>
 
     <div class="flex flex-col gap-3">
-      <span class="text-sm font-bold text-foreground">{t("footer.miscellaneous")}</span>
+      <span class="text-sm text-foreground font-bold">{t("footer.miscellaneous")}</span>
       <a
         href="mailto:trananhquan1009@gmail.com"
-        class="w-fit text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
+        class="text-sm text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
       >
         {t("footer.email")}
       </a>
       <a
         href={getLocalePath(lang, "/terms")}
-        class="w-fit text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
+        class="text-sm text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
       >
         {t("footer.terms")}
       </a>
       <a
         href={getLocalePath(lang, "/privacy")}
-        class="w-fit text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
+        class="text-sm text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
       >
         {t("footer.privacy")}
       </a>
@@ -71,19 +71,19 @@ const locales = Object.keys(languages).map(code => ({
         href="/feedback"
         target="_blank"
         rel="noopener noreferrer"
-        class="w-fit text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
+        class="text-sm text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
       >
         {t("footer.feedback")}
       </a>
     </div>
 
     <div class="flex flex-col gap-3">
-      <span class="text-sm font-bold text-foreground">{t("footer.blog")}</span>
+      <span class="text-sm text-foreground font-bold">{t("footer.blog")}</span>
       <a
         href="/sitemap-index.xml"
         target="_blank"
         rel="noopener noreferrer"
-        class="w-fit text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
+        class="text-sm text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
       >
         {t("footer.sitemap")}
       </a>
@@ -91,7 +91,7 @@ const locales = Object.keys(languages).map(code => ({
         href="/rss.xml"
         target="_blank"
         rel="noopener noreferrer"
-        class="w-fit text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
+        class="text-sm text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
       >
         {t("footer.rss")}
       </a>
@@ -102,12 +102,12 @@ const locales = Object.keys(languages).map(code => ({
         href="https://github.com/HopeArtOrg"
         target="_blank"
         rel="noopener noreferrer"
-        class="group flex w-fit items-center gap-1"
+        class="flex gap-1 w-fit items-center group"
       >
-        <StarIcon class="size-8 text-muted-foreground transition-colors duration-300 group-hover:text-foreground" />
-        <span class="font-mono text-sm font-medium text-muted-foreground transition-colors duration-300 group-hover:text-foreground">Hope Art Org</span>
+        <StarIcon class="text-muted-foreground size-8 transition-colors duration-300 group-hover:text-foreground" />
+        <span class="text-sm text-muted-foreground font-medium font-mono transition-colors duration-300 group-hover:text-foreground">Hope Art Org</span>
       </a>
-      <hr class="h-px w-28 border-0 bg-border" />
+      <hr class="border-0 bg-border h-px w-28" />
       <LanguageSwitch
         currentLocale={lang}
         locales={locales}

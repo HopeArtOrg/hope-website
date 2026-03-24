@@ -30,3 +30,7 @@ pnpm-debug.log*
 .opencode/
 AGENTS.md
 opencode.json
+
+# gemini
+GEMINI.md
+.gemini/
