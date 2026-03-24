@@ -104,6 +104,7 @@
       <button
         type="button"
         class="text-inherit font-inherit p-0 bg-transparent cursor-pointer select-none"
+        aria-label="Reveal effects for {name}"
         onclick={handleNameClick}
       >
         {name}
@@ -120,10 +121,10 @@
           rel="noopener noreferrer"
           class="text-xs font-medium px-3 py-1.5 border border-border/50 rounded-sm inline-flex gap-1.5 transition-colors duration-200 items-center sm:text-sm hover:border-border"
           style="color: {link.color};"
+          aria-label="{resolveLabel(link)} (opens in a new tab)"
         >
           <Icon icon={link.icon} class="size-3.5 sm:size-4" />
           {resolveLabel(link)}
-          <span class="sr-only">(opens in a new tab)</span>
         </a>
       {/each}
     </div>

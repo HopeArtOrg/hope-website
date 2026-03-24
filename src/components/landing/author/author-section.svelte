@@ -120,17 +120,17 @@
       opts={{ loop: true, align: "center" }}
       setApi={setCarouselApi}
       class="w-full"
-      aria-label={heading}
+      aria-label="Authors Showcase"
     >
       <CarouselContent>
-        <CarouselItem aria-label="{haruyuName} - 1 / 2">
+        <CarouselItem aria-label="Slide 1 of 2: {haruyuName}">
           <AuthorSlide
             {heading}
             name={haruyuName}
             quote={haruyuQuote}
             links={HARUYU_LINKS}
             {resolveLabel}
-            slideLabel="{haruyuName} - 1 / 2"
+            slideLabel="Profile of {haruyuName}"
           >
             {#snippet frontImage()}
               <enhanced:img
@@ -151,14 +151,14 @@
           </AuthorSlide>
         </CarouselItem>
 
-        <CarouselItem aria-label="{noahName} - 2 / 2">
+        <CarouselItem aria-label="Slide 2 of 2: {noahName}">
           <AuthorSlide
             {heading}
             name={noahName}
             quote={noahQuote}
             links={NOAH_LINKS}
             {resolveLabel}
-            slideLabel="{noahName} - 2 / 2"
+            slideLabel="Profile of {noahName}"
           >
             {#snippet frontImage()}
               <enhanced:img
