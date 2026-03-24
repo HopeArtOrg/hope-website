@@ -1,6 +1,6 @@
 import gsap from "gsap";
 
-import { STAR_SVG_PATH, STAR_SVG_STROKE_WIDTH } from "@/lib/constants";
+import { createMiniStar } from "@/lib/animation-utils";
 
 const FRAGMENT_COUNT = 6;
 const DESKTOP_STAR_COUNT = 20;
@@ -25,29 +25,6 @@ type UniverseResult = {
   stars: StarMeta[];
   heroStar: StarMeta;
 };
-
-function createMiniStar(
-  container: HTMLElement,
-  size: number,
-  color: string,
-): HTMLDivElement {
-  const wrapper = document.createElement("div");
-  wrapper.style.cssText = `position:absolute;top:50%;left:50%;pointer-events:none;opacity:0;color:${color}`;
-  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  svg.setAttribute("viewBox", "0 0 3000 3000");
-  svg.setAttribute("fill", "none");
-  svg.style.width = `${size}px`;
-  svg.style.height = `${size}px`;
-  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-  path.setAttribute("d", STAR_SVG_PATH);
-  path.setAttribute("fill", "none");
-  path.setAttribute("stroke", "currentColor");
-  path.setAttribute("stroke-width", STAR_SVG_STROKE_WIDTH);
-  svg.appendChild(path);
-  wrapper.appendChild(svg);
-  container.appendChild(wrapper);
-  return wrapper;
-}
 
 function cleanupElements(elements: HTMLElement[]) {
   elements.forEach(el => el.remove());

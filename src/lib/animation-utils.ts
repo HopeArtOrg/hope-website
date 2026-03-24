@@ -14,16 +14,10 @@ ScrollTrigger.config({
 export function createMiniStar(
   container: HTMLElement,
   size: number,
-  color?: string,
+  color: string = "currentColor",
 ): HTMLDivElement {
   const wrapper = document.createElement("div");
-  wrapper.style.cssText = `position:absolute;top:50%;left:50%;pointer-events:none;opacity:0;`;
-  if (color) {
-    wrapper.style.color = color;
-  }
-  else {
-    wrapper.style.color = "currentColor";
-  }
+  wrapper.style.cssText = `position:absolute;top:50%;left:50%;pointer-events:none;opacity:0;color:${color}`;
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("viewBox", "0 0 3000 3000");
   svg.setAttribute("fill", "none");

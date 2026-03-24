@@ -11,24 +11,15 @@
 </script>
 
 <script lang="ts">
-  /* eslint-disable svelte/no-at-html-tags */
-  import Icon from "@iconify/svelte";
   import gsap from "gsap";
 
   import { CornerBrackets } from "@/components/ui/corner-brackets";
-  import { DefinitionPanel } from "@/components/ui/definition-panel";
   import { prefersReducedMotion } from "@/lib/utils";
 
-  import AboutCta from "./about-cta.svelte";
-  import AboutHeading from "./about-heading.svelte";
-  import AboutImages from "./about-images.svelte";
-  import {
-    animateDoodleArrows,
-    animateScrollReveal,
-    createBringForwardState,
-    setupHeadingRipple,
-    setupImageInteractions,
-  } from "./animations";
+  import AboutContent from "./about-content.svelte";
+  import AboutDefinition from "./about-definition.svelte";
+  import AboutVisuals from "./about-visuals.svelte";
+  import { animateScrollReveal } from "./animations";
 
   const {
     heading,
@@ -44,22 +35,6 @@
   let leftCol = $state<HTMLDivElement | null>(null);
   let rightCol = $state<HTMLDivElement | null>(null);
   let definitionRef = $state<HTMLDivElement | null>(null);
-  let appImgRef = $state<HTMLImageElement | null>(null);
-  let repoBtnRef = $state<HTMLButtonElement | null>(null);
-  let doodleArrow1Ref = $state<HTMLImageElement | null>(null);
-  let doodleArrow2Ref = $state<HTMLImageElement | null>(null);
-  let doodleArrow3Ref = $state<HTMLImageElement | null>(null);
-  let headingContainerRef = $state<HTMLDivElement | null>(null);
-  let headingJpLayerRef = $state<HTMLSpanElement | null>(null);
-
-  const bringForwardState = createBringForwardState();
-
-  $effect(() => {
-    if (!appImgRef || !repoBtnRef)
-      return;
-
-    return setupImageInteractions(appImgRef, repoBtnRef, bringForwardState);
-  });
 
   $effect(() => {
     if (!sectionEl || !leftCol || !rightCol)
@@ -75,20 +50,6 @@
 
     return animateScrollReveal(sectionEl, leftCol, rightCol, definitionRef ?? undefined);
   });
-
-  $effect(() => {
-    if (!rightCol || !doodleArrow1Ref || !doodleArrow2Ref || !doodleArrow3Ref)
-      return;
-
-    return animateDoodleArrows(rightCol, [doodleArrow1Ref, doodleArrow2Ref, doodleArrow3Ref]);
-  });
-
-  $effect(() => {
-    if (!headingContainerRef || !headingJpLayerRef)
-      return;
-
-    return setupHeadingRipple(headingContainerRef, headingJpLayerRef);
-  });
 </script>
 
 <section
@@ -98,67 +59,22 @@
 >
   <CornerBrackets corners={["tl", "br"]} />
 
-  <DefinitionPanel
-    bind:ref={definitionRef}
-    position="left"
-    class="font-notojp"
-  >
-    <span class="text-sm">
-      <span class="text-base font-semibold">望</span>
-      <Icon
-        icon="lucide:star"
-        class="size-3.5 inline"
-      />
-      <span class="text-xs font-mono font-primary">/bou/</span>
-      <br />
-      <span class="italic">名詞</span>
-    </span>
-    <div class="bg-muted-foreground/30 h-px w-8"></div>
-    <span class="text-sm leading-relaxed italic">
-      望み、願い、希望。
-      <br />
-      良いことが起こると
-      <br />
-      信じる理由。
-    </span>
-  </DefinitionPanel>
+  <AboutDefinition bind:ref={definitionRef} />
 
   <div class="gap-8 grid w-full items-center lg:gap-16 sm:gap-12 lg:grid-cols-2">
-    <div
-      bind:this={leftCol}
-      class="flex invisible items-center justify-center order-2 relative lg:order-1"
-      style="perspective: 800px;"
-    >
-      <AboutImages
-        {appScreenshotAlt}
-        {repoScreenshotAlt}
-        bind:appImgRef
-        bind:repoBtnRef
-      />
-    </div>
+    <AboutVisuals
+      {appScreenshotAlt}
+      {repoScreenshotAlt}
+      bind:leftCol
+    />
 
-    <div
-      bind:this={rightCol}
-      class="text-center flex flex-col invisible items-center order-1 lg:text-left lg:items-start lg:order-2"
-    >
-      <AboutHeading
-        {heading}
-        bind:headingContainerRef
-        bind:headingJpLayerRef
-      />
-      <p class="text-sm text-muted-foreground leading-relaxed mt-3 max-w-lg md:text-lg sm:text-base md:mt-6 sm:mt-4">
-        {@html description1}
-      </p>
-      <p class="text-sm text-muted-foreground leading-relaxed mt-2 max-w-lg md:text-lg sm:text-base md:mt-3">
-        {@html description2}
-      </p>
-      <AboutCta
-        {ctaLabel}
-        {ctaHref}
-        bind:doodleArrow1Ref
-        bind:doodleArrow2Ref
-        bind:doodleArrow3Ref
-      />
-    </div>
+    <AboutContent
+      {heading}
+      {description1}
+      {description2}
+      {ctaLabel}
+      {ctaHref}
+      bind:rightCol
+    />
   </div>
 </section>
