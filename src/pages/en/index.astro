@@ -1,4 +1,6 @@
 ---
+import { getImage } from "astro:assets";
+
 import { AboutSection } from "@/components/landing/about";
 import { AuthorSection } from "@/components/landing/author";
 import { DemoSection } from "@/components/landing/demo";
@@ -6,9 +8,25 @@ import { HeroSection } from "@/components/landing/hero-section";
 import { TechAnimationSection } from "@/components/landing/tech-animation";
 import { getLangFromUrl, getLocalePath, useTranslations } from "@/i18n/utils";
 import BaseLayout from "@/layouts/base-layout.astro";
+import { DEMO_IMAGES } from "@/lib/constants";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+const optimizedDemoImages = await Promise.all(
+  DEMO_IMAGES.map(async (image) => {
+    const optimized = await getImage({
+      src: image.src,
+      width: 800,
+      format: "webp",
+      quality: 80,
+    });
+    return {
+      src: optimized.src,
+      alt: t(image.alt as any),
+    };
+  }),
+);
 ---
 
 <BaseLayout>
@@ -38,6 +56,7 @@ const t = useTranslations(lang);
     heading={t("demo.heading")}
     description={t("demo.description")}
     courtesy={t("demo.courtesy")}
+    images={optimizedDemoImages}
     client:visible
   />
   <AuthorSection

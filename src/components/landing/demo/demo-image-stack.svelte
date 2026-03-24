@@ -32,7 +32,7 @@
       style="z-index: {i + 1}; transform: translate({-(DEMO_IMAGES.length - 1 - i) * DEMO_IMAGE_STACK_OFFSET_X}px, {(DEMO_IMAGES.length - 1 - i) * DEMO_IMAGE_STACK_OFFSET_Y}px);"
     >
       <img
-        src={image.src}
+        src={typeof image.src === "string" ? image.src : image.src.src}
         alt=""
         loading="lazy"
         decoding="async"
