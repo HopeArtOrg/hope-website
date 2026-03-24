@@ -1,11 +1,11 @@
 import type { TranslationKey } from "@/i18n/ui";
 
-import sample1 from "@/assets/demo/sample-1.jpg";
-import sample2 from "@/assets/demo/sample-2.png";
-import sample3 from "@/assets/demo/sample-3.png";
-import sample4 from "@/assets/demo/sample-4.png";
-import sample5 from "@/assets/demo/sample-5.png";
-import sample6 from "@/assets/demo/sample-6.jpg";
+import sample1 from "@/components/landing/demo/assets/sample-1.jpg";
+import sample2 from "@/components/landing/demo/assets/sample-2.png";
+import sample3 from "@/components/landing/demo/assets/sample-3.png";
+import sample4 from "@/components/landing/demo/assets/sample-4.png";
+import sample5 from "@/components/landing/demo/assets/sample-5.png";
+import sample6 from "@/components/landing/demo/assets/sample-6.jpg";
 
 export const SITE_NAME = "Hope Art";
 export const THEME_STORAGE_KEY = "hope-theme";
