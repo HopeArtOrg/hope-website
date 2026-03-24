@@ -1,22 +1,22 @@
 import gsap from "gsap";
 import { createNoise3D } from "simplex-noise";
 
-const GRID_STEP_DESKTOP = 16;
-const GRID_STEP_MOBILE = 24;
+const GRID_STEP_DESKTOP = 12;
+const GRID_STEP_MOBILE = 20;
 const THRESHOLD_COUNT = 3;
 const THRESHOLD_MIN = -0.6;
 const THRESHOLD_MAX = 0.6;
-const NOISE_SCALE = 0.0015;
-const Z_SPEED = 0.00012;
+const NOISE_SCALE = 0.0018;
+const Z_SPEED = 0.00015;
 const LINE_WIDTH_MIN = 0.4;
 const LINE_WIDTH_MAX = 1.0;
 const LINE_OPACITY_MIN = 0.1;
 const LINE_OPACITY_MAX = 0.22;
-const MOUSE_RADIUS = 220;
-const MOUSE_STRENGTH = 0.45;
+const MOUSE_RADIUS = 200;
+const MOUSE_STRENGTH = 0.4;
 const MOUSE_LERP = 0.08;
-const MOUSE_FADE_DURATION = 0.8;
-const RESIZE_DEBOUNCE = 250;
+const MOUSE_FADE_DURATION = 0.6;
+const RESIZE_DEBOUNCE = 200;
 const MOUSE_R_SQ = MOUSE_RADIUS * MOUSE_RADIUS;
 
 function buildThresholds() {
