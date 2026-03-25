@@ -19,7 +19,7 @@
 >
   <Icon
     {icon}
-    class=":uno: size-5 transition-all duration-500 ease-in-out group-focus-visible:opacity-0 group-hover:opacity-0 group-focus-visible:scale-0 group-hover:scale-0 group-focus-visible:absolute group-hover:absolute"
+    class=":uno: size-5 transition-all duration-500 ease-in-out group-focus-visible:opacity-0 group-hover:opacity-0 group-focus-visible:scale-0 group-hover:scale-0"
     aria-hidden="true"
   />
   <span
