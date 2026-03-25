@@ -9,7 +9,11 @@ export default antfu(
       files: ["**/*.tsx", "**/*.jsx"],
     },
     typescript: true,
-    unocss: true,
+    unocss: {
+      overrides: {
+        "@unocss/enforce-class-compile": "warn",
+      },
+    },
     yaml: {
       overrides: {
         "yaml/indent": ["error", 2],

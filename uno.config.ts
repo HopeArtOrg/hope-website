@@ -6,6 +6,7 @@ import {
   defineConfig,
   presetWebFonts,
   presetWind4,
+  transformerCompileClass,
 } from "unocss";
 import presetAnimations from "unocss-preset-animations";
 import { presetShadcn } from "unocss-preset-shadcn";
@@ -130,4 +131,8 @@ export default defineConfig({
       ],
     },
   },
+
+  transformers: [
+    transformerCompileClass(),
+  ],
 });
