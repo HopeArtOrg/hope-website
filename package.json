@@ -24,6 +24,7 @@
     "astro-icon": "^1.1.5",
     "astro-seo": "^1.1.0",
     "gsap": "^3.14.2",
+    "sharp": "^0.34.5",
     "simplex-noise": "^4.0.3",
     "svelte": "^5.55.0",
     "ufo": "^1.6.3",
