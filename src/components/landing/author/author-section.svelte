@@ -89,7 +89,7 @@
     bind:ref={definitionRef}
     position="left"
     vertical
-    class=":uno: font-primary"
+    class="font-primary"
   >
     <span class=":uno: text-sm text-right">
       Hi vọng
@@ -119,7 +119,7 @@
     <Carousel
       opts={{ loop: true, align: "center" }}
       setApi={setCarouselApi}
-      class=":uno: w-full"
+      class="w-full"
       aria-label="Authors Showcase"
     >
       <CarouselContent>

@@ -62,7 +62,7 @@
       href={detectedPlatform?.href}
       target="_blank"
       rel="noopener noreferrer"
-      class=":uno: rounded-r-none gap-2"
+      class="rounded-r-none gap-2"
       aria-label={detectedPlatform ? `${downloadForLabel} ${detectedPlatform.name}` : downloadLabel}
       onclick={detectedPlatform ? undefined : () => { downloadOpen = !downloadOpen; }}
     >
@@ -83,7 +83,7 @@
           <Button
             {...props}
             size="lg"
-            class=":uno: px-2.5 border-l border-primary-foreground/20 rounded-l-none"
+            class="px-2.5 border-l border-primary-foreground/20 rounded-l-none"
             aria-label="More download options"
           >
             <Icon
@@ -100,7 +100,7 @@
           {/if}
           <DropdownMenuItem
             onSelect={() => window.open(platform.href, "_blank", "noopener,noreferrer")}
-            class=":uno: flex gap-2 cursor-pointer items-center"
+            class="flex gap-2 cursor-pointer items-center"
           >
             <Icon
               icon={platform.icon}
@@ -121,7 +121,7 @@
     href={GITHUB_REPO_URL}
     target="_blank"
     rel="noopener noreferrer"
-    class=":uno: gap-2"
+    class="gap-2"
     aria-label={githubLabel}
   >
     <Icon
