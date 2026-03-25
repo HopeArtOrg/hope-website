@@ -42,7 +42,7 @@
   <div class=":uno: px-4 border border-border/50 rounded-xl bg-background/60 flex h-14 w-full max-w-screen-xl pointer-events-auto ring-1 ring-white/10 ring-inset shadow-lg items-center justify-between backdrop-blur-xl backdrop-saturate-150 sm:px-12 sm:h-20">
     <a
       href={homePath}
-      class=":uno: flex gap-2 items-center group sm:gap-3"
+      class="group :uno: flex gap-2 items-center sm:gap-3"
     >
       <img
         src="/logo.svg"

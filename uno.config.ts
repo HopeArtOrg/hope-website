@@ -114,11 +114,6 @@ export default defineConfig({
     }),
   ],
 
-  rules: [
-    ["group", { "--un-group": "1" }],
-    ["peer", { "--un-peer": "1" }],
-  ],
-
   safelist: [
     "container",
   ],
