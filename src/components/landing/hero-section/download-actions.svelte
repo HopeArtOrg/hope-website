@@ -54,24 +54,24 @@
   }
 </script>
 
-<div class="flex flex-wrap gap-3 items-center justify-center lg:justify-start">
-  <div class="inline-flex items-center">
+<div class=":uno: flex flex-wrap gap-3 items-center justify-center lg:justify-start">
+  <div class=":uno: inline-flex items-center">
     <Button
       size="lg"
       href={detectedPlatform?.href}
       target="_blank"
       rel="noopener noreferrer"
-      class="rounded-r-none gap-2"
+      class=":uno: rounded-r-none gap-2"
       aria-label={detectedPlatform ? `${downloadForLabel} ${detectedPlatform.name}` : downloadLabel}
       onclick={detectedPlatform ? undefined : () => { downloadOpen = !downloadOpen; }}
     >
       <Icon
         icon={detectedPlatform?.icon ?? "lucide:download"}
-        class="size-4"
+        class=":uno: size-4"
       />
       {#if detectedPlatform}
         {downloadForLabel} {detectedPlatform.name}
-        <span class="text-primary-foreground/70 font-mono">{detectedPlatform.arch}</span>
+        <span class=":uno: text-primary-foreground/70 font-mono">{detectedPlatform.arch}</span>
       {:else}
         {downloadLabel}
       {/if}
@@ -82,12 +82,12 @@
           <Button
             {...props}
             size="lg"
-            class="px-2.5 border-l border-primary-foreground/20 rounded-l-none"
+            class=":uno: px-2.5 border-l border-primary-foreground/20 rounded-l-none"
             aria-label="More download options"
           >
             <Icon
               icon="lucide:chevron-down"
-              class="size-3.5 transition-transform duration-200 {downloadOpen ? "rotate-180" : ""}"
+              class=":uno: size-3.5 transition-transform duration-200 {downloadOpen ? "rotate-180" : ""}"
             />
           </Button>
         {/snippet}
@@ -99,15 +99,15 @@
           {/if}
           <DropdownMenuItem
             onSelect={() => window.open(platform.href, "_blank", "noopener,noreferrer")}
-            class="flex gap-2 cursor-pointer items-center"
+            class=":uno: flex gap-2 cursor-pointer items-center"
           >
             <Icon
               icon={platform.icon}
-              class="size-4"
+              class=":uno: size-4"
               aria-hidden="true"
             />
             {platform.name}
-            <span class="text-muted-foreground font-mono">{platform.arch}</span>
+            <span class=":uno: text-muted-foreground font-mono">{platform.arch}</span>
           </DropdownMenuItem>
         {/each}
       </DropdownMenuContent>
@@ -120,19 +120,19 @@
     href={GITHUB_REPO_URL}
     target="_blank"
     rel="noopener noreferrer"
-    class="gap-2"
+    class=":uno: gap-2"
     aria-label={githubLabel}
   >
     <Icon
       icon="lucide:github"
-      class="size-4"
+      class=":uno: size-4"
     />
     {githubLabel}
     {#if starCount !== null}
-      <span class="text-muted-foreground pl-2 border-l border-border flex gap-1 items-center">
+      <span class=":uno: text-muted-foreground pl-2 border-l border-border flex gap-1 items-center">
         <Icon
           icon="lucide:star"
-          class="size-3.5"
+          class=":uno: size-3.5"
         />
         {formatStars(starCount)}
       </span>

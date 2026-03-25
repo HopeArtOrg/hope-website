@@ -19,5 +19,5 @@
   )}
   {...restProps}
 >
-  <div class="rounded-tl-sm bg-border h-2 w-2 shadow-md rotate-45 top-[60%] relative"></div>
+  <div class=":uno: rounded-tl-sm bg-border h-2 w-2 shadow-md rotate-45 top-[60%] relative"></div>
 </NavigationMenuPrimitive.Indicator>

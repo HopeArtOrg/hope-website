@@ -81,7 +81,7 @@
 <section
   bind:this={sectionEl}
   id="author"
-  class="mx-auto px-4 py-12 flex max-w-screen-xl items-center justify-center relative min-h-dvh lg:py-24 sm:px-6 sm:py-16"
+  class=":uno: mx-auto px-4 py-12 flex max-w-screen-xl items-center justify-center relative min-h-dvh lg:py-24 sm:px-6 sm:py-16"
 >
   <CornerBrackets />
 
@@ -89,21 +89,21 @@
     bind:ref={definitionRef}
     position="left"
     vertical
-    class="font-primary"
+    class=":uno: font-primary"
   >
-    <span class="text-sm text-right">
+    <span class=":uno: text-sm text-right">
       Hi vọng
       <Icon
         icon="lucide:star"
-        class="size-3.5 inline"
+        class=":uno: size-3.5 inline"
       />
       <br />
-      <span class="font-mono">/hi vɔŋ/</span>
+      <span class=":uno: font-mono">/hi vɔŋ/</span>
       <br />
-      <span class="italic">danh từ</span>
+      <span class=":uno: italic">danh từ</span>
     </span>
-    <div class="bg-muted-foreground/30 h-8 w-px self-end"></div>
-    <span class="text-sm leading-relaxed text-right italic">
+    <div class=":uno: bg-muted-foreground/30 h-8 w-px self-end"></div>
+    <span class=":uno: text-sm leading-relaxed text-right italic">
       Tin tưởng, mong chờ
       <br />
       điều tốt đẹp sẽ đến
@@ -114,12 +114,12 @@
 
   <div
     bind:this={carouselWrapper}
-    class="w-full invisible"
+    class=":uno: w-full invisible"
   >
     <Carousel
       opts={{ loop: true, align: "center" }}
       setApi={setCarouselApi}
-      class="w-full"
+      class=":uno: w-full"
       aria-label="Authors Showcase"
     >
       <CarouselContent>
@@ -137,7 +137,7 @@
                 src="./assets/haru-1.jpg"
                 alt={haruyuName}
                 loading="lazy"
-                class="h-full w-full object-cover"
+                class=":uno: h-full w-full object-cover"
               />
             {/snippet}
             {#snippet backImage()}
@@ -145,7 +145,7 @@
                 src="./assets/haru-2.jpg"
                 alt={haruyuName}
                 loading="lazy"
-                class="h-full w-full object-cover"
+                class=":uno: h-full w-full object-cover"
               />
             {/snippet}
           </AuthorSlide>
@@ -165,7 +165,7 @@
                 src="./assets/noah-1.jpg"
                 alt={noahName}
                 loading="lazy"
-                class="h-full w-full object-cover"
+                class=":uno: h-full w-full object-cover"
               />
             {/snippet}
             {#snippet backImage()}
@@ -173,31 +173,31 @@
                 src="./assets/noah-2.jpg"
                 alt={noahName}
                 loading="lazy"
-                class="h-full w-full object-cover"
+                class=":uno: h-full w-full object-cover"
               />
             {/snippet}
           </AuthorSlide>
         </CarouselItem>
       </CarouselContent>
 
-      <div class="mt-8 flex gap-4 items-center justify-center sm:mt-12">
+      <div class=":uno: mt-8 flex gap-4 items-center justify-center sm:mt-12">
         <button
           type="button"
-          class="text-muted-foreground border border-border/50 rounded-full inline-flex size-9 cursor-pointer transition-colors duration-200 items-center justify-center hover:text-foreground hover:border-border disabled:opacity-50 disabled:pointer-events-none"
+          class=":uno: text-muted-foreground border border-border/50 rounded-full inline-flex size-9 cursor-pointer transition-colors duration-200 items-center justify-center hover:text-foreground hover:border-border disabled:opacity-50 disabled:pointer-events-none"
           onclick={() => carouselApi?.scrollPrev()}
           disabled={!carouselApi?.canScrollPrev()}
           aria-label={prevSlideLabel}
         >
-          <Icon icon="lucide:arrow-left" class="size-4" />
+          <Icon icon="lucide:arrow-left" class=":uno: size-4" />
         </button>
         <button
           type="button"
-          class="text-muted-foreground border border-border/50 rounded-full inline-flex size-9 cursor-pointer transition-colors duration-200 items-center justify-center hover:text-foreground hover:border-border disabled:opacity-50 disabled:pointer-events-none"
+          class=":uno: text-muted-foreground border border-border/50 rounded-full inline-flex size-9 cursor-pointer transition-colors duration-200 items-center justify-center hover:text-foreground hover:border-border disabled:opacity-50 disabled:pointer-events-none"
           onclick={() => carouselApi?.scrollNext()}
           disabled={!carouselApi?.canScrollNext()}
           aria-label={nextSlideLabel}
         >
-          <Icon icon="lucide:arrow-right" class="size-4" />
+          <Icon icon="lucide:arrow-right" class=":uno: size-4" />
         </button>
       </div>
     </Carousel>

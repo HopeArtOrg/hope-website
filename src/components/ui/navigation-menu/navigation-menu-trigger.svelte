@@ -28,6 +28,6 @@
 >
   {@render children?.()}
   <Icon icon="lucide:chevron-down"
-        class="ml-1 size-3 transition duration-300 top-[1px] relative group-data-[state=open]:rotate-180"
+        class=":uno: ml-1 size-3 transition duration-300 top-[1px] relative group-data-[state=open]:rotate-180"
         aria-hidden="true" />
 </NavigationMenuPrimitive.Trigger>

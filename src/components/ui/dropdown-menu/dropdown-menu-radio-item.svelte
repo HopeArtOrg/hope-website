@@ -25,10 +25,10 @@
 >
   {#snippet children({ checked })}
     <span
-      class="flex size-3.5 pointer-events-none items-center start-2 justify-center absolute"
+      class=":uno: flex size-3.5 pointer-events-none items-center start-2 justify-center absolute"
     >
       {#if checked}
-        <Icon icon="lucide:circle" class="size-2 fill-current" />
+        <Icon icon="lucide:circle" class=":uno: size-2 fill-current" />
       {/if}
     </span>
     {@render childrenProp?.({ checked })}

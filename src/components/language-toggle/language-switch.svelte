@@ -10,7 +10,7 @@
 </script>
 
 <div
-  class="p-0.5 rounded-sm bg-muted inline-flex h-8 w-fit items-center"
+  class=":uno: p-0.5 rounded-sm bg-muted inline-flex h-8 w-fit items-center"
   role="radiogroup"
   aria-label="Language"
 >
@@ -19,7 +19,7 @@
       role="radio"
       aria-checked={locale.code === currentLocale}
       href={locale.href}
-      class="text-xs tracking-wide font-medium px-2.5 rounded-sm inline-flex h-7 cursor-pointer transition-all duration-200 items-center justify-center {locale.code === currentLocale ? "text-foreground bg-background shadow-sm" : "text-muted-foreground hover:text-foreground"}"
+      class=":uno: text-xs tracking-wide font-medium px-2.5 rounded-sm inline-flex h-7 cursor-pointer transition-all duration-200 items-center justify-center {locale.code === currentLocale ? "text-foreground bg-background shadow-sm" : "text-muted-foreground hover:text-foreground"}"
     >
       {locale.code.toUpperCase()}
     </a>

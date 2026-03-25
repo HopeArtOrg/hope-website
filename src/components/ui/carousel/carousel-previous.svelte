@@ -38,6 +38,6 @@
   {...restProps}
   bind:ref
 >
-  <Icon icon="lucide:arrow-left" class="size-4" />
-  <span class="sr-only">Previous slide</span>
+  <Icon icon="lucide:arrow-left" class=":uno: size-4" />
+  <span class=":uno: sr-only">Previous slide</span>
 </Button>

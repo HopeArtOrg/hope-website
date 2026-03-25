@@ -9,11 +9,7 @@ export default antfu(
       files: ["**/*.tsx", "**/*.jsx"],
     },
     typescript: true,
-    unocss: {
-      overrides: {
-        "@unocss/enforce-class-compile": "warn",
-      },
-    },
+    unocss: true,
     yaml: {
       overrides: {
         "yaml/indent": ["error", 2],
@@ -59,6 +55,7 @@ export default antfu(
       "antfu/no-top-level-await": ["off"],
       "node/prefer-global/process": ["off"],
       "node/no-process-env": ["error"],
+      "unocss/enforce-class-compile": ["error"],
     },
   },
   {

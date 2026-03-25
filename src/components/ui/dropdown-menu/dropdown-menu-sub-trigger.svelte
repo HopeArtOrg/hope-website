@@ -26,5 +26,5 @@
   {...restProps}
 >
   {@render children?.()}
-  <Icon icon="lucide:chevron-right" class="ms-auto size-4" />
+  <Icon icon="lucide:chevron-right" class=":uno: ms-auto size-4" />
 </DropdownMenuPrimitive.SubTrigger>
