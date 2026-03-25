@@ -52,7 +52,7 @@
   <SheetPrimitive.Content
     bind:ref
     data-slot="sheet-content"
-    class={cn(sheetVariants({ side }), className)}
+    class={cn(`:uno: ${sheetVariants({ side })}`, className)}
     {...restProps}
   >
     {@render children?.()}

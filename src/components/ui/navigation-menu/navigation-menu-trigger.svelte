@@ -23,7 +23,7 @@
 <NavigationMenuPrimitive.Trigger
   bind:ref
   data-slot="navigation-menu-trigger"
-  class={cn(navigationMenuTriggerStyle(), "group", className)}
+  class={cn(`:uno: ${navigationMenuTriggerStyle()}`, "group", className)}
   {...restProps}
 >
   {@render children?.()}
