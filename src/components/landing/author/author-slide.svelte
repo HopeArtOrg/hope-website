@@ -61,20 +61,20 @@
 </script>
 
 <div
-  class="gap-8 grid w-full items-center lg:gap-16 sm:gap-12 lg:grid-cols-2"
+  class=":uno: gap-8 grid w-full items-center lg:gap-16 sm:gap-12 lg:grid-cols-2"
   aria-label={slideLabel}
 >
-  <div class="pb-6 pr-6 flex items-center justify-center relative">
+  <div class=":uno: pb-6 pr-6 flex items-center justify-center relative">
     <div
       bind:this={imageContainer}
-      class="max-w-[240px] w-full aspect-3/4 relative overflow-visible md:max-w-[320px] sm:max-w-[280px]"
+      class=":uno: max-w-[240px] w-full aspect-3/4 relative overflow-visible md:max-w-[320px] sm:max-w-[280px]"
     >
       <div
         bind:this={frontImg}
-        class="border border-border/50 rounded-lg shadow-lg inset-0 absolute"
+        class=":uno: border border-border/50 rounded-lg shadow-lg inset-0 absolute"
         style="z-index: 10;"
       >
-        <div class="rounded-lg h-full w-full overflow-hidden">
+        <div class=":uno: rounded-lg h-full w-full overflow-hidden">
           {@render frontImage()}
         </div>
       </div>
@@ -83,47 +83,47 @@
         role="button"
         tabindex="0"
         aria-label="Shuffle {name} photos"
-        class="border border-border/50 rounded-lg cursor-pointer shadow-lg inset-0 absolute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        class=":uno: border border-border/50 rounded-lg cursor-pointer shadow-lg inset-0 absolute focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         style="z-index: 1;"
       >
-        <div class="rounded-lg h-full w-full overflow-hidden">
+        <div class=":uno: rounded-lg h-full w-full overflow-hidden">
           {@render backImage()}
         </div>
       </div>
     </div>
   </div>
 
-  <div class="text-center flex flex-col items-center lg:text-left lg:items-start">
-    <span class="text-xs text-muted-foreground/60 tracking-widest font-mono uppercase sm:text-sm">
+  <div class=":uno: text-center flex flex-col items-center lg:text-left lg:items-start">
+    <span class=":uno: text-xs text-muted-foreground/60 tracking-widest font-mono uppercase sm:text-sm">
       {heading}
     </span>
     <h2
       bind:this={nameHeading}
-      class="text-2xl text-foreground tracking-tight font-bold font-mono mt-2 relative overflow-visible lg:text-5xl md:text-4xl sm:text-3xl"
+      class=":uno: text-2xl text-foreground tracking-tight font-bold font-mono mt-2 relative overflow-visible lg:text-5xl md:text-4xl sm:text-3xl"
     >
       <button
         type="button"
-        class="text-inherit font-inherit p-0 bg-transparent cursor-pointer select-none"
+        class=":uno: text-inherit font-inherit p-0 bg-transparent cursor-pointer select-none"
         aria-label="Reveal effects for {name}"
         onclick={handleNameClick}
       >
         {name}
       </button>
     </h2>
-    <blockquote class="text-sm text-muted-foreground leading-relaxed mt-4 pl-4 border-l-2 border-muted-foreground/20 max-w-md italic md:text-lg sm:text-base sm:mt-6">
+    <blockquote class=":uno: text-sm text-muted-foreground leading-relaxed mt-4 pl-4 border-l-2 border-muted-foreground/20 max-w-md italic md:text-lg sm:text-base sm:mt-6">
       &ldquo;{quote}&rdquo;
     </blockquote>
-    <div class="mt-6 flex flex-wrap gap-3 items-center sm:mt-8">
+    <div class=":uno: mt-6 flex flex-wrap gap-3 items-center sm:mt-8">
       {#each links as link}
         <a
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          class="text-xs font-medium px-3 py-1.5 border border-border/50 rounded-sm inline-flex gap-1.5 transition-colors duration-200 items-center sm:text-sm hover:border-border"
+          class=":uno: text-xs font-medium px-3 py-1.5 border border-border/50 rounded-sm inline-flex gap-1.5 transition-colors duration-200 items-center sm:text-sm hover:border-border"
           style="color: {link.color};"
           aria-label="{resolveLabel(link)} (opens in a new tab)"
         >
-          <Icon icon={link.icon} class="size-3.5 sm:size-4" />
+          <Icon icon={link.icon} class=":uno: size-3.5 sm:size-4" />
           {resolveLabel(link)}
         </a>
       {/each}

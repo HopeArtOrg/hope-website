@@ -13,6 +13,8 @@
 
   import { Button } from "@/components/ui/button";
 
+  import { setupCtaAnimation } from "./animations";
+
   let {
     ctaLabel,
     ctaHref,
@@ -20,16 +22,25 @@
     doodleArrow2Ref = $bindable(null),
     doodleArrow3Ref = $bindable(null),
   }: AboutCtaProps = $props();
+
+  let buttonRef = $state<HTMLElement | null>(null);
+  let overlayRef = $state<HTMLElement | null>(null);
+
+  $effect(() => {
+    if (!buttonRef || !overlayRef)
+      return;
+    return setupCtaAnimation(buttonRef, overlayRef);
+  });
 </script>
 
-<div class="mt-6 relative lg:mt-10 sm:mt-8">
+<div class=":uno: mt-6 relative lg:mt-10 sm:mt-8">
   <img
     bind:this={doodleArrow1Ref}
     src="/landing/about/doodle-arrow-1.svg"
     alt=""
     aria-hidden="true"
     loading="lazy"
-    class="mt-2 opacity-20 hidden invisible pointer-events-none rotate-[-90deg] left-1/2 top-full absolute md:mt-4 sm:mt-3 lg:size-18 md:size-16 sm:size-12 sm:block -translate-x-1/2 -scale-y-100 dark:invert"
+    class=":uno: mt-2 opacity-20 hidden invisible pointer-events-none rotate-[-90deg] left-1/2 top-full absolute md:mt-4 sm:mt-3 lg:size-18 md:size-16 sm:size-12 sm:block -translate-x-1/2 -scale-y-100 dark:invert"
   />
   <img
     bind:this={doodleArrow2Ref}
@@ -37,7 +48,7 @@
     alt=""
     aria-hidden="true"
     loading="lazy"
-    class="opacity-20 hidden invisible pointer-events-none rotate-[150deg] bottom-full left-full absolute -mb-2 -ml-2 lg:size-18 md:size-16 sm:size-12 sm:block dark:invert sm:-mb-3 sm:-ml-3"
+    class=":uno: opacity-20 hidden invisible pointer-events-none rotate-[150deg] bottom-full left-full absolute -mb-2 -ml-2 lg:size-18 md:size-16 sm:size-12 sm:block dark:invert sm:-mb-3 sm:-ml-3"
   />
   <img
     bind:this={doodleArrow3Ref}
@@ -45,30 +56,32 @@
     alt=""
     aria-hidden="true"
     loading="lazy"
-    class="ml-1 mt-1 opacity-20 hidden invisible pointer-events-none left-full top-full absolute sm:ml-2 sm:mt-2 lg:size-18 md:size-16 sm:size-12 sm:block -scale-x-100 dark:invert"
+    class=":uno: ml-1 mt-1 opacity-20 hidden invisible pointer-events-none left-full top-full absolute sm:ml-2 sm:mt-2 lg:size-18 md:size-16 sm:size-12 sm:block -scale-x-100 dark:invert"
   />
   <Button
     variant="outline"
     size="lg"
     href={ctaHref}
     aria-label={ctaLabel}
-    class="relative overflow-hidden group"
+    bind:ref={buttonRef}
+    class="relative overflow-hidden"
   >
-    <span class="flex gap-2 items-center">
+    <span class=":uno: flex gap-2 items-center">
       {ctaLabel}
       <Icon
         icon="lucide:arrow-right"
-        class="size-3.5 transition-transform duration-300 sm:size-4 group-hover:translate-x-0.5"
+        class=":uno: cta-arrow size-3.5 transition-transform duration-300 sm:size-4"
       />
     </span>
     <span
-      class="text-background bg-foreground flex gap-2 transition-[clip-path] duration-500 ease-out [clip-path:polygon(0_0,0_0,0_100%,0_100%)] items-center inset-0 justify-center absolute group-hover:[clip-path:polygon(0_0,calc(100%+40px)_0,100%_100%,0_100%)]"
+      bind:this={overlayRef}
+      class=":uno: text-background bg-foreground flex gap-2 transition-opacity duration-500 ease-out [clip-path:polygon(0_0,0_0,0_100%,0_100%)] items-center inset-0 justify-center absolute"
       aria-hidden="true"
     >
       {ctaLabel}
       <Icon
         icon="lucide:arrow-right"
-        class="size-3.5 transition-transform duration-300 sm:size-4 group-hover:translate-x-0.5"
+        class=":uno: cta-arrow size-3.5 transition-transform duration-300 sm:size-4"
       />
     </span>
   </Button>

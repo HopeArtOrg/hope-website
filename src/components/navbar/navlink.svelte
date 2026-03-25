@@ -22,7 +22,10 @@
     class="size-5 transition-all duration-500 ease-in-out group-focus-visible:opacity-0 group-hover:opacity-0 group-focus-visible:scale-0 group-hover:scale-0"
     aria-hidden="true"
   />
-  <span class="opacity-0 whitespace-nowrap scale-0 transition-all duration-500 ease-in-out absolute group-focus-visible:opacity-100 group-hover:opacity-100 group-focus-visible:scale-100 group-hover:scale-100 group-focus-visible:relative group-hover:relative" aria-hidden="true">
+  <span
+    class="opacity-0 whitespace-nowrap scale-0 transition-all duration-500 ease-in-out absolute group-focus-visible:opacity-100 group-hover:opacity-100 group-focus-visible:scale-100 group-hover:scale-100 group-focus-visible:relative group-hover:relative"
+    aria-hidden="true"
+  >
     {label}
   </span>
 </a>

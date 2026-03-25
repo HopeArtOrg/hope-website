@@ -19,51 +19,51 @@ const locales = Object.keys(languages).map(code => ({
 }));
 ---
 
-<footer class="border-t border-border/50 bg-background">
-  <div class="mx-auto px-6 py-10 gap-8 grid grid-cols-1 max-w-screen-xl sm:py-14 lg:grid-cols-4 sm:grid-cols-2">
-    <div class="flex flex-col gap-3">
+<footer class=":uno: border-t border-border/50 bg-background">
+  <div class=":uno: mx-auto px-6 py-10 gap-8 grid grid-cols-1 max-w-screen-xl sm:py-14 lg:grid-cols-4 sm:grid-cols-2">
+    <div class=":uno: flex flex-col gap-3">
       <a
         href="https://github.com/HopeArtOrg/hope-website"
         target="_blank"
         rel="noopener noreferrer"
-        class="text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
+        class=":uno: text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
         aria-label="GitHub"
       >
-        <Icon name="lucide:github" class="size-5" />
+        <Icon name="lucide:github" class=":uno: size-5" />
       </a>
-      <p class="text-sm text-muted-foreground">
+      <p class=":uno: text-sm text-muted-foreground">
         {t("footer.license")}{" "}
         <a
           href="https://github.com/HopeArtOrg/hope-website/blob/main/LICENSE"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-foreground underline decoration-border underline-offset-4 transition-colors duration-300 hover:text-primary hover:decoration-primary"
+          class=":uno: text-foreground underline decoration-border underline-offset-4 transition-colors duration-300 hover:text-primary hover:decoration-primary"
         >
           MIT License
         </a>
       </p>
-      <p class="text-sm text-muted-foreground">
+      <p class=":uno: text-sm text-muted-foreground">
         &copy; 2025 &ndash; 2026 HopeArtOrg
       </p>
     </div>
 
-    <div class="flex flex-col gap-3">
-      <span class="text-sm text-foreground font-bold">{t("footer.miscellaneous")}</span>
+    <div class=":uno: flex flex-col gap-3">
+      <span class=":uno: text-sm text-foreground font-bold">{t("footer.miscellaneous")}</span>
       <a
         href="mailto:trananhquan1009@gmail.com"
-        class="text-sm text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
+        class=":uno: text-sm text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
       >
         {t("footer.email")}
       </a>
       <a
         href={getLocalePath(lang, "/terms")}
-        class="text-sm text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
+        class=":uno: text-sm text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
       >
         {t("footer.terms")}
       </a>
       <a
         href={getLocalePath(lang, "/privacy")}
-        class="text-sm text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
+        class=":uno: text-sm text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
       >
         {t("footer.privacy")}
       </a>
@@ -71,19 +71,19 @@ const locales = Object.keys(languages).map(code => ({
         href="https://forms.gle/fvTTUjQY1oCANDKU6"
         target="_blank"
         rel="noopener noreferrer"
-        class="text-sm text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
+        class=":uno: text-sm text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
       >
         {t("footer.feedback")}
       </a>
     </div>
 
-    <div class="flex flex-col gap-3">
-      <span class="text-sm text-foreground font-bold">{t("footer.blog")}</span>
+    <div class=":uno: flex flex-col gap-3">
+      <span class=":uno: text-sm text-foreground font-bold">{t("footer.blog")}</span>
       <a
         href="/sitemap-index.xml"
         target="_blank"
         rel="noopener noreferrer"
-        class="text-sm text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
+        class=":uno: text-sm text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
       >
         {t("footer.sitemap")}
       </a>
@@ -91,23 +91,23 @@ const locales = Object.keys(languages).map(code => ({
         href="/rss.xml"
         target="_blank"
         rel="noopener noreferrer"
-        class="text-sm text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
+        class=":uno: text-sm text-muted-foreground w-fit transition-colors duration-300 hover:text-primary"
       >
         {t("footer.rss")}
       </a>
     </div>
 
-    <div class="flex flex-col gap-3">
+    <div class=":uno: flex flex-col gap-3">
       <a
         href="https://github.com/HopeArtOrg"
         target="_blank"
         rel="noopener noreferrer"
-        class="flex gap-1 w-fit items-center group"
+        class=":uno: flex gap-1 w-fit items-center group"
       >
-        <StarIcon class="text-muted-foreground size-8 transition-colors duration-300 group-hover:text-foreground" />
-        <span class="text-sm text-muted-foreground font-medium font-mono transition-colors duration-300 group-hover:text-foreground">Hope Art Org</span>
+        <StarIcon class=":uno: text-muted-foreground size-8 transition-colors duration-300 group-hover:text-foreground" />
+        <span class=":uno: text-sm text-muted-foreground font-medium font-mono transition-colors duration-300 group-hover:text-foreground">Hope Art Org</span>
       </a>
-      <hr class="border-0 bg-border h-px w-28" />
+      <hr class=":uno: border-0 bg-border h-px w-28" />
       <LanguageSwitch
         currentLocale={lang}
         locales={locales}

@@ -31,13 +31,13 @@
   bind:this={sectionEl}
   id="tech-animation"
   aria-label={label}
-  class="mx-auto px-4 pb-2 pt-4 max-w-screen-xl relative overflow-hidden sm:px-6 sm:pb-3 sm:pt-6"
+  class=":uno: mx-auto px-4 pb-2 pt-4 max-w-screen-xl relative overflow-hidden sm:px-6 sm:pb-3 sm:pt-6"
 >
   <CornerBrackets size="h-8 w-8 sm:h-12 sm:w-12 lg:h-16 lg:w-16" />
   {#each TECH_LIST as tech, rowIndex}
     <div
       bind:this={rowEls[rowIndex]}
-      class="mb-0.5 flex gap-3 w-max items-center last:mb-0 sm:mb-1"
+      class=":uno: mb-0.5 flex gap-3 w-max items-center last:mb-0 sm:mb-1"
       aria-hidden="true"
     >
       <TechRow

@@ -55,6 +55,7 @@ export default antfu(
       "antfu/no-top-level-await": ["off"],
       "node/prefer-global/process": ["off"],
       "node/no-process-env": ["error"],
+      "unocss/enforce-class-compile": ["error"],
     },
   },
   {
