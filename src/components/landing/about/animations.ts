@@ -217,6 +217,41 @@ export function setupHeadingRipple(
   };
 }
 
+export function setupCtaAnimation(
+  button: HTMLElement,
+  overlay: HTMLElement,
+): () => void {
+  if (prefersReducedMotion())
+    return () => {};
+
+  const controller = new AbortController();
+  const { signal } = controller;
+
+  const tl = gsap.timeline({ paused: true });
+  tl.to(overlay, {
+    clipPath: "polygon(0 0, 110% 0, 100% 100%, 0 100%)",
+    duration: 0.5,
+    ease: "power2.out",
+  });
+
+  const arrows = button.querySelectorAll(".cta-arrow");
+  if (arrows.length > 0) {
+    tl.to(arrows, {
+      x: 2,
+      duration: 0.3,
+      ease: "power2.out",
+    }, 0);
+  }
+
+  button.addEventListener("mouseenter", () => tl.play(), { signal });
+  button.addEventListener("mouseleave", () => tl.reverse(), { signal });
+
+  return () => {
+    controller.abort();
+    tl.kill();
+  };
+}
+
 const DOODLE_ARROW_SCROLL_START = "top 75%";
 const DOODLE_ARROW_DURATION = 0.8;
 const DOODLE_ARROW_STAGGER = 0.2;

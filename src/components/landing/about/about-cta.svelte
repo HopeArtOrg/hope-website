@@ -13,6 +13,8 @@
 
   import { Button } from "@/components/ui/button";
 
+  import { setupCtaAnimation } from "./animations";
+
   let {
     ctaLabel,
     ctaHref,
@@ -20,6 +22,15 @@
     doodleArrow2Ref = $bindable(null),
     doodleArrow3Ref = $bindable(null),
   }: AboutCtaProps = $props();
+
+  let buttonRef = $state<HTMLElement | null>(null);
+  let overlayRef = $state<HTMLElement | null>(null);
+
+  $effect(() => {
+    if (!buttonRef || !overlayRef)
+      return;
+    return setupCtaAnimation(buttonRef, overlayRef);
+  });
 </script>
 
 <div class=":uno: mt-6 relative lg:mt-10 sm:mt-8">
@@ -52,23 +63,25 @@
     size="lg"
     href={ctaHref}
     aria-label={ctaLabel}
-    class=":uno: relative overflow-hidden group"
+    bind:ref={buttonRef}
+    class="relative overflow-hidden"
   >
     <span class=":uno: flex gap-2 items-center">
       {ctaLabel}
       <Icon
         icon="lucide:arrow-right"
-        class=":uno: size-3.5 transition-transform duration-300 sm:size-4 group-hover:translate-x-0.5"
+        class=":uno: cta-arrow size-3.5 transition-transform duration-300 sm:size-4"
       />
     </span>
     <span
-      class=":uno: text-background bg-foreground flex gap-2 transition-[clip-path] duration-500 ease-out [clip-path:polygon(0_0,0_0,0_100%,0_100%)] items-center inset-0 justify-center absolute group-hover:[clip-path:polygon(0_0,calc(100%+40px)_0,100%_100%,0_100%)]"
+      bind:this={overlayRef}
+      class=":uno: text-background bg-foreground flex gap-2 transition-opacity duration-500 ease-out [clip-path:polygon(0_0,0_0,0_100%,0_100%)] items-center inset-0 justify-center absolute"
       aria-hidden="true"
     >
       {ctaLabel}
       <Icon
         icon="lucide:arrow-right"
-        class=":uno: size-3.5 transition-transform duration-300 sm:size-4 group-hover:translate-x-0.5"
+        class=":uno: cta-arrow size-3.5 transition-transform duration-300 sm:size-4"
       />
     </span>
   </Button>
