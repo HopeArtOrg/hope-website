@@ -18,6 +18,7 @@
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu";
   import { detectPlatform, GITHUB_REPO, GITHUB_REPO_URL, platforms } from "@/lib/constants";
+  import { cn } from "@/lib/utils";
 
   const {
     downloadLabel,
@@ -87,7 +88,7 @@
           >
             <Icon
               icon="lucide:chevron-down"
-              class=":uno: size-3.5 transition-transform duration-200 {downloadOpen ? "rotate-180" : ""}"
+              class={cn(":uno: size-3.5 transition-transform duration-200", downloadOpen && "rotate-180")}
             />
           </Button>
         {/snippet}

@@ -6,6 +6,8 @@
 </script>
 
 <script lang="ts">
+  import { cn } from "@/lib/utils";
+
   const { currentLocale, locales }: LanguageSwitchProps = $props();
 </script>
 
@@ -19,7 +21,12 @@
       role="radio"
       aria-checked={locale.code === currentLocale}
       href={locale.href}
-      class=":uno: text-xs tracking-wide font-medium px-2.5 rounded-sm inline-flex h-7 cursor-pointer transition-all duration-200 items-center justify-center {locale.code === currentLocale ? "text-foreground bg-background shadow-sm" : "text-muted-foreground hover:text-foreground"}"
+      class={cn(
+        ":uno: text-xs tracking-wide font-medium px-2.5 rounded-sm inline-flex h-7 cursor-pointer transition-all duration-200 items-center justify-center",
+        locale.code === currentLocale
+          ? "text-foreground bg-background shadow-sm"
+          : "text-muted-foreground hover:text-foreground",
+      )}
     >
       {locale.code.toUpperCase()}
     </a>
