@@ -1,13 +1,15 @@
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { prefersReducedMotion } from "@/lib/utils";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SCROLL_THRESHOLD = 50;
 const HOVER_ZONE_HEIGHT = 60;
 
 type NavbarAnimationState = {
   visible: boolean;
-  lastScrollY: number;
 };
 
 function showNavbar(
@@ -54,24 +56,18 @@ function hideNavbar(
 export function setupNavbarVisibility(el: HTMLElement): () => void {
   const state: NavbarAnimationState = {
     visible: false,
-    lastScrollY: window.scrollY,
   };
 
   gsap.set(el, { autoAlpha: 0, y: -80 });
 
-  function handleScroll() {
-    const currentY = window.scrollY;
-    const scrollingDown = currentY > state.lastScrollY;
-    const pastThreshold = currentY > SCROLL_THRESHOLD;
+  const st = ScrollTrigger.create({
+    start: SCROLL_THRESHOLD,
+    onToggle: self => self.isActive ? showNavbar(el, state) : hideNavbar(el, state),
+  });
 
-    if (scrollingDown && pastThreshold) {
-      showNavbar(el, state);
-    }
-    else if (!scrollingDown && !pastThreshold) {
-      hideNavbar(el, state);
-    }
-
-    state.lastScrollY = currentY;
+  // Initial check
+  if (window.scrollY > SCROLL_THRESHOLD) {
+    showNavbar(el, state);
   }
 
   let mouseMoveTimer: number | null = null;
@@ -105,14 +101,13 @@ export function setupNavbarVisibility(el: HTMLElement): () => void {
     }
   }
 
-  window.addEventListener("scroll", handleScroll, { passive: true });
   document.addEventListener("mousemove", handleMouseMove);
   document.addEventListener("mouseleave", handleMouseLeave);
   el.addEventListener("focusin", handleFocusIn);
   el.addEventListener("focusout", handleFocusOut);
 
   return () => {
-    window.removeEventListener("scroll", handleScroll);
+    st.kill();
     document.removeEventListener("mousemove", handleMouseMove);
     document.removeEventListener("mouseleave", handleMouseLeave);
     el.removeEventListener("focusin", handleFocusIn);
