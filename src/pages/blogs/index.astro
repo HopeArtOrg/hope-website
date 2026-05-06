@@ -6,8 +6,8 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const blogNavLinks = [
-  { label: t("nav.home"), href: getLocalePath(lang, "/"), icon: "lucide:home" },
-  { label: t("nav.download"), href: getLocalePath(lang, "/#download"), icon: "lucide:download" },
+  { label: t("nav.download"), href: getLocalePath(lang, "/"), icon: "lucide:download" },
+  { label: t("nav.home"), href: getLocalePath(lang, "/blogs"), icon: "lucide:home" },
   { label: t("nav.rss"), href: "/rss.xml", icon: "lucide:rss" },
 ];
 ---
