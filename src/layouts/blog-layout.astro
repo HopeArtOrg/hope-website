@@ -10,6 +10,7 @@ type Props = {
   description?: string;
   canonical?: string;
   ogImage?: string;
+  links?: Array<{ label: string; href: string; icon: string }>;
 };
 
 const lang = getLangFromUrl(Astro.url);
@@ -20,6 +21,7 @@ const {
   description = t("site.description"),
   canonical,
   ogImage,
+  links,
 } = Astro.props;
 ---
 
@@ -42,7 +44,7 @@ const {
     >
       {t("nav.skipToContent")}
     </a>
-    <Navbar />
+    <Navbar links={links} />
     <main id="main-content">
       <slot />
     </main>

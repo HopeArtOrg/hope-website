@@ -1,5 +1,7 @@
 {
   "nav": {
+    "home": "Home",
+    "rss": "RSS Feed",
     "download": "Download",
     "blogs": "Blogs",
     "about": "About Us",
