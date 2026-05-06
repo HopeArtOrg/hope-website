@@ -3,7 +3,7 @@ import type { Font } from "takumi-js";
 
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import { ImageResponse } from "takumi-js";
+import { ImageResponse } from "takumi-js/response";
 
 import DefaultOG from "@/components/templates/og/default-og";
 import vn from "@/i18n/vn.json";
