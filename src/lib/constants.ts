@@ -59,12 +59,11 @@ type TechItem = {
   color: string;
 };
 
-export const TECH_LIST: TechItem[] = [
-  { name: "SvelteKit", color: "#f96743" },
-  { name: "Tauri", color: "#ffc131" },
-  { name: "TailwindCSS", color: "#38bdf8" },
-  { name: "ONNX", color: "#a1a1aa" },
-  { name: "JAX", color: "#a78bfa" },
+export const MESSAGE_LIST: TechItem[] = [
+  { name: "Art", color: "#f96743" },
+  { name: "Draw", color: "#ffc131" },
+  { name: "Human", color: "#38bdf8" },
+  { name: "Hope", color: "#a78bfa" },
 ];
 
 export const navLinks: NavLink[] = [

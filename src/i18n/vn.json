@@ -31,8 +31,8 @@
     "appScreenshot": "Ảnh chụp màn hình ứng dụng Hope:Re",
     "repoScreenshot": "Kho mã nguồn mở Hope:Re"
   },
-  "techAnimation": {
-    "label": "Công nghệ được sử dụng để build Hope:Re"
+  "messageAnimation": {
+    "label": "Thông điệp từ Hope Art"
   },
   "demo": {
     "heading": "Hoạt động như thế nào?",

@@ -5,7 +5,7 @@ import { AboutSection } from "@/components/landing/about";
 import { AuthorSection } from "@/components/landing/author";
 import { DemoSection } from "@/components/landing/demo";
 import { HeroSection } from "@/components/landing/hero-section";
-import { TechAnimationSection } from "@/components/landing/tech-animation";
+import { MessageAnimationSection } from "@/components/landing/message-animation";
 import { getLangFromUrl, getLocalePath, useTranslations } from "@/i18n/utils";
 import BaseLayout from "@/layouts/base-layout.astro";
 import { DEMO_IMAGES } from "@/lib/constants";
@@ -48,8 +48,8 @@ const optimizedDemoImages = await Promise.all(
     repoScreenshotAlt={t("about.repoScreenshot")}
     client:visible
   />
-  <TechAnimationSection
-    label={t("techAnimation.label")}
+  <MessageAnimationSection
+    label={t("messageAnimation.label")}
     client:visible
   />
   <DemoSection
