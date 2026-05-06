@@ -1,9 +1,9 @@
-import type { Font } from "@takumi-rs/core";
 import type { APIRoute } from "astro";
+import type { Font } from "takumi-js";
 
-import { ImageResponse } from "@takumi-rs/image-response";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { ImageResponse } from "takumi-js";
 
 import DefaultOG from "@/components/templates/og/default-og";
 import vn from "@/i18n/vn.json";

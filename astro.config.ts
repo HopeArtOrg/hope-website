@@ -20,10 +20,10 @@ export default defineConfig({
   vite: {
     plugins: [enhancedImages()],
     optimizeDeps: {
-      exclude: ["@takumi-rs/core"],
+      exclude: ["takumi-js"],
     },
     ssr: {
-      external: ["@takumi-rs/core"],
+      external: ["takumi-js"],
     },
     resolve: {
       noExternal: ["bits-ui"],
