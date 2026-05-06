@@ -1,5 +1,7 @@
 {
   "nav": {
+    "home": "Home",
+    "rss": "RSS Feed",
     "download": "Download",
     "blogs": "Blogs",
     "about": "About Us",
@@ -31,8 +33,8 @@
     "appScreenshot": "Hope:Re application screenshot",
     "repoScreenshot": "Hope:Re open-source repository"
   },
-  "techAnimation": {
-    "label": "Technologies used to build Hope:Re"
+  "messageAnimation": {
+    "label": "Messages from Hope Art"
   },
   "demo": {
     "heading": "How does it work?",

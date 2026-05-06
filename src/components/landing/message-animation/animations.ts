@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 const SCRUB_SMOOTHING = 1;
 const TRAVEL_DISTANCE = 300;
 
-export function animateTechRows(
+export function animateMessageRows(
   sectionEl: HTMLElement,
   rows: HTMLElement[],
 ): () => void {

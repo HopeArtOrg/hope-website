@@ -4,15 +4,21 @@ import { navLinks } from "@/lib/constants";
 
 import Navbar from "./navbar.svelte";
 
+type Props = {
+  links?: Array<{ label: string; href: string; icon: string }>;
+};
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const homePath = getLocalePath(lang, "/");
-const links = navLinks.map(({ key, path, icon }) => ({
+const defaultLinks = navLinks.map(({ key, path, icon }) => ({
   label: t(key),
   href: getLocalePath(lang, path),
   icon,
 }));
+
+const { links = defaultLinks } = Astro.props;
 ---
 
 <Navbar

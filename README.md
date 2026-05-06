@@ -17,7 +17,7 @@ The site is built with a focus on performance, minimalism, and a Zen-inspired de
 - **UI Components:** Svelte 5 (Runes)
 - **Styling:** UnoCSS with Wind4 preset and custom Zen theme
 - **Animations:** GSAP with ScrollTrigger
-- **OG Images:** Dynamic generation using @takumi-rs/image-response
+- **OG Images:** Dynamic generation using takumi-js
 - **Internationalization:** Built-in i18n supporting English and Vietnamese
 
 ### Why this stack?

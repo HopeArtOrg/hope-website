@@ -5,9 +5,7 @@ export default antfu(
     type: "app",
     astro: true,
     svelte: true,
-    react: {
-      files: ["**/*.tsx", "**/*.jsx"],
-    },
+    react: false,
     typescript: true,
     unocss: true,
     yaml: {

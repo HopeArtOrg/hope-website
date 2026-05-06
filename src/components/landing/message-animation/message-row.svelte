@@ -1,7 +1,7 @@
 <script lang="ts" module>
-  export type TechRowProps = {
-    techName: string;
-    techColor: string;
+  export type MessageRowProps = {
+    messageText: string;
+    messageColor: string;
     repeatCount: number;
     centerIndex: number;
   };
@@ -10,15 +10,15 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
 
-  const { techName, techColor, repeatCount, centerIndex }: TechRowProps = $props();
+  const { messageText, messageColor, repeatCount, centerIndex }: MessageRowProps = $props();
 </script>
 
 {#each Array.from({ length: repeatCount }) as _, colIndex}
   <span
     class=":uno: text-2xl text-muted-foreground/15 tracking-tight font-mono font-semibold shrink-0 select-none lowercase md:text-4xl sm:text-3xl"
-    style={colIndex === centerIndex ? `color: ${techColor}` : undefined}
+    style={colIndex === centerIndex ? `color: ${messageColor}` : undefined}
   >
-    {techName}
+    {messageText}
   </span>
   <span class=":uno: text-muted-foreground/15 shrink-0" aria-hidden="true">
     <Icon
