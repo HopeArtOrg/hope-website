@@ -1,8 +1,12 @@
 ---
 import { getCollection, render } from "astro:content";
 
-import { BlogPostEntry } from "@/components/blogs";
-import { getLangFromUrl, getLocalePath, useTranslations } from "@/i18n/utils";
+import { BlogPostEntry } from "@/components/blogs/blog-post-entry";
+import {
+  getLangFromUrl,
+  getLocalePath,
+  useTranslations,
+} from "@/i18n/utils";
 import BlogLayout from "@/layouts/blog-layout.astro";
 
 const lang = getLangFromUrl(Astro.url);
@@ -44,6 +48,7 @@ const posts = await Promise.all(
         {
           posts.map(post => (
             <BlogPostEntry
+              client:visible
               id={post.id}
               title={post.data.title}
               description={post.data.description}
