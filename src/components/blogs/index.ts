@@ -1,3 +1,1 @@
-import BlogPostEntry from "./blog-post-entry.svelte";
-
-export { BlogPostEntry };
+export * from "./blog-post-entry";

@@ -1,7 +1,7 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
 
-  type Props = {
+  export type BlogPostEntryProps = {
     id: string;
     title: string;
     description: string;
@@ -22,7 +22,7 @@
     lang,
     readMoreLabel,
     minReadLabel,
-  }: Props = $props();
+  }: BlogPostEntryProps = $props();
 
   const formattedDate = $derived(
     publishDate.toLocaleDateString(lang, {
