@@ -1,4 +1,7 @@
 ---
+import { getCollection, render } from "astro:content";
+
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getLangFromUrl, getLocalePath, useTranslations } from "@/i18n/utils";
 import BlogLayout from "@/layouts/blog-layout.astro";
 
@@ -10,12 +13,78 @@ const blogNavLinks = [
   { label: t("nav.home"), href: getLocalePath(lang, "/blogs"), icon: "lucide:home" },
   { label: t("nav.rss"), href: "/rss.xml", icon: "lucide:rss" },
 ];
+
+const posts = await Promise.all(
+  (await getCollection("vnBlog"))
+    .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+    .map(async (post) => {
+      const { remarkPluginFrontmatter } = await render(post);
+
+      return {
+        ...post,
+        readingTime: remarkPluginFrontmatter.readingTimeInMin,
+      };
+    }),
+);
 ---
 
-<BlogLayout links={blogNavLinks}>
-  <div class=":uno: py-24 sm:py-32">
+<BlogLayout links={blogNavLinks} title={t("blog.heading")} description={t("blog.description")}>
+  <div class=":uno: py-12 sm:py-24">
     <div class=":uno: mx-auto px-6 max-w-7xl lg:px-8">
-      <!-- Blank content for now -->
+      <div class=":uno: mx-auto mb-16 text-center max-w-2xl">
+        <h2 class=":uno: text-3xl text-foreground tracking-tight font-bold sm:text-4xl">
+          {t("blog.heading")}
+        </h2>
+        <p class=":uno: text-lg text-muted-foreground leading-8 mt-4">
+          {t("blog.description")}
+        </p>
+      </div>
+
+      <div
+        class=":uno: mx-auto gap-x-8 gap-y-12 grid grid-cols-1 max-w-2xl lg:mx-0 lg:grid-cols-3 lg:max-w-none"
+      >
+        {
+          posts.map(post => (
+            <a href={getLocalePath(lang, `/blogs/${post.id}`)} class=":uno: flex flex-col group">
+              <Card
+                class=":uno: border-border/40 bg-background h-full transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 group-hover:-translate-y-1"
+              >
+                <CardHeader class=":uno: space-y-2">
+                  <div class=":uno: text-xs text-muted-foreground flex gap-x-4 items-center">
+                    <time datetime={post.data.publishDate.toISOString()}>
+                      {post.data.publishDate.toLocaleDateString(lang, {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </time>
+                    <span class=":uno: flex gap-1 items-center">
+                      <div class=":uno: i-lucide-clock h-3 w-3" />
+                      {post.readingTime} {t("blog.minRead")}
+                    </span>
+                  </div>
+                  <CardTitle
+                    class=":uno: text-xl text-foreground leading-tight font-semibold transition-colors group-hover:text-primary"
+                  >
+                    {post.data.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription class=":uno: text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                    {post.data.description}
+                  </CardDescription>
+                </CardContent>
+                <div class=":uno: mt-auto p-6 pt-0">
+                  <div class=":uno: text-sm text-primary font-medium flex gap-x-2 items-center">
+                    {t("blog.readMore")}
+                    <div class=":uno: i-lucide-arrow-right h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </div>
+                </div>
+              </Card>
+            </a>
+          ))
+        }
+      </div>
     </div>
   </div>
 </BlogLayout>

@@ -64,5 +64,11 @@
     "sitemap": "Sitemap",
     "rss": "RSS Feed",
     "feedback": "Feedback"
+  },
+  "blog": {
+    "heading": "Small things with great love",
+    "description": "A place to share stories about art, technology, and the journey of Hope Art.",
+    "readMore": "Read more",
+    "minRead": "min read"
   }
 }
