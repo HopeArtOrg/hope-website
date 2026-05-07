@@ -1,6 +1,4 @@
 <script lang="ts">
-  import Icon from "@iconify/svelte";
-
   export type BlogPostEntryProps = {
     id: string;
     title: string;
@@ -24,8 +22,6 @@
     minReadLabel,
   }: BlogPostEntryProps = $props();
 
-  let isHovered = $state(false);
-
   const formattedDate = $derived(
     publishDate.toLocaleDateString(lang, {
       year: "numeric",
@@ -38,20 +34,26 @@
 <article class="post-entry opacity-0 translate-y-8 relative">
   <a
     {href}
-    class="post-link p-8 rounded-2xl block transition-all duration-500 relative -mx-8 hover:bg-primary/5 hover:shadow-primary/5 hover:shadow-xl"
-    onmouseenter={() => (isHovered = true)}
-    onmouseleave={() => (isHovered = false)}
+    class="p-8 rounded-2xl block transition-all duration-500 relative group -mx-8 hover:bg-primary/5 hover:shadow-primary/5 hover:shadow-xl"
   >
-    <!-- Arrow Icon -->
+    <!-- Arrow Icon (Pure SVG for maximum reliability) -->
     <div
-      class="hover-arrow text-primary pointer-events-none right-8 top-8 absolute z-20"
-      class:is-active={isHovered}
+      class="text-primary opacity-0 pointer-events-none translate-y-4 transition-all duration-500 right-8 top-8 absolute z-20 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 group-hover:translate-y-0"
     >
-      <Icon
-        icon="lucide:arrow-up-right"
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
         width="40"
         height="40"
-      />
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M7 7h10v10" />
+        <path d="M7 17 17 7" />
+      </svg>
     </div>
 
     <div class="flex flex-col gap-4">
@@ -69,9 +71,7 @@
       </div>
 
       <h2
-        class="text-3xl font-bold font-primary pr-12 transition-colors duration-300"
-        class:text-primary={isHovered}
-        class:text-foreground={!isHovered}
+        class="text-3xl font-bold font-primary pr-16 transition-colors duration-300 group-hover:text-primary"
       >
         {title}
       </h2>
@@ -82,9 +82,7 @@
 
       <div class="mt-4">
         <span
-          class="text-sm tracking-tight font-bold transition-colors duration-300"
-          class:text-primary={isHovered}
-          class:text-foreground={!isHovered}
+          class="text-sm text-foreground tracking-tight font-bold transition-colors duration-300 group-hover:text-primary"
         >
           {readMoreLabel}
         </span>
@@ -92,16 +90,3 @@
     </div>
   </a>
 </article>
-
-<style>
-  .hover-arrow {
-    opacity: 0;
-    transform: translate(-1rem, 1rem);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .hover-arrow.is-active {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
-</style>
