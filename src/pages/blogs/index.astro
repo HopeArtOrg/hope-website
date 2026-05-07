@@ -35,11 +35,11 @@ const posts = await Promise.all(
 <BlogLayout links={blogNavLinks} title={t("blog.heading")} description={t("blog.description")}>
   <div class="py-24 sm:py-32">
     <div class="mx-auto px-6 max-w-[720px]">
-      <header class="mb-24 text-left">
+      <header class="mb-24 flex flex-col gap-8 items-start">
         <h1 class="text-7xl text-foreground tracking-tighter font-bold font-primary sm:text-9xl">
           {t("blog.heading")}
         </h1>
-        <p class="text-xl text-muted-foreground leading-8 mt-6 max-w-xl">
+        <p class="text-xl text-muted-foreground leading-relaxed sm:text-2xl">
           {t("blog.description")}
         </p>
       </header>
