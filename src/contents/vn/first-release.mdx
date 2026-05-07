@@ -51,14 +51,16 @@ graph LR
 ```
 
 **Mô hình Toán học:**
-Giả sử $x$ là hình ảnh gốc, $c_{source}$ là khái niệm gốc (ví dụ: "chó"), và $c_{target}$ là khái niệm mục tiêu (ví dụ: "mèo"). Chúng ta tìm kiếm một nhiễu $\delta$ tối ưu hóa hàm mục tiêu sau:
+Giả sử $x$ là hình ảnh gốc, $c_\{source\}$ là khái niệm gốc (ví dụ: "chó"), và $c_\{target\}$ là khái niệm mục tiêu (ví dụ: "mèo"). Chúng ta tìm kiếm một nhiễu $\delta$ tối ưu hóa hàm mục tiêu sau:
 
-$$ \min_{\delta} || \mathcal{E}(x+\delta) - \mathcal{E}(x_{target}) ||_2^2 + \lambda ||\delta||_p $$
+```math
+\min_{\delta} || \mathcal{E}(x+\delta) - \mathcal{E}(x_{target}) ||_2^2 + \lambda ||\delta||_p
+```
 
 Trong đó:
 
-- $\mathcal{E}(\cdot)$ là hàm ánh xạ của Feature Extractor (ví dụ: CLIP Vision Encoder).
-- $x_{\text{target}}$ là hình ảnh neo (anchor image) đại diện cho $c_{\text{target}}$.
+- $\mathcal\{E\}(\cdot)$ là hàm ánh xạ của Feature Extractor (ví dụ: CLIP Vision Encoder).
+- $x_\{target\}$ là hình ảnh neo (anchor image) đại diện cho $c_\{target\}$.
 - $\lVert \delta \rVert_p$ là ràng buộc chuẩn $L_p$ (thường là $L_\infty$ hoặc $L_2$) để đảm bảo chất lượng thị giác (perceptual quality).
 
 **Hiệu quả:** Khi mô hình được fine-tune trên dữ liệu nhiễm độc Nightshade, gradient descent sẽ tối ưu hóa trọng số mô hình theo hướng sai lệch, làm hỏng khả năng biểu diễn đặc trưng của khái niệm đó.
@@ -190,9 +192,11 @@ graph LR
 ```
 
 **Mô hình Toán học:**
-Glaze tối ưu hóa $\delta$ để đẩy biểu diễn của hình ảnh trong không gian tiềm ẩn về phía một phong cách đối lập $S_{target}$, trong khi vẫn giữ nguyên nội dung ngữ nghĩa $C$.
+Glaze tối ưu hóa $\delta$ để đẩy biểu diễn của hình ảnh trong không gian tiềm ẩn về phía một phong cách đối lập $S_\{target\}$, trong khi vẫn giữ nguyên nội dung ngữ nghĩa $C$.
 
-$$ \min*{\delta} [ \mathcal{L}*{style}(\Phi(x+\delta), \Phi(S*{target})) + \alpha \mathcal{L}*{content}(\Psi(x+\delta), \Psi(x)) ] $$
+```math
+\min_{\delta} [ \mathcal{L}_{style}(\Phi(x+\delta), \Phi(S_{target})) + \alpha \mathcal{L}_{content}(\Psi(x+\delta), \Psi(x)) ]
+```
 
 Trong đó:
 

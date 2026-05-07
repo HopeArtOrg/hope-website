@@ -51,14 +51,16 @@ graph LR
 ```
 
 **Mathematical Model:**
-Suppose $x$ is the original image, $c_{source}$ is the source concept (e.g., \"dog\"), and $c_{target}$ is the target concept (e.g., \"cat\"). We seek an optimal perturbation $\delta$ that minimizes the following objective function:
+Suppose $x$ is the original image, $c_\{source\}$ is the source concept (e.g., "dog"), and $c_\{target\}$ is the target concept (e.g., "cat"). We seek an optimal perturbation $\delta$ that minimizes the following objective function:
 
-$$ \min_{\delta} || \mathcal{E}(x+\delta) - \mathcal{E}(x_{target}) ||_2^2 + \lambda ||\delta||_p $$
+```math
+\min_{\delta} || \mathcal{E}(x+\delta) - \mathcal{E}(x_{target}) ||_2^2 + \lambda ||\delta||_p
+```
 
 Where:
 
-- $\mathcal{E}(\cdot)$ is the mapping function of the Feature Extractor (e.g., CLIP Vision Encoder).
-- $x_{\text{target}}$ is the anchor image representing $c_{\text{target}}$.
+- $\mathcal\{E\}(\cdot)$ is the mapping function of the Feature Extractor (e.g., CLIP Vision Encoder).
+- $x_\{target\}$ is the anchor image representing $c_\{target\}$.
 - $\lVert \delta \rVert_p$ is the $L_p$ norm constraint (usually $L_\infty$ or $L_2$) to ensure perceptual quality.
 
 **Effectiveness:** When a model is fine-tuned on Nightshade-poisoned data, gradient descent optimizes the model weights in a misleading direction, corrupting the feature representation of that concept.
@@ -190,9 +192,11 @@ graph LR
 ```
 
 **Mathematical Model:**
-Glaze optimizes $\delta$ to push the image representation in the latent space towards an opposite style $S_{target}$, while maintaining the semantic content $C$.
+Glaze optimizes $\delta$ to push the image representation in the latent space towards an opposite style $S_\{target\}$, while maintaining the semantic content $C$.
 
-$$ \min*{\delta} [ \mathcal{L}*{style}(\Phi(x+\delta), \Phi(S*{target})) + \alpha \mathcal{L}*{content}(\Psi(x+\delta), \Psi(x)) ] $$
+```math
+\min_{\delta} [ \mathcal{L}_{style}(\Phi(x+\delta), \Phi(S_{target})) + \alpha \mathcal{L}_{content}(\Psi(x+\delta), \Psi(x)) ]
+```
 
 Where:
 
