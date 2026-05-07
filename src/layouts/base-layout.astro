@@ -4,6 +4,8 @@ import Navbar from "@/components/navbar/index.astro";
 import Head from "@/components/templates/head.astro";
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 
+import "katex/dist/katex.min.css";
+
 type Props = {
   title?: string;
   description?: string;

@@ -3,6 +3,8 @@ import svelte from "@astrojs/svelte";
 import { enhancedImages } from "@sveltejs/enhanced-img";
 import icon from "astro-icon";
 import { defineConfig } from "astro/config";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
 import UnoCSS from "unocss/astro";
 
 export default defineConfig({
@@ -11,7 +13,10 @@ export default defineConfig({
   integrations: [
     UnoCSS(),
     svelte(),
-    mdx(),
+    mdx({
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeKatex],
+    }),
     icon(),
   ],
 
