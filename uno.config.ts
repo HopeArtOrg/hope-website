@@ -105,6 +105,7 @@ export default defineConfig({
         primary: "Be Vietnam Pro",
         notojp: "Noto Serif JP",
         mono: "JetBrains Mono",
+        outline: "Londrina Outline",
       },
       processors: createLocalFontProcessor({
         cacheDir: "node_modules/.cache/unocss/fonts",

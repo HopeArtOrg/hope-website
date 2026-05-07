@@ -8,6 +8,8 @@ import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import UnoCSS from "unocss/astro";
 
+import { remarkReadingTime } from "./plugins/remark-reading-time";
+
 export default defineConfig({
   site: "https://hope-art.app",
 
@@ -15,7 +17,7 @@ export default defineConfig({
     UnoCSS(),
     svelte(),
     mdx({
-      remarkPlugins: [remarkMath],
+      remarkPlugins: [remarkMath, remarkReadingTime],
       rehypePlugins: [rehypeKatex],
     }),
     icon(),
