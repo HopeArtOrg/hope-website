@@ -53,7 +53,7 @@ graph LR
 **Mô hình Toán học:**
 Giả sử $x$ là hình ảnh gốc, $c_{source}$ là khái niệm gốc (ví dụ: "chó"), và $c_{target}$ là khái niệm mục tiêu (ví dụ: "mèo"). Chúng ta tìm kiếm một nhiễu $\delta$ tối ưu hóa hàm mục tiêu sau:
 
-$$ \min*{\delta} || \mathcal{E}(x+\delta) - \mathcal{E}(x*{target}) ||\_2^2 + \lambda ||\delta||\_p $$
+$$ \min_{\delta} || \mathcal{E}(x+\delta) - \mathcal{E}(x_{target}) ||_2^2 + \lambda ||\delta||_p $$
 
 Trong đó:
 

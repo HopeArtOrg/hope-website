@@ -53,7 +53,7 @@ graph LR
 **Mathematical Model:**
 Suppose $x$ is the original image, $c_{source}$ is the source concept (e.g., \"dog\"), and $c_{target}$ is the target concept (e.g., \"cat\"). We seek an optimal perturbation $\delta$ that minimizes the following objective function:
 
-$$ \min*{\delta} || \mathcal{E}(x+\delta) - \mathcal{E}(x*{target}) ||\_2^2 + \lambda ||\delta||\_p $$
+$$ \min_{\delta} || \mathcal{E}(x+\delta) - \mathcal{E}(x_{target}) ||_2^2 + \lambda ||\delta||_p $$
 
 Where:
 
