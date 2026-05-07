@@ -2,6 +2,7 @@ import mdx from "@astrojs/mdx";
 import svelte from "@astrojs/svelte";
 import { enhancedImages } from "@sveltejs/enhanced-img";
 import icon from "astro-icon";
+import mermaid from "astro-mermaid";
 import { defineConfig } from "astro/config";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
@@ -18,6 +19,7 @@ export default defineConfig({
       rehypePlugins: [rehypeKatex],
     }),
     icon(),
+    mermaid(),
   ],
 
   output: "static",
@@ -46,6 +48,9 @@ export default defineConfig({
   server: { port: 3000 },
 
   markdown: {
+    syntaxHighlight: {
+      excludeLangs: ["mermaid"],
+    },
     shikiConfig: {
       themes: {
         light: "catppuccin-latte",
