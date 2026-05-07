@@ -1,5 +1,5 @@
 ---
-import { Icon } from "@iconify/svelte";
+import { Icon } from "astro-icon/components";
 import { getCollection, render } from "astro:content";
 
 import { getLangFromUrl, getLocalePath, useTranslations } from "@/i18n/utils";
@@ -68,7 +68,7 @@ const posts = await Promise.all(
                       {post.data.title}
                     </h2>
                     <div class=":uno: text-primary opacity-0 translate-y-4 transition-all duration-500 right-0 top-0 absolute group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 group-hover:translate-y-0">
-                      <Icon icon="lucide:arrow-up-right" class=":uno: h-8 w-8" />
+                      <Icon name="lucide:arrow-up-right" class=":uno: h-8 w-8" />
                     </div>
                   </div>
 
@@ -80,7 +80,7 @@ const posts = await Promise.all(
                     <div class=":uno: text-sm text-foreground tracking-tight font-semibold flex gap-2 transition-colors duration-300 items-center group-hover:text-primary">
                       {t("blog.readMore")}
                       <Icon
-                        icon="lucide:arrow-right"
+                        name="lucide:arrow-right"
                         class=":uno: h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
                       />
                     </div>
