@@ -33,13 +33,14 @@
   );
 </script>
 
-<article class="post-entry opacity-0 translate-y-8 relative group">
+<article class="post-entry opacity-0 translate-y-8 relative">
   <a
     {href}
-    class="p-8 rounded-2xl block transition-all duration-500 relative -mx-8 hover:bg-primary/5 hover:shadow-[0_0_40px_-10px_rgba(var(--un-primary),0.1)]"
+    class="p-8 rounded-2xl block transition-all duration-500 relative group -mx-8 hover:bg-primary/5 hover:shadow-[0_0_40px_-10px_rgba(var(--un-primary),0.1)]"
   >
+    <!-- Arrow Icon -->
     <div
-      class="text-primary opacity-0 pointer-events-none translate-y-4 transition-all duration-500 right-6 top-6 absolute z-10 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 group-hover:translate-y-0"
+      class="text-primary opacity-0 pointer-events-none translate-y-4 transition-all duration-500 right-8 top-8 absolute z-20 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 group-hover:translate-y-0"
     >
       <Icon
         icon="lucide:arrow-up-right"
