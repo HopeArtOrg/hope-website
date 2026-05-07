@@ -10,7 +10,6 @@
       "@/styles/*": ["./src/styles/*"],
       "@/layouts/*": ["./src/layouts/*"],
       "@/components/*": ["./src/components/*"],
-      "@/components": ["./src/components/index.ts"],
       "@/contents/*": ["./src/contents/*"],
       "@/assets/*": ["./src/assets/*"]
     },
