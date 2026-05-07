@@ -36,17 +36,8 @@
 <article class="post-entry opacity-0 translate-y-8 relative">
   <a
     {href}
-    class="post-link p-8 rounded-2xl block transition-all duration-500 relative -mx-8 hover:bg-primary/5 hover:shadow-primary/5 hover:shadow-xl"
+    class="post-link p-4 rounded-xl block transition-all duration-300 relative -mx-4 sm:p-8 hover:bg-primary/5 sm:-mx-8"
   >
-    <!-- Arrow Icon (@iconify/svelte + CSS for reliability) -->
-    <div class="hover-arrow pointer-events-none z-20">
-      <Icon
-        icon="lucide:arrow-up-right"
-        width="40"
-        height="40"
-      />
-    </div>
-
     <div class="flex flex-col gap-4">
       <div
         class="text-xs text-muted-foreground/60 tracking-widest font-medium flex gap-4 uppercase items-center"
@@ -62,7 +53,7 @@
       </div>
 
       <h2
-        class="post-title text-3xl font-bold font-primary pr-16 transition-colors duration-300"
+        class="post-title text-3xl font-bold font-primary transition-colors duration-300"
       >
         {title}
       </h2>
@@ -72,40 +63,29 @@
       </p>
 
       <div class="mt-4">
-        <span
-          class="read-more text-sm text-foreground tracking-tight font-bold transition-colors duration-300"
+        <div
+          class="read-more text-sm text-foreground tracking-tight font-bold flex gap-1 transition-colors duration-300 items-center"
         >
           {readMoreLabel}
-        </span>
+          <Icon
+            icon="lucide:arrow-up-right"
+            width="18"
+            height="18"
+            class="transition-transform duration-300"
+          />
+        </div>
       </div>
     </div>
   </a>
 </article>
 
 <style>
-  .hover-arrow {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    opacity: 0;
-    transform: translate(-1rem, 1rem);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    /* Explicitly use the primary color from the theme */
-    color: oklch(var(--primary));
-  }
-
-  /* Fallback color if variable is missing */
-  :global(.dark) .hover-arrow {
-    color: oklch(0.68 0.04 255);
-  }
-
-  .post-link:hover .hover-arrow {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
-
   .post-link:hover .post-title,
   .post-link:hover .read-more {
     color: oklch(var(--primary));
+  }
+
+  .post-link:hover .read-more :global(svg) {
+    transform: translate(2px, -2px);
   }
 </style>
