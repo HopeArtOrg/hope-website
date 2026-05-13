@@ -18,7 +18,6 @@
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu";
   import { detectPlatform, GITHUB_REPO, GITHUB_REPO_URL, platforms } from "@/lib/constants";
-  import { cn } from "@/lib/utils";
 
   const {
     downloadLabel,
@@ -28,19 +27,13 @@
 
   let starCount = $state<number | null>(null);
   let downloadOpen = $state(false);
-  let mounted = $state(false);
 
-  let detectedPlatform = $state<ReturnType<typeof detectPlatform>>(null);
+  const detectedPlatform = detectPlatform();
   const altPlatforms = $derived(
     detectedPlatform
       ? platforms.filter(p => p !== detectedPlatform)
       : platforms,
   );
-
-  $effect(() => {
-    mounted = true;
-    detectedPlatform = detectPlatform();
-  });
 
   $effect(() => {
     const controller = new AbortController();
@@ -83,57 +76,42 @@
         {downloadLabel}
       {/if}
     </Button>
-
-    {#if mounted}
-      <DropdownMenu bind:open={downloadOpen}>
-        <DropdownMenuTrigger>
-          {#snippet child({ props })}
-            <Button
-              {...props}
-              size="lg"
-              class="px-2.5 border-l border-primary-foreground/20 rounded-l-none"
-              aria-label="More download options"
-            >
-              <Icon
-                icon="lucide:chevron-down"
-                class={cn("size-3.5 transition-transform duration-200", downloadOpen && "rotate-180")}
-              />
-            </Button>
-          {/snippet}
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          {#each altPlatforms as platform, i (platform.name)}
-            {#if i > 0}
-              <DropdownMenuSeparator />
-            {/if}
-            <DropdownMenuItem
-              onSelect={() => window.open(platform.href, "_blank", "noopener,noreferrer")}
-              class="flex gap-2 cursor-pointer items-center"
-            >
-              <Icon
-                icon={platform.icon}
-                class="size-4"
-                aria-hidden="true"
-              />
-              {platform.name}
-              <span class="text-muted-foreground font-mono">{platform.arch}</span>
-            </DropdownMenuItem>
-          {/each}
-        </DropdownMenuContent>
-      </DropdownMenu>
-    {:else}
-      <Button
-        size="lg"
-        class="px-2.5 border-l border-primary-foreground/20 rounded-l-none"
-        aria-label="More download options"
-        disabled
-      >
-        <Icon
-          icon="lucide:chevron-down"
-          class="size-3.5"
-        />
-      </Button>
-    {/if}
+    <DropdownMenu bind:open={downloadOpen}>
+      <DropdownMenuTrigger>
+        {#snippet child({ props })}
+          <Button
+            {...props}
+            size="lg"
+            class="px-2.5 border-l border-primary-foreground/20 rounded-l-none"
+            aria-label="More download options"
+          >
+            <Icon
+              icon="lucide:chevron-down"
+              class="size-3.5 transition-transform duration-200 {downloadOpen ? "rotate-180" : ""}"
+            />
+          </Button>
+        {/snippet}
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        {#each altPlatforms as platform, i (platform.name)}
+          {#if i > 0}
+            <DropdownMenuSeparator />
+          {/if}
+          <DropdownMenuItem
+            onSelect={() => window.open(platform.href, "_blank", "noopener,noreferrer")}
+            class="flex gap-2 cursor-pointer items-center"
+          >
+            <Icon
+              icon={platform.icon}
+              class="size-4"
+              aria-hidden="true"
+            />
+            {platform.name}
+            <span class="text-muted-foreground font-mono">{platform.arch}</span>
+          </DropdownMenuItem>
+        {/each}
+      </DropdownMenuContent>
+    </DropdownMenu>
   </div>
 
   <Button
