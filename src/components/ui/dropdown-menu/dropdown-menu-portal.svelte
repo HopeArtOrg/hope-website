@@ -1,7 +1,9 @@
 <script lang="ts">
   import { DropdownMenu as DropdownMenuPrimitive } from "bits-ui";
 
-  const { ...restProps }: DropdownMenuPrimitive.PortalProps = $props();
+  const { children, ...restProps }: DropdownMenuPrimitive.PortalProps = $props();
 </script>
 
-<DropdownMenuPrimitive.Portal {...restProps} />
+<DropdownMenuPrimitive.Portal {...restProps}>
+  {@render children?.()}
+</DropdownMenuPrimitive.Portal>
