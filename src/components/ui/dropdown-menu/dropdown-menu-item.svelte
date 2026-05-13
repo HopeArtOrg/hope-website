@@ -8,6 +8,7 @@
     class: className,
     inset,
     variant = "default",
+    children,
     ...restProps
   }: DropdownMenuPrimitive.ItemProps & {
     inset?: boolean;
@@ -25,4 +26,6 @@
     className,
   )}
   {...restProps}
-/>
+>
+  {@render children?.()}
+</DropdownMenuPrimitive.Item>

@@ -9,6 +9,7 @@
     ref = $bindable(null),
     class: className,
     inset,
+    children,
     ...restProps
   }: ComponentProps<typeof DropdownMenuPrimitive.GroupHeading> & {
     inset?: boolean;
@@ -21,4 +22,6 @@
   data-inset={inset}
   class={cn("px-2 py-1.5 text-sm font-semibold data-[inset]:ps-8", className)}
   {...restProps}
-/>
+>
+  {@render children?.()}
+</DropdownMenuPrimitive.GroupHeading>

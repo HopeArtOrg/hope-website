@@ -14,6 +14,7 @@
     sideOffset = 4,
     portalProps,
     class: className,
+    children,
     ...restProps
   }: DropdownMenuPrimitive.ContentProps & {
     portalProps?: WithoutChildrenOrChild<ComponentProps<typeof DropdownMenuPortal>>;
@@ -30,5 +31,7 @@
       className,
     )}
     {...restProps}
-  />
+  >
+    {@render children?.()}
+  </DropdownMenuPrimitive.Content>
 </DropdownMenuPortal>

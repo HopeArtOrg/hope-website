@@ -6,6 +6,7 @@
   let {
     ref = $bindable(null),
     class: className,
+    children,
     ...restProps
   }: DropdownMenuPrimitive.SubContentProps = $props();
 </script>
@@ -18,4 +19,6 @@
     className,
   )}
   {...restProps}
-/>
+>
+  {@render children?.()}
+</DropdownMenuPrimitive.SubContent>
