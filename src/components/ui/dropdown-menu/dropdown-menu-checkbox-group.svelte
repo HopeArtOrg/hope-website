@@ -4,7 +4,6 @@
   let {
     ref = $bindable(null),
     value = $bindable([]),
-    children,
     ...restProps
   }: DropdownMenuPrimitive.CheckboxGroupProps = $props();
 </script>
@@ -14,6 +13,4 @@
   bind:value
   data-slot="dropdown-menu-checkbox-group"
   {...restProps}
->
-  {@render children?.()}
-</DropdownMenuPrimitive.CheckboxGroup>
+/>
