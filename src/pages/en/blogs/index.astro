@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 
 import { BlogPostEntry } from "@/components/blogs/blog-post-entry";
+import YearDecoration from "@/components/blogs/year-decoration.astro";
 import {
   getLangFromUrl,
   getLocalePath,
@@ -18,7 +19,7 @@ const blogNavLinks = [
   { label: t("nav.rss"), href: "/rss.xml", icon: "lucide:rss" },
 ];
 
-const posts = await Promise.all(
+const allPosts = await Promise.all(
   (await getCollection("enBlog"))
     .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
     .map(async (post) => {
@@ -30,6 +31,18 @@ const posts = await Promise.all(
       };
     }),
 );
+
+const groupedPosts = allPosts.reduce((acc, post) => {
+  const year = post.data.publishDate.getFullYear();
+  if (!acc[year])
+acc[year] = [];
+  acc[year].push(post);
+  return acc;
+}, {} as Record<number, typeof allPosts>);
+
+const sortedYears = Object.keys(groupedPosts)
+  .map(Number)
+  .sort((a, b) => b - a);
 ---
 
 <BlogLayout links={blogNavLinks} title={t("blog.heading")} description={t("blog.description")}>
@@ -44,21 +57,28 @@ const posts = await Promise.all(
         </p>
       </header>
 
-      <div class="flex flex-col gap-12 sm:gap-16">
+      <div class="flex flex-col gap-24">
         {
-          posts.map(post => (
-            <BlogPostEntry
-              client:visible
-              id={post.id}
-              title={post.data.title}
-              description={post.data.description}
-              publishDate={post.data.publishDate}
-              readingTime={post.readingTime}
-              href={getLocalePath(lang, `/blogs/${post.id}`)}
-              lang={lang}
-              readMoreLabel={t("blog.readMore")}
-              minReadLabel={t("blog.minRead")}
-            />
+          sortedYears.map(year => (
+            <section class="relative">
+              <YearDecoration year={year} />
+              <div class="flex flex-col gap-12 relative z-10 sm:gap-16">
+                {groupedPosts[year].map(post => (
+                  <BlogPostEntry
+                    client:visible
+                    id={post.id}
+                    title={post.data.title}
+                    description={post.data.description}
+                    publishDate={post.data.publishDate}
+                    readingTime={post.readingTime}
+                    href={getLocalePath(lang, `/blogs/${post.id}`)}
+                    lang={lang}
+                    readMoreLabel={t("blog.readMore")}
+                    minReadLabel={t("blog.minRead")}
+                  />
+                ))}
+              </div>
+            </section>
           ))
         }
       </div>
