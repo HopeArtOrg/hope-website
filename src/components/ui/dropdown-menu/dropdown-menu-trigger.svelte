@@ -18,7 +18,10 @@
     {#if childSnippet}
       {@render childSnippet({ props })}
     {:else}
-      <button {...props}>
+      <button
+        {...props}
+        type="button"
+      >
         {@render children?.()}
       </button>
     {/if}
