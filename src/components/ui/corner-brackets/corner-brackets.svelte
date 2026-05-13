@@ -30,12 +30,12 @@
 </script>
 
 <div
-  class={cn("pointer-events-none absolute", inset, className)}
+  class={cn(":uno: pointer-events-none absolute", inset, className)}
   aria-hidden="true"
 >
   {#each corners as corner (corner)}
     <span
-      class={cn("absolute", cornerClasses[corner], size, borderColor)}
+      class={cn(":uno: absolute", cornerClasses[corner], size, borderColor)}
     ></span>
   {/each}
 </div>

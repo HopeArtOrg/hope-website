@@ -23,13 +23,13 @@
 
 <div
   bind:this={imageStackRef}
-  class="max-w-xs w-full aspect-4/3 relative md:max-w-md sm:max-w-sm"
+  class=":uno: max-w-xs w-full aspect-4/3 relative md:max-w-md sm:max-w-sm"
   style="perspective: 800px;"
 >
   {#each images as image, i (i)}
     <div
       bind:this={imageEls[i]}
-      class="border border-border/50 rounded-lg shadow-lg transition-transform duration-200 ease-out inset-0 absolute overflow-hidden"
+      class=":uno: border border-border/50 rounded-lg shadow-lg transition-transform duration-200 ease-out inset-0 absolute overflow-hidden"
       style="z-index: {i + 1}; transform: translate({-(images.length - 1 - i) * DEMO_IMAGE_STACK_OFFSET_X}px, {(images.length - 1 - i) * DEMO_IMAGE_STACK_OFFSET_Y}px);"
     >
       <img
@@ -37,14 +37,14 @@
         alt=""
         loading="lazy"
         decoding="async"
-        class="h-full w-full object-cover"
+        class=":uno: h-full w-full object-cover"
       />
     </div>
   {/each}
 
   <svg
     bind:this={frameSvgRef}
-    class="opacity-0 pointer-events-none inset-0 absolute z-50"
+    class=":uno: opacity-0 pointer-events-none inset-0 absolute z-50"
     aria-hidden="true"
   ></svg>
 </div>

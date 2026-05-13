@@ -15,6 +15,6 @@
 <NavigationMenuPrimitive.Link
   bind:ref
   data-slot="navigation-menu-link"
-  class={cn(`${navigationMenuTriggerStyle()}`, className)}
+  class={cn(`:uno: ${navigationMenuTriggerStyle()}`, className)}
   {...restProps}
 />

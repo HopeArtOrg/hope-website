@@ -13,20 +13,20 @@
 <DefinitionPanel
   bind:ref
   position="left"
-  class="font-notojp"
+  class=":uno: font-notojp"
 >
-  <span class="text-sm">
-    <span class="text-base font-semibold">望</span>
+  <span class=":uno: text-sm">
+    <span class=":uno: text-base font-semibold">望</span>
     <Icon
       icon="lucide:star"
-      class="size-3.5 inline"
+      class=":uno: size-3.5 inline"
     />
-    <span class="text-xs font-mono font-primary">/bou/</span>
+    <span class=":uno: text-xs font-mono font-primary">/bou/</span>
     <br />
-    <span class="italic">名詞</span>
+    <span class=":uno: italic">名詞</span>
   </span>
-  <div class="bg-muted-foreground/30 h-px w-8"></div>
-  <span class="text-sm leading-relaxed italic">
+  <div class=":uno: bg-muted-foreground/30 h-px w-8"></div>
+  <span class=":uno: text-sm leading-relaxed italic">
     望み、願い、希望。
     <br />
     良いことが起こると
