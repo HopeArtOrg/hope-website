@@ -2,35 +2,42 @@
   import Icon from "@iconify/svelte";
   import { DropdownMenu as DropdownMenuPrimitive } from "bits-ui";
 
-  import type { WithoutChild } from "@/lib/utils";
-
   import { cn } from "@/lib/utils";
 
   let {
     ref = $bindable(null),
     class: className,
-    children: childrenProp,
+    child: childSnippet,
+    children,
     ...restProps
-  }: WithoutChild<DropdownMenuPrimitive.RadioItemProps> = $props();
+  }: DropdownMenuPrimitive.RadioItemProps = $props();
 </script>
 
 <DropdownMenuPrimitive.RadioItem
   bind:ref
   data-slot="dropdown-menu-radio-item"
-  class={cn(
-    "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 ps-8 pe-2 text-sm outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-    className,
-  )}
   {...restProps}
 >
-  {#snippet children({ checked })}
-    <span
-      class="flex size-3.5 pointer-events-none items-center start-2 justify-center absolute"
-    >
-      {#if checked}
-        <Icon icon="lucide:circle" class="size-2 fill-current" />
-      {/if}
-    </span>
-    {@render childrenProp?.({ checked })}
+  {#snippet child({ props, checked })}
+    {#if childSnippet}
+      {@render childSnippet({ props, checked })}
+    {:else}
+      <div
+        {...props}
+        class={cn(
+          "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 ps-8 pe-2 text-sm outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+          className,
+        )}
+      >
+        <span
+          class="flex size-3.5 pointer-events-none items-center start-2 justify-center absolute"
+        >
+          {#if checked}
+            <Icon icon="lucide:circle" class="size-2 fill-current" />
+          {/if}
+        </span>
+        {@render children?.({ checked })}
+      </div>
+    {/if}
   {/snippet}
 </DropdownMenuPrimitive.RadioItem>
