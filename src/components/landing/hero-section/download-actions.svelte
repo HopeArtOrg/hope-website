@@ -26,6 +26,7 @@
   }: DownloadActionsProps = $props();
 
   let starCount = $state<number | null>(null);
+  let downloadOpen = $state(false);
 
   const detectedPlatform = detectPlatform();
   const altPlatforms = $derived(
@@ -62,6 +63,7 @@
       rel="noopener noreferrer"
       class="rounded-r-none gap-2"
       aria-label={detectedPlatform ? `${downloadForLabel} ${detectedPlatform.name}` : downloadLabel}
+      onclick={detectedPlatform ? undefined : () => { downloadOpen = !downloadOpen; }}
     >
       <Icon
         icon={detectedPlatform?.icon ?? "lucide:download"}
@@ -74,7 +76,7 @@
         {downloadLabel}
       {/if}
     </Button>
-    <DropdownMenu>
+    <DropdownMenu bind:open={downloadOpen}>
       <DropdownMenuTrigger>
         {#snippet child({ props })}
           <Button
@@ -85,7 +87,7 @@
           >
             <Icon
               icon="lucide:chevron-down"
-              class="size-3.5 transition-transform duration-200 {props["aria-expanded"] === "true" ? "rotate-180" : ""}"
+              class="size-3.5 transition-transform duration-200 {downloadOpen ? "rotate-180" : ""}"
             />
           </Button>
         {/snippet}
