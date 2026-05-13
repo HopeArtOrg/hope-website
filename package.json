@@ -67,6 +67,12 @@
     "tailwind-variants": "^3.2.2",
     "typescript": "^6.0.3"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  },
   "lint-staged": {
     "*": "pnpm lint"
   }
