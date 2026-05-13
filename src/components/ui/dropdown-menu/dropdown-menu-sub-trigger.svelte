@@ -8,6 +8,7 @@
     ref = $bindable(null),
     class: className,
     inset,
+    child: childProp,
     children,
     ...restProps
   }: DropdownMenuPrimitive.SubTriggerProps & {
@@ -19,9 +20,15 @@
   bind:ref
   data-slot="dropdown-menu-sub-trigger"
   data-inset={inset}
-  class={cn(":uno: data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:ps-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4", className)}
+  class={cn("data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:ps-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4", className)}
   {...restProps}
 >
-  {@render children?.()}
-  <Icon icon="lucide:chevron-right" class=":uno: ms-auto size-4" />
+  {#snippet child({ props })}
+    {#if childProp}
+      {@render childProp({ props })}
+    {:else}
+      {@render children?.()}
+      <Icon icon="lucide:chevron-right" class="ms-auto size-4" />
+    {/if}
+  {/snippet}
 </DropdownMenuPrimitive.SubTrigger>
