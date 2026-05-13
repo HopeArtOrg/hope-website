@@ -55,15 +55,13 @@
       return;
     }
 
-    const tl = gsap.timeline({ delay: 0.1 });
+    const tl = gsap.timeline();
     tl.add(animateBigBang(mobileStar, true));
     tl.add(() => {
-      animateFloatDown(heroContent!, 80, 0.8, 0.15);
-    });
-    tl.add(() => {
+      animateFloatDown(heroContent!, 80, 1, 0.2);
       auroraCleanup = setupAuroraBg(auroraRef!);
-      gsap.to(auroraRef!, { opacity: 1, duration: 1.2, ease: "power2.inOut" });
-    }, "-=0.4");
+      gsap.to(auroraRef!, { opacity: 1, duration: 1.5, ease: "power2.inOut" });
+    });
 
     return () => {
       tl.kill();
@@ -88,23 +86,22 @@
       return;
     }
 
-    const master = gsap.timeline({ delay: 0.1 });
+    const master = gsap.timeline();
 
     gsap.set(desktopStar, { left: "0%", right: "0%" });
 
     master.add(animateBigBang(desktopStar));
+
     master.add(animateStarDrift(desktopStar, "33.333%"));
+
     master.add(animateBounce(desktopStar));
 
     master.add(() => {
-      animateFloatDown(heroContent!, 80, 0.8);
-      animateFloatDown(definitionRef!, 60, 1, 0.15);
-    });
-
-    master.add(() => {
+      animateFloatDown(heroContent!, 80, 1);
+      animateFloatDown(definitionRef!, 60, 1.2, 0.2);
       auroraCleanup = setupAuroraBg(auroraRef!);
-      gsap.to(auroraRef!, { opacity: 1, duration: 1.2, ease: "power2.inOut" });
-    }, "-=0.5");
+      gsap.to(auroraRef!, { opacity: 1, duration: 1.5, ease: "power2.inOut" });
+    });
 
     return () => {
       master.kill();
@@ -136,34 +133,34 @@
 
   <div
     bind:this={desktopStar}
-    class=":uno: hidden invisible pointer-events-none items-center inset-y-0 left-0 right-0 justify-center absolute lg:flex"
+    class="hidden invisible pointer-events-none items-center inset-y-0 left-0 right-0 justify-center absolute lg:flex"
   >
-    <StarIcon class=":uno: text-[oklch(0.18_0.01_60/0.35)] h-[80dvh] w-[80dvh] dark:text-[oklch(0.55_0.04_255/0.25)] xl:h-[90dvh] xl:w-[90dvh]" />
+    <StarIcon class="text-[oklch(0.18_0.01_60/0.35)] h-[80dvh] w-[80dvh] dark:text-[oklch(0.55_0.04_255/0.25)] xl:h-[90dvh] xl:w-[90dvh]" />
   </div>
 
   <div
     bind:this={mobileStar}
-    class=":uno: flex invisible items-center justify-center relative lg:hidden"
+    class="flex invisible items-center justify-center relative lg:hidden"
   >
-    <StarIcon class=":uno: text-[oklch(0.18_0.01_60/0.45)] size-48 dark:text-[oklch(0.55_0.04_255/0.35)] sm:size-64" />
+    <StarIcon class="text-[oklch(0.18_0.01_60/0.45)] size-48 dark:text-[oklch(0.55_0.04_255/0.35)] sm:size-64" />
   </div>
 
   <DefinitionPanel
     bind:ref={definitionRef}
     position="right"
     vertical
-    class=":uno: bottom-32"
+    class="bottom-32"
   >
-    <span class=":uno: text-sm text-right">
+    <span class="text-sm text-right">
       Hope
       <Icon
         icon="lucide:star"
         class=":uno: size-3.5 inline"
       />
       -
-      <span class=":uno: font-mono">/h&#x0259;&#x028A;p/</span>
+      <span class="font-mono">/h&#x0259;&#x028A;p/</span>
       <br />
-      <span class=":uno: italic">noun</span>
+      <span class="italic">noun</span>
     </span>
     <div class=":uno: bg-muted-foreground/30 h-8 w-px self-end"></div>
     <span class=":uno: text-sm text-right italic">

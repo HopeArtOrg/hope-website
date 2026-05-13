@@ -1,8 +1,7 @@
 import gsap from "gsap";
 import { createNoise3D } from "simplex-noise";
 
-const GRID_STEP_DESKTOP = 12;
-const GRID_STEP_MOBILE = 20;
+const GRID_STEP = 12;
 const THRESHOLD_COUNT = 3;
 const THRESHOLD_MIN = -0.6;
 const THRESHOLD_MAX = 0.6;
@@ -42,11 +41,10 @@ function resolveBaseColor(): string {
 }
 
 export function setupAuroraBg(canvas: HTMLCanvasElement): () => void {
-  const ctx = canvas.getContext("2d", { alpha: true, desynchronized: true })!;
+  const ctx = canvas.getContext("2d")!;
   const noise3D = createNoise3D();
   const { values, opacities, widths } = buildThresholds();
   const isMobile = "ontouchstart" in window;
-  const gridStep = isMobile ? GRID_STEP_MOBILE : GRID_STEP_DESKTOP;
 
   let cols = 0;
   let rows = 0;
@@ -56,9 +54,6 @@ export function setupAuroraBg(canvas: HTMLCanvasElement): () => void {
   let grid = new Float64Array(0);
   let baseColor = resolveBaseColor();
   let frameCount = 0;
-  let isVisible = false;
-
-  canvas.style.willChange = "transform, opacity";
 
   const mouse = { x: -9999, y: -9999, s: 0 };
   const smoothX = gsap.quickTo(mouse, "x", { duration: MOUSE_LERP, ease: "none" });
@@ -78,8 +73,8 @@ export function setupAuroraBg(canvas: HTMLCanvasElement): () => void {
     h = rect.height;
     canvas.width = w;
     canvas.height = h;
-    cols = Math.ceil(w / gridStep) + 1;
-    rows = Math.ceil(h / gridStep) + 1;
+    cols = Math.ceil(w / GRID_STEP) + 1;
+    rows = Math.ceil(h / GRID_STEP) + 1;
     grid = new Float64Array(cols * rows);
   }
 
@@ -90,12 +85,11 @@ export function setupAuroraBg(canvas: HTMLCanvasElement): () => void {
     const useM = !isMobile && ms > 0.001;
 
     for (let r = 0; r < rows; r++) {
-      const py = r * gridStep;
+      const py = r * GRID_STEP;
       const rowOff = r * cols;
-      const pyNoise = py * NOISE_SCALE;
       for (let c = 0; c < cols; c++) {
-        const px = c * gridStep;
-        let v = noise3D(px * NOISE_SCALE, pyNoise, zOffset);
+        const px = c * GRID_STEP;
+        let v = noise3D(px * NOISE_SCALE, py * NOISE_SCALE, zOffset);
         if (useM) {
           const dx = px - mx;
           const dy = py - my;
@@ -113,8 +107,8 @@ export function setupAuroraBg(canvas: HTMLCanvasElement): () => void {
   function traceAndStroke(threshold: number) {
     ctx.beginPath();
     for (let r = 0; r < rows - 1; r++) {
-      const y0 = r * gridStep;
-      const y1 = y0 + gridStep;
+      const y0 = r * GRID_STEP;
+      const y1 = y0 + GRID_STEP;
       const r0 = r * cols;
       const r1 = r0 + cols;
 
@@ -132,13 +126,13 @@ export function setupAuroraBg(canvas: HTMLCanvasElement): () => void {
         if (cfg === 0 || cfg === 15)
           continue;
 
-        const x0 = c * gridStep;
-        const x1 = x0 + gridStep;
+        const x0 = c * GRID_STEP;
+        const x1 = x0 + GRID_STEP;
 
-        const topX = x0 + ((threshold - tl) / (tr - tl || 1e-10)) * gridStep;
-        const rightY = y0 + ((threshold - tr) / (br - tr || 1e-10)) * gridStep;
-        const bottomX = x0 + ((threshold - bl) / (br - bl || 1e-10)) * gridStep;
-        const leftY = y0 + ((threshold - tl) / (bl - tl || 1e-10)) * gridStep;
+        const topX = x0 + ((threshold - tl) / (tr - tl || 1e-10)) * GRID_STEP;
+        const rightY = y0 + ((threshold - tr) / (br - tr || 1e-10)) * GRID_STEP;
+        const bottomX = x0 + ((threshold - bl) / (br - bl || 1e-10)) * GRID_STEP;
+        const leftY = y0 + ((threshold - tl) / (bl - tl || 1e-10)) * GRID_STEP;
 
         switch (cfg) {
           case 1: case 14:
@@ -224,16 +218,12 @@ export function setupAuroraBg(canvas: HTMLCanvasElement): () => void {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
       resize();
-      if (isVisible) {
-        computeGrid();
-        render();
-      }
+      computeGrid();
+      render();
     }, RESIZE_DEBOUNCE);
   }
 
   function onMouseMove(e: MouseEvent) {
-    if (!isVisible)
-      return;
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -249,8 +239,15 @@ export function setupAuroraBg(canvas: HTMLCanvasElement): () => void {
     gsap.to(mouse, { s: 0, duration: MOUSE_FADE_DURATION, ease: "power2.out" });
   }
 
+  let paused = false;
+
+  function isCanvasVisible() {
+    const rect = canvas.getBoundingClientRect();
+    return rect.bottom > 0 && rect.top < window.innerHeight;
+  }
+
   function tick(_: number, dt: number) {
-    if (!isVisible)
+    if (paused)
       return;
     frameCount++;
     if (frameCount % 2 !== 0)
@@ -260,30 +257,27 @@ export function setupAuroraBg(canvas: HTMLCanvasElement): () => void {
     render();
   }
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      isVisible = entries[0].isIntersecting;
-    },
-    { threshold: 0.01 },
-  );
-  observer.observe(canvas);
+  function onScroll() {
+    paused = !isCanvasVisible();
+  }
 
-  window.addEventListener("resize", onResize, { passive: true });
+  window.addEventListener("resize", onResize);
   if (!isMobile) {
     window.addEventListener("mousemove", onMouseMove, { passive: true });
-    window.addEventListener("mouseleave", onMouseLeave, { passive: true });
+    window.addEventListener("mouseleave", onMouseLeave);
   }
+  window.addEventListener("scroll", onScroll, { passive: true });
   gsap.ticker.add(tick);
 
   return () => {
     clearTimeout(resizeTimer);
     themeObserver.disconnect();
-    observer.disconnect();
     window.removeEventListener("resize", onResize);
     if (!isMobile) {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseleave", onMouseLeave);
     }
+    window.removeEventListener("scroll", onScroll);
     gsap.ticker.remove(tick);
   };
 }
