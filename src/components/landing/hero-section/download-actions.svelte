@@ -94,7 +94,7 @@
         {/snippet}
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {#each altPlatforms as platform, i (platform.name)}
+        {#each altPlatforms as platform, i (platform.href)}
           {#if i > 0}
             <DropdownMenuSeparator />
           {/if}
