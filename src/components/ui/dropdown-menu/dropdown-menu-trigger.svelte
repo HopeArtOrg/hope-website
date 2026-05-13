@@ -18,7 +18,9 @@
     {#if childProp}
       {@render childProp({ props })}
     {:else}
-      {@render children?.()}
+      <button {...props}>
+        {@render children?.()}
+      </button>
     {/if}
   {/snippet}
 </DropdownMenuPrimitive.Trigger>

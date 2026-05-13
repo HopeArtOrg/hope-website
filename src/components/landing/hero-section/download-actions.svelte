@@ -55,8 +55,8 @@
   }
 </script>
 
-<div class=":uno: flex flex-wrap gap-3 items-center justify-center lg:justify-start">
-  <div class=":uno: inline-flex items-center">
+<div class="flex flex-wrap gap-3 items-center justify-center lg:justify-start">
+  <div class="inline-flex items-center">
     <Button
       size="lg"
       href={detectedPlatform?.href}
@@ -68,11 +68,11 @@
     >
       <Icon
         icon={detectedPlatform?.icon ?? "lucide:download"}
-        class=":uno: size-4"
+        class="size-4"
       />
       {#if detectedPlatform}
         {downloadForLabel} {detectedPlatform.name}
-        <span class=":uno: text-primary-foreground/70 font-mono">{detectedPlatform.arch}</span>
+        <span class="text-primary-foreground/70 font-mono">{detectedPlatform.arch}</span>
       {:else}
         {downloadLabel}
       {/if}
@@ -88,7 +88,7 @@
           >
             <Icon
               icon="lucide:chevron-down"
-              class={cn(":uno: size-3.5 transition-transform duration-200", downloadOpen && "rotate-180")}
+              class={cn("size-3.5 transition-transform duration-200", downloadOpen && "rotate-180")}
             />
           </Button>
         {/snippet}
@@ -104,11 +104,11 @@
           >
             <Icon
               icon={platform.icon}
-              class=":uno: size-4"
+              class="size-4"
               aria-hidden="true"
             />
             {platform.name}
-            <span class=":uno: text-muted-foreground font-mono">{platform.arch}</span>
+            <span class="text-muted-foreground font-mono">{platform.arch}</span>
           </DropdownMenuItem>
         {/each}
       </DropdownMenuContent>
@@ -126,14 +126,14 @@
   >
     <Icon
       icon="lucide:github"
-      class=":uno: size-4"
+      class="size-4"
     />
     {githubLabel}
     {#if starCount !== null}
-      <span class=":uno: text-muted-foreground pl-2 border-l border-border flex gap-1 items-center">
+      <span class="text-muted-foreground pl-2 border-l border-border flex gap-1 items-center">
         <Icon
           icon="lucide:star"
-          class=":uno: size-3.5"
+          class="size-3.5"
         />
         {formatStars(starCount)}
       </span>

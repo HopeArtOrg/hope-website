@@ -23,21 +23,25 @@
 <DropdownMenuPrimitive.RadioItem
   bind:ref
   data-slot="dropdown-menu-radio-item"
-  class={cn("focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 ps-8 pe-2 text-sm outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4", className)}
   {...restProps}
 >
   {#snippet child({ props, checked })}
     {#if childProp}
       {@render childProp({ props })}
     {:else}
-      <span
-        class="flex size-3.5 pointer-events-none items-center start-2 justify-center absolute"
+      <div
+        {...props}
+        class={cn("focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 ps-8 pe-2 text-sm outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg:shrink-0 [&_svg:not([class*='size-'])]:size-4", className)}
       >
-        {#if checked}
-          <Icon icon="lucide:circle" class="size-2 fill-current" />
-        {/if}
-      </span>
-      {@render children?.({ checked })}
+        <span
+          class="flex size-3.5 pointer-events-none items-center start-2 justify-center absolute"
+        >
+          {#if checked}
+            <Icon icon="lucide:circle" class="size-2 fill-current" />
+          {/if}
+        </span>
+        {@render children?.({ checked })}
+      </div>
     {/if}
   {/snippet}
 </DropdownMenuPrimitive.RadioItem>
