@@ -29,7 +29,7 @@
 
 <div
   bind:this={leftCol}
-  class=":uno: flex invisible items-center justify-center order-2 relative lg:order-1"
+  class="flex invisible items-center justify-center order-2 relative lg:order-1"
   style="perspective: 800px;"
 >
   <AboutImages

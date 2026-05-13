@@ -41,7 +41,7 @@
     class="post-link p-4 rounded-xl block transition-all duration-300 relative -mx-4 sm:p-8 hover:bg-primary/5 sm:-mx-8"
   >
     <div
-      class=":uno: text-muted-foreground/40 transition-all duration-300 right-6 top-6 absolute group-hover:text-primary group-hover:translate-x-1 sm:right-10 sm:top-10 group-hover:-translate-y-1"
+      class="text-muted-foreground/40 transition-all duration-300 right-6 top-6 absolute group-hover:text-primary group-hover:translate-x-1 sm:right-10 sm:top-10 group-hover:-translate-y-1"
     >
       <Icon
         icon="lucide:arrow-up-right"
@@ -49,14 +49,14 @@
       />
     </div>
 
-    <div class=":uno: flex flex-col gap-4">
+    <div class="flex flex-col gap-4">
       <div
-        class=":uno: text-xs text-muted-foreground/60 tracking-widest font-medium flex gap-4 uppercase items-center"
+        class="text-xs text-muted-foreground/60 tracking-widest font-medium flex gap-4 uppercase items-center"
       >
         <time datetime={publishDate.toISOString()}>
           {formattedDate}
         </time>
-        <span class=":uno: rounded-full bg-border h-1 w-1"></span>
+        <span class="rounded-full bg-border h-1 w-1"></span>
         <span>
           {readingTime}
           {minReadLabel}
@@ -69,7 +69,7 @@
         {title}
       </h2>
 
-      <p class=":uno: text-lg text-muted-foreground/80 leading-relaxed max-w-2xl">
+      <p class="text-lg text-muted-foreground/80 leading-relaxed max-w-2xl">
         {description}
       </p>
 

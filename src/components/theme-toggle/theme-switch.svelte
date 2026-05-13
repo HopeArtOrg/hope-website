@@ -20,7 +20,7 @@
 </script>
 
 <div
-  class=":uno: p-0.5 rounded-sm bg-muted inline-flex h-8 w-fit items-center"
+  class="p-0.5 rounded-sm bg-muted inline-flex h-8 w-fit items-center"
   role="radiogroup"
   aria-label="Theme"
 >
@@ -30,7 +30,7 @@
       aria-checked={themeStore.current === option.value}
       aria-label={option.value}
       class={cn(
-        ":uno: text-xs font-medium px-2.5 rounded-sm inline-flex gap-1.5 h-7 cursor-pointer transition-all duration-200 items-center justify-center",
+        "text-xs font-medium px-2.5 rounded-sm inline-flex gap-1.5 h-7 cursor-pointer transition-all duration-200 items-center justify-center",
         themeStore.current === option.value
           ? "text-foreground bg-background shadow-sm"
           : "text-muted-foreground hover:text-foreground",
@@ -39,7 +39,7 @@
     >
       <Icon
         icon={option.icon}
-        class=":uno: size-3.5"
+        class="size-3.5"
       />
       <span>{option.label}</span>
     </button>

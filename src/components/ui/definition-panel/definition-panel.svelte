@@ -37,7 +37,7 @@
 <div
   bind:this={ref}
   class={cn(
-    ":uno: invisible pointer-events-none absolute bottom-16 hidden select-none flex-col text-xs tracking-wide text-muted-foreground/40 lg:flex",
+    "invisible pointer-events-none absolute bottom-16 hidden select-none flex-col text-xs tracking-wide text-muted-foreground/40 lg:flex",
     gap,
     positionClasses,
     className,

@@ -33,14 +33,14 @@
   });
 </script>
 
-<div class=":uno: mt-6 relative lg:mt-10 sm:mt-8">
+<div class="mt-6 relative lg:mt-10 sm:mt-8">
   <img
     bind:this={doodleArrow1Ref}
     src="/landing/about/doodle-arrow-1.svg"
     alt=""
     aria-hidden="true"
     loading="lazy"
-    class=":uno: mt-2 opacity-20 hidden invisible pointer-events-none rotate-[-90deg] left-1/2 top-full absolute md:mt-4 sm:mt-3 lg:size-18 md:size-16 sm:size-12 sm:block -translate-x-1/2 -scale-y-100 dark:invert"
+    class="mt-2 opacity-20 hidden invisible pointer-events-none rotate-[-90deg] left-1/2 top-full absolute md:mt-4 sm:mt-3 lg:size-18 md:size-16 sm:size-12 sm:block -translate-x-1/2 -scale-y-100 dark:invert"
   />
   <img
     bind:this={doodleArrow2Ref}
@@ -48,7 +48,7 @@
     alt=""
     aria-hidden="true"
     loading="lazy"
-    class=":uno: opacity-20 hidden invisible pointer-events-none rotate-[150deg] bottom-full left-full absolute -mb-2 -ml-2 lg:size-18 md:size-16 sm:size-12 sm:block dark:invert sm:-mb-3 sm:-ml-3"
+    class="opacity-20 hidden invisible pointer-events-none rotate-[150deg] bottom-full left-full absolute -mb-2 -ml-2 lg:size-18 md:size-16 sm:size-12 sm:block dark:invert sm:-mb-3 sm:-ml-3"
   />
   <img
     bind:this={doodleArrow3Ref}
@@ -56,7 +56,7 @@
     alt=""
     aria-hidden="true"
     loading="lazy"
-    class=":uno: ml-1 mt-1 opacity-20 hidden invisible pointer-events-none left-full top-full absolute sm:ml-2 sm:mt-2 lg:size-18 md:size-16 sm:size-12 sm:block -scale-x-100 dark:invert"
+    class="ml-1 mt-1 opacity-20 hidden invisible pointer-events-none left-full top-full absolute sm:ml-2 sm:mt-2 lg:size-18 md:size-16 sm:size-12 sm:block -scale-x-100 dark:invert"
   />
   <Button
     variant="outline"
@@ -66,22 +66,22 @@
     bind:ref={buttonRef}
     class="relative overflow-hidden"
   >
-    <span class=":uno: flex gap-2 items-center">
+    <span class="flex gap-2 items-center">
       {ctaLabel}
       <Icon
         icon="lucide:arrow-right"
-        class=":uno: cta-arrow size-3.5 transition-transform duration-300 sm:size-4"
+        class="cta-arrow size-3.5 transition-transform duration-300 sm:size-4"
       />
     </span>
     <span
       bind:this={overlayRef}
-      class=":uno: text-background bg-foreground flex gap-2 transition-opacity duration-500 ease-out [clip-path:polygon(0_0,0_0,0_100%,0_100%)] items-center inset-0 justify-center absolute"
+      class="text-background bg-foreground flex gap-2 transition-opacity duration-500 ease-out [clip-path:polygon(0_0,0_0,0_100%,0_100%)] items-center inset-0 justify-center absolute"
       aria-hidden="true"
     >
       {ctaLabel}
       <Icon
         icon="lucide:arrow-right"
-        class=":uno: cta-arrow size-3.5 transition-transform duration-300 sm:size-4"
+        class="cta-arrow size-3.5 transition-transform duration-300 sm:size-4"
       />
     </span>
   </Button>

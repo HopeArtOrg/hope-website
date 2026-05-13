@@ -13,7 +13,7 @@
     checked = $bindable(false),
     indeterminate = $bindable(false),
     class: className,
-    child: childProp,
+    child: childSnippet,
     children,
     ...restProps
   }: WithoutChildrenOrChild<DropdownMenuPrimitive.CheckboxItemProps> & {
@@ -30,8 +30,8 @@
   {...restProps}
 >
   {#snippet child({ props })}
-    {#if childProp}
-      {@render childProp({ props })}
+    {#if childSnippet}
+      {@render childSnippet({ props })}
     {:else}
       <div
         {...props}

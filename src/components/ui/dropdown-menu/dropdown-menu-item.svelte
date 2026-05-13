@@ -8,7 +8,7 @@
     class: className,
     inset,
     variant = "default",
-    child: childProp,
+    child: childSnippet,
     children,
     ...restProps
   }: DropdownMenuPrimitive.ItemProps & {
@@ -25,8 +25,8 @@
   {...restProps}
 >
   {#snippet child({ props })}
-    {#if childProp}
-      {@render childProp({ props })}
+    {#if childSnippet}
+      {@render childSnippet({ props })}
     {:else}
       <div
         {...props}

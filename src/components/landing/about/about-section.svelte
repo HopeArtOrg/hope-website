@@ -55,13 +55,13 @@
 <section
   bind:this={sectionEl}
   id="about"
-  class=":uno: mx-auto px-4 py-12 flex max-w-screen-xl items-center justify-center relative min-h-dvh lg:py-24 sm:px-6 sm:py-16"
+  class="mx-auto px-4 py-12 flex max-w-screen-xl items-center justify-center relative min-h-dvh lg:py-24 sm:px-6 sm:py-16"
 >
   <CornerBrackets corners={["tl", "br"]} />
 
   <AboutDefinition bind:ref={definitionRef} />
 
-  <div class=":uno: gap-8 grid w-full items-center lg:gap-16 sm:gap-12 lg:grid-cols-2">
+  <div class="gap-8 grid w-full items-center lg:gap-16 sm:gap-12 lg:grid-cols-2">
     <AboutVisuals
       {appScreenshotAlt}
       {repoScreenshotAlt}

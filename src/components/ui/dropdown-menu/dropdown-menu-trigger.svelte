@@ -3,7 +3,7 @@
 
   let {
     ref = $bindable(null),
-    child: childProp,
+    child: childSnippet,
     children,
     ...restProps
   }: DropdownMenuPrimitive.TriggerProps = $props();
@@ -15,8 +15,8 @@
   {...restProps}
 >
   {#snippet child({ props })}
-    {#if childProp}
-      {@render childProp({ props })}
+    {#if childSnippet}
+      {@render childSnippet({ props })}
     {:else}
       <button {...props}>
         {@render children?.()}

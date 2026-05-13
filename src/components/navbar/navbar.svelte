@@ -36,10 +36,10 @@
 
 <nav
   bind:this={navRef}
-  class=":uno: px-3 pt-3 flex invisible pointer-events-none inset-x-0 top-0 justify-center fixed z-50 sm:px-6 sm:pt-5"
+  class="px-3 pt-3 flex invisible pointer-events-none inset-x-0 top-0 justify-center fixed z-50 sm:px-6 sm:pt-5"
   style="will-change: transform;"
 >
-  <div class=":uno: px-4 border border-border/50 rounded-xl bg-background/60 flex h-14 w-full max-w-screen-xl pointer-events-auto ring-1 ring-white/10 ring-inset shadow-lg items-center justify-between backdrop-blur-xl backdrop-saturate-150 sm:px-12 sm:h-20">
+  <div class="px-4 border border-border/50 rounded-xl bg-background/60 flex h-14 w-full max-w-screen-xl pointer-events-auto ring-1 ring-white/10 ring-inset shadow-lg items-center justify-between backdrop-blur-xl backdrop-saturate-150 sm:px-12 sm:h-20">
     <a
       href={homePath}
       class="flex gap-2 items-center group sm:gap-3"
@@ -54,11 +54,11 @@
       </span>
     </a>
 
-    <div class=":uno: flex gap-1 items-center sm:gap-2">
-      <div class=":uno: hidden items-center md:flex">
+    <div class="flex gap-1 items-center sm:gap-2">
+      <div class="hidden items-center md:flex">
         {#each links as link, i (link.href)}
           {#if i > 0}
-            <span class=":uno: text-base text-border select-none">/</span>
+            <span class="text-base text-border select-none">/</span>
           {/if}
           <NavLink
             label={link.label}
@@ -68,10 +68,10 @@
         {/each}
       </div>
 
-      <span class=":uno: text-base text-border hidden select-none md:inline">/</span>
+      <span class="text-base text-border hidden select-none md:inline">/</span>
       <ThemeToggle />
 
-      <div class=":uno: md:hidden">
+      <div class="md:hidden">
         <Sheet bind:open={sheetOpen}>
           <SheetTrigger>
             {#snippet child({ props })}
@@ -79,28 +79,28 @@
                 {...props}
                 variant="ghost"
                 size="icon"
-                class=":uno: size-9 sm:size-10"
+                class="size-9 sm:size-10"
               >
                 <Icon
                   icon="lucide:menu"
-                  class=":uno: size-5 sm:size-6"
+                  class="size-5 sm:size-6"
                 />
-                <span class=":uno: sr-only">Open menu</span>
+                <span class="sr-only">Open menu</span>
               </Button>
             {/snippet}
           </SheetTrigger>
           <SheetContent side="right">
             <SheetHeader>
-              <SheetTitle class=":uno: sr-only">Navigation</SheetTitle>
+              <SheetTitle class="sr-only">Navigation</SheetTitle>
             </SheetHeader>
-            <nav class=":uno: px-2 flex flex-col gap-1">
+            <nav class="px-2 flex flex-col gap-1">
               {#each links as link (link.href)}
                 <SheetClose>
                   {#snippet child({ props })}
                     <a
                       {...props}
                       href={link.href}
-                      class=":uno: text-sm text-muted-foreground font-medium px-3 py-2.5 rounded-sm transition-colors hover:text-foreground hover:bg-accent"
+                      class="text-sm text-muted-foreground font-medium px-3 py-2.5 rounded-sm transition-colors hover:text-foreground hover:bg-accent"
                     >
                       {link.label}
                     </a>

@@ -109,7 +109,7 @@
 <section
   bind:this={sectionEl}
   id="demo"
-  class=":uno: mx-auto px-4 py-12 flex max-w-screen-xl items-center justify-center relative min-h-dvh lg:py-24 sm:px-6 sm:py-16"
+  class="mx-auto px-4 py-12 flex max-w-screen-xl items-center justify-center relative min-h-dvh lg:py-24 sm:px-6 sm:py-16"
 >
   <CornerBrackets corners={["tr", "bl"]} />
 
@@ -117,17 +117,17 @@
     bind:ref={definitionRef}
     position="right"
     gap="gap-1.5"
-    class=":uno: font-primary text-right"
+    class="font-primary text-right"
   >
-    <span class=":uno: text-sm">
-      <span class=":uno: text-base font-semibold">l'espoir</span>
+    <span class="text-sm">
+      <span class="text-base font-semibold">l'espoir</span>
       <br />
-      <span class=":uno: text-xs font-mono">/l.ɛs.pwaʁ/</span>
+      <span class="text-xs font-mono">/l.ɛs.pwaʁ/</span>
       <br />
-      <span class=":uno: italic">nom masculin</span>
+      <span class="italic">nom masculin</span>
     </span>
-    <div class=":uno: ml-auto bg-muted-foreground/30 h-px w-8"></div>
-    <span class=":uno: text-sm leading-relaxed italic">
+    <div class="ml-auto bg-muted-foreground/30 h-px w-8"></div>
+    <span class="text-sm leading-relaxed italic">
       Sentiment de confiance en
       <br />
       l'avenir, qui porte a attendre
@@ -138,50 +138,50 @@
     </span>
   </DefinitionPanel>
 
-  <div class=":uno: gap-8 grid w-full items-center lg:gap-16 sm:gap-12 lg:grid-cols-2">
+  <div class="gap-8 grid w-full items-center lg:gap-16 sm:gap-12 lg:grid-cols-2">
     <div
       bind:this={leftCol}
-      class=":uno: text-center opacity-0 flex flex-col items-center order-2 lg:text-left lg:items-start lg:order-1"
+      class="text-center opacity-0 flex flex-col items-center order-2 lg:text-left lg:items-start lg:order-1"
     >
       <h2
-        class=":uno: text-2xl text-foreground tracking-tight font-bold font-mono lg:text-5xl md:text-4xl sm:text-3xl"
+        class="text-2xl text-foreground tracking-tight font-bold font-mono lg:text-5xl md:text-4xl sm:text-3xl"
       >
         {heading}
       </h2>
       <!-- eslint-disable svelte/no-at-html-tags -->
-      <p class=":uno: text-sm text-muted-foreground leading-relaxed mt-3 max-w-lg md:text-lg sm:text-base md:mt-6 sm:mt-4">
+      <p class="text-sm text-muted-foreground leading-relaxed mt-3 max-w-lg md:text-lg sm:text-base md:mt-6 sm:mt-4">
         {@html description}
       </p>
-      <div class=":uno: mt-4 flex flex-wrap gap-3 sm:mt-6">
+      <div class="mt-4 flex flex-wrap gap-3 sm:mt-6">
         {#each PROTECTION_METHODS as method (method.name)}
           <span
-            class=":uno: text-xs text-muted-foreground font-medium px-3 py-1 border border-border/50 rounded-sm inline-flex gap-1.5 items-center sm:text-sm"
+            class="text-xs text-muted-foreground font-medium px-3 py-1 border border-border/50 rounded-sm inline-flex gap-1.5 items-center sm:text-sm"
           >
             <span
-              class=":uno: rounded-full size-2 inline-block"
+              class="rounded-full size-2 inline-block"
               style="background-color: {method.color};"
             ></span>
             {method.name}
           </span>
         {/each}
       </div>
-      <p class=":uno: text-xs text-muted-foreground/50 mt-3 sm:text-sm sm:mt-4">
+      <p class="text-xs text-muted-foreground/50 mt-3 sm:text-sm sm:mt-4">
         {courtesy}
         <a
           href="https://vgen.co/iceyDh"
           target="_blank"
           rel="noopener noreferrer"
-          class=":uno: underline decoration-muted-foreground/30 underline-offset-2 transition-colors duration-200 hover:text-muted-foreground hover:decoration-muted-foreground/60"
+          class="underline decoration-muted-foreground/30 underline-offset-2 transition-colors duration-200 hover:text-muted-foreground hover:decoration-muted-foreground/60"
         >
           Haruyu Sato
-          <span class=":uno: sr-only">(opens in a new tab)</span>
+          <span class="sr-only">(opens in a new tab)</span>
         </a>
       </p>
     </div>
 
     <div
       bind:this={rightCol}
-      class=":uno: opacity-0 flex flex-col items-center order-1 relative lg:order-2"
+      class="opacity-0 flex flex-col items-center order-1 relative lg:order-2"
     >
       <DemoImageStack
         bind:imageEls

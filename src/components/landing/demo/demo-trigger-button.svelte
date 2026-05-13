@@ -14,17 +14,17 @@
   }: DemoTriggerButtonProps = $props();
 </script>
 
-<div class=":uno: mt-6 flex items-center justify-center relative sm:mt-8">
+<div class="mt-6 flex items-center justify-center relative sm:mt-8">
   <div
     bind:this={explosionContainerRef}
-    class=":uno: text-muted-foreground/60 flex pointer-events-none items-center inset-0 justify-center absolute z-10 overflow-visible"
+    class="text-muted-foreground/60 flex pointer-events-none items-center inset-0 justify-center absolute z-10 overflow-visible"
     aria-hidden="true"
   >
   </div>
   <button
     bind:this={triggerBtnRef}
     type="button"
-    class=":uno: cursor-pointer transition-transform duration-200 ease-out relative z-20 active:scale-95 hover:scale-110"
+    class="cursor-pointer transition-transform duration-200 ease-out relative z-20 active:scale-95 hover:scale-110"
     {onclick}
     aria-label="Cycle demo images"
   >
@@ -33,7 +33,7 @@
       alt=""
       loading="lazy"
       decoding="async"
-      class=":uno: size-10 sm:size-12"
+      class="size-10 sm:size-12"
       aria-hidden="true"
     />
   </button>

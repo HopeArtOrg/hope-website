@@ -52,15 +52,15 @@
   <SheetPrimitive.Content
     bind:ref
     data-slot="sheet-content"
-    class={cn(`:uno: ${sheetVariants({ side })}`, className)}
+    class={cn(`${sheetVariants({ side })}`, className)}
     {...restProps}
   >
     {@render children?.()}
     <SheetPrimitive.Close
-      class=":uno: rounded-sm opacity-70 ring-offset-background transition-opacity right-4 top-4 absolute focus-visible:outline-none hover:opacity-100 disabled:pointer-events-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      class="rounded-sm opacity-70 ring-offset-background transition-opacity right-4 top-4 absolute focus-visible:outline-none hover:opacity-100 disabled:pointer-events-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
     >
-      <Icon icon="lucide:x" class=":uno: size-4" />
-      <span class=":uno: sr-only">Close</span>
+      <Icon icon="lucide:x" class="size-4" />
+      <span class="sr-only">Close</span>
     </SheetPrimitive.Close>
   </SheetPrimitive.Content>
 </SheetPortal>

@@ -44,18 +44,18 @@
 
 <div
   bind:this={rightCol}
-  class=":uno: text-center flex flex-col invisible items-center order-1 lg:text-left lg:items-start lg:order-2"
+  class="text-center flex flex-col invisible items-center order-1 lg:text-left lg:items-start lg:order-2"
 >
   <AboutHeading
     {heading}
     bind:headingContainerRef
     bind:headingJpLayerRef
   />
-  <p class=":uno: text-sm text-muted-foreground leading-relaxed mt-3 max-w-lg md:text-lg sm:text-base md:mt-6 sm:mt-4">
+  <p class="text-sm text-muted-foreground leading-relaxed mt-3 max-w-lg md:text-lg sm:text-base md:mt-6 sm:mt-4">
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html description1}
   </p>
-  <p class=":uno: text-sm text-muted-foreground leading-relaxed mt-2 max-w-lg md:text-lg sm:text-base md:mt-3">
+  <p class="text-sm text-muted-foreground leading-relaxed mt-2 max-w-lg md:text-lg sm:text-base md:mt-3">
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html description2}
   </p>

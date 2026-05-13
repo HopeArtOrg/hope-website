@@ -16,7 +16,7 @@
 <div
   bind:this={ref}
   data-slot="card-header"
-  class={cn(":uno: grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6", className)}
+  class={cn("grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6", className)}
   {...restProps}
 >
   {@render children?.()}
