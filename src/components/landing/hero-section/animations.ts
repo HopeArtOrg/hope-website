@@ -193,8 +193,8 @@ function addUniverseLingerPhase(
     y: "+=6",
     duration: 0.6,
     ease: "sine.inOut",
-    stagger: { amount: 0.3, from: "random" },
-  }, "explode+=0.5");
+    stagger: { amount: 0.2, from: "random" },
+  }, "explode+=0.4");
 }
 
 function addZoomIntoStarPhase(
@@ -298,8 +298,8 @@ export function animateStarDrift(
   }, "<");
 
   tl.to(starSvg, {
-    scale: 1.05,
-    duration: 0.75,
+    scale: 1.04,
+    duration: 0.6,
     ease: "sine.inOut",
     yoyo: true,
     repeat: 1,
@@ -317,7 +317,7 @@ export function animateBounce(el: HTMLElement) {
   });
   tl.to(el, {
     y: 0,
-    duration: 0.2,
+    duration: 0.15,
     ease: "power2.in",
   });
   return tl;
