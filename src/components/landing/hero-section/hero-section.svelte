@@ -116,11 +116,11 @@
 
 <section
   id="download"
-  class=":uno: mx-auto px-6 flex flex-col max-w-screen-xl items-center justify-center relative overflow-hidden h-dvh"
+  class="mx-auto px-6 flex flex-col max-w-screen-xl items-center justify-center relative overflow-hidden h-dvh"
 >
   <canvas
     bind:this={auroraRef}
-    class=":uno: h-full w-full pointer-events-none inset-0 absolute"
+    class="h-full w-full pointer-events-none inset-0 absolute"
     style="opacity: 0;"
     aria-hidden="true"
   ></canvas>
@@ -155,15 +155,15 @@
       Hope
       <Icon
         icon="lucide:star"
-        class=":uno: size-3.5 inline"
+        class="size-3.5 inline"
       />
       -
       <span class="font-mono">/h&#x0259;&#x028A;p/</span>
       <br />
       <span class="italic">noun</span>
     </span>
-    <div class=":uno: bg-muted-foreground/30 h-8 w-px self-end"></div>
-    <span class=":uno: text-sm text-right italic">
+    <div class="bg-muted-foreground/30 h-8 w-px self-end"></div>
+    <span class="text-sm text-right italic">
       [uncountable] a reason
       <br />
       to believe that something
@@ -174,20 +174,20 @@
 
   <div
     bind:this={heroContent}
-    class=":uno: flex flex-col gap-6 w-full invisible items-center relative z-10 lg:items-start"
+    class="flex flex-col gap-6 w-full invisible items-center relative z-10 lg:items-start"
   >
     <h1
       aria-label="Hope:Re"
-      class=":uno: text-5xl text-foreground tracking-tight font-bold font-mono lg:text-7xl sm:text-6xl"
+      class="text-5xl text-foreground tracking-tight font-bold font-mono lg:text-7xl sm:text-6xl"
     >
       Hope:Re
     </h1>
 
-    <p class=":uno: text-lg text-muted-foreground text-center sm:text-xl lg:text-left">
+    <p class="text-lg text-muted-foreground text-center sm:text-xl lg:text-left">
       {description}
     </p>
 
-    <hr class=":uno: border-0 bg-border h-px w-24 sm:w-32" />
+    <hr class="border-0 bg-border h-px w-24 sm:w-32" />
 
     <DownloadActions
       {downloadLabel}
@@ -198,7 +198,7 @@
     <ComingSoonBadge label={comingSoonLabel} />
   </div>
 
-  <div class=":uno: flex inset-x-0 bottom-8 justify-center absolute z-10 sm:bottom-12">
+  <div class="flex inset-x-0 bottom-8 justify-center absolute z-10 sm:bottom-12">
     <ScrollDownPill onclick={scrollToNextSection} />
   </div>
 </section>

@@ -1,6 +1,6 @@
 import gsap from "gsap";
 
-import { STAR_SVG_PATH, STAR_SVG_STROKE_WIDTH } from "@/lib/constants";
+import { createMiniStar } from "@/lib/animation-utils";
 
 const FRAGMENT_COUNT = 6;
 const DESKTOP_STAR_COUNT = 20;
@@ -25,29 +25,6 @@ type UniverseResult = {
   stars: StarMeta[];
   heroStar: StarMeta;
 };
-
-function createMiniStar(
-  container: HTMLElement,
-  size: number,
-  color: string,
-): HTMLDivElement {
-  const wrapper = document.createElement("div");
-  wrapper.style.cssText = `position:absolute;top:50%;left:50%;pointer-events:none;opacity:0;color:${color}`;
-  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  svg.setAttribute("viewBox", "0 0 3000 3000");
-  svg.setAttribute("fill", "none");
-  svg.style.width = `${size}px`;
-  svg.style.height = `${size}px`;
-  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-  path.setAttribute("d", STAR_SVG_PATH);
-  path.setAttribute("fill", "none");
-  path.setAttribute("stroke", "currentColor");
-  path.setAttribute("stroke-width", STAR_SVG_STROKE_WIDTH);
-  svg.appendChild(path);
-  wrapper.appendChild(svg);
-  container.appendChild(wrapper);
-  return wrapper;
-}
 
 function cleanupElements(elements: HTMLElement[]) {
   elements.forEach(el => el.remove());
@@ -79,9 +56,9 @@ function addFragmentCirclePhase(
 
   tl.to(fragments, {
     opacity: 0.7,
-    duration: 0.35,
+    duration: 0.25,
     ease: "power1.out",
-    stagger: { amount: 0.15, from: "random" },
+    stagger: { amount: 0.1, from: "random" },
   });
 
   return fragments;
@@ -97,10 +74,10 @@ function addCollapsePhase(
     scale: 0.3,
     rotation: 0,
     opacity: 1,
-    duration: 0.5,
+    duration: 0.4,
     ease: "power3.in",
-    stagger: 0.06,
-  }, "+=0.1");
+    stagger: 0.04,
+  }, "+=0.05");
 
   tl.to(fragments, {
     scale: 0,
@@ -199,9 +176,9 @@ function addExplodePhase(
     rotation: () => Math.random() * 540 - 270,
     scale: (i: number) => stars[i].targetScale,
     opacity: (i: number) => stars[i].targetOpacity,
-    duration: 0.7,
+    duration: 0.55,
     ease: "power2.out",
-    stagger: 0.03,
+    stagger: 0.02,
   }, "explode");
 
   return { wrapper: universeWrapper, stars, heroStar };
@@ -213,8 +190,8 @@ function addUniverseLingerPhase(
 ) {
   const els = stars.map(s => s.el);
   tl.to(els, {
-    y: "+=8",
-    duration: 0.8,
+    y: "+=6",
+    duration: 0.6,
     ease: "sine.inOut",
     stagger: { amount: 0.3, from: "random" },
   }, "explode+=0.5");
@@ -237,9 +214,9 @@ function addZoomIntoStarPhase(
 
   tl.to(otherEls, {
     opacity: 0,
-    duration: 0.35,
+    duration: 0.25,
     ease: "power1.in",
-    stagger: { amount: 0.1, from: "random" },
+    stagger: { amount: 0.08, from: "random" },
   }, "zoom");
 
   tl.to(chosen.el, {
@@ -248,7 +225,7 @@ function addZoomIntoStarPhase(
     scale: targetScale,
     rotation: 0,
     opacity: 1,
-    duration: 0.7,
+    duration: 0.55,
     ease: "power2.inOut",
   }, "zoom");
 
@@ -308,13 +285,13 @@ export function animateStarDrift(
 
   tl.to(el, {
     left: targetLeft,
-    duration: 1.5,
+    duration: 1.2,
     ease: "power1.inOut",
   });
 
   tl.to(starSvg, {
-    rotation: 15,
-    duration: 0.75,
+    rotation: 12,
+    duration: 0.6,
     ease: "sine.inOut",
     yoyo: true,
     repeat: 1,
@@ -334,8 +311,8 @@ export function animateStarDrift(
 export function animateBounce(el: HTMLElement) {
   const tl = gsap.timeline();
   tl.to(el, {
-    y: "-8vh",
-    duration: 0.2,
+    y: "-6vh",
+    duration: 0.15,
     ease: "power2.out",
   });
   tl.to(el, {
