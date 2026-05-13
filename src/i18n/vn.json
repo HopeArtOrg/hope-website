@@ -64,5 +64,11 @@
     "sitemap": "Sơ đồ trang",
     "rss": "Nguồn RSS",
     "feedback": "Góp ý"
+  },
+  "blog": {
+    "heading": "Bài viết",
+    "description": "Nơi chia sẻ những câu chuyện về nghệ thuật, công nghệ và hành trình của Hope Art.",
+    "readMore": "Đọc tiếp",
+    "minRead": "phút đọc"
   }
 }

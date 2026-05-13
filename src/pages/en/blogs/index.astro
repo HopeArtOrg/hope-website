@@ -20,7 +20,7 @@ const blogNavLinks = [
 ];
 
 const allPosts = await Promise.all(
-  (await getCollection("vnBlog"))
+  (await getCollection("enBlog"))
     .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
     .map(async (post) => {
       const { remarkPluginFrontmatter } = await render(post);
