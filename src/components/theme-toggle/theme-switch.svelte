@@ -24,7 +24,7 @@
   role="radiogroup"
   aria-label="Theme"
 >
-  {#each options as option}
+  {#each options as option (option.value)}
     <button
       role="radio"
       aria-checked={themeStore.current === option.value}

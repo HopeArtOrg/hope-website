@@ -56,7 +56,7 @@
 
     <div class=":uno: flex gap-1 items-center sm:gap-2">
       <div class=":uno: hidden items-center md:flex">
-        {#each links as link, i}
+        {#each links as link, i (link.href)}
           {#if i > 0}
             <span class=":uno: text-base text-border select-none">/</span>
           {/if}
@@ -94,7 +94,7 @@
               <SheetTitle class=":uno: sr-only">Navigation</SheetTitle>
             </SheetHeader>
             <nav class=":uno: px-2 flex flex-col gap-1">
-              {#each links as link}
+              {#each links as link (link.href)}
                 <SheetClose>
                   {#snippet child({ props })}
                     <a

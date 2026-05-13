@@ -153,7 +153,7 @@
         {@html description}
       </p>
       <div class=":uno: mt-4 flex flex-wrap gap-3 sm:mt-6">
-        {#each PROTECTION_METHODS as method}
+        {#each PROTECTION_METHODS as method (method.name)}
           <span
             class=":uno: text-xs text-muted-foreground font-medium px-3 py-1 border border-border/50 rounded-sm inline-flex gap-1.5 items-center sm:text-sm"
           >

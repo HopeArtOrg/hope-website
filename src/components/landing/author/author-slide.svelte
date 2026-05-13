@@ -114,7 +114,7 @@
       &ldquo;{quote}&rdquo;
     </blockquote>
     <div class=":uno: mt-6 flex flex-wrap gap-3 items-center sm:mt-8">
-      {#each links as link}
+      {#each links as link (link.href)}
         <a
           href={link.href}
           target="_blank"

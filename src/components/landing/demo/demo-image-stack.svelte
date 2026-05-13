@@ -26,7 +26,7 @@
   class=":uno: max-w-xs w-full aspect-4/3 relative md:max-w-md sm:max-w-sm"
   style="perspective: 800px;"
 >
-  {#each images as image, i}
+  {#each images as image, i (i)}
     <div
       bind:this={imageEls[i]}
       class=":uno: border border-border/50 rounded-lg shadow-lg transition-transform duration-200 ease-out inset-0 absolute overflow-hidden"

@@ -34,7 +34,7 @@
   class=":uno: mx-auto px-4 pb-2 pt-4 max-w-screen-xl relative overflow-hidden sm:px-6 sm:pb-3 sm:pt-6"
 >
   <CornerBrackets size="h-8 w-8 sm:h-12 sm:w-12 lg:h-16 lg:w-16" />
-  {#each MESSAGE_LIST as item, rowIndex}
+  {#each MESSAGE_LIST as item, rowIndex (item.name)}
     <div
       bind:this={rowEls[rowIndex]}
       class=":uno: mb-0.5 flex gap-3 w-max items-center last:mb-0 sm:mb-1"

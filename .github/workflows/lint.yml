@@ -1,32 +1,35 @@
-name: lint
+name: deploy
 
 on:
-  pull_request:
-    branches:
-      - main
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  lint:
+  build:
     runs-on: ubuntu-latest
-    environment: Build
-
     steps:
-      - name: Checkout
+      - name: Checkout repository using git
         uses: actions/checkout@v6
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v6
+      - name: Install, build, and upload site
+        uses: withastro/action@v5
         with:
-          version: 10
+          node-version: 24
+          package-manager: pnpm@latest
 
-      - name: Install Node.js 24
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24.x
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: PNPM linting
-        run: pnpm lint
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

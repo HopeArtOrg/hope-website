@@ -16,7 +16,7 @@
   role="radiogroup"
   aria-label="Language"
 >
-  {#each locales as locale}
+  {#each locales as locale (locale.code)}
     <a
       role="radio"
       aria-checked={locale.code === currentLocale}
