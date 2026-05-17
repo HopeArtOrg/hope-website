@@ -3,7 +3,6 @@ import gsap from "gsap";
 import type { AuroraConfig } from "./utils";
 
 import {
-
   buildThresholds,
   computeAuroraGrid,
   resolveBaseColor,

@@ -136,6 +136,8 @@ function initScrollAnimations() {
   ScrollTrigger.create({
     trigger: "#glass-container",
     start: "top +=200",
+    endTrigger: "footer",
+    end: "top bottom-=80",
     onEnter: () => {
       gsap.to(backButton, {
         opacity: 1,
@@ -145,6 +147,22 @@ function initScrollAnimations() {
       });
     },
     onLeaveBack: () => {
+      gsap.to(backButton, {
+        opacity: 0,
+        y: 16,
+        duration: 0.4,
+        ease: "power2.in",
+      });
+    },
+    onEnterBack: () => {
+      gsap.to(backButton, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+    },
+    onLeave: () => {
       gsap.to(backButton, {
         opacity: 0,
         y: 16,
