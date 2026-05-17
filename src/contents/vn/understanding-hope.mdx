@@ -1,10 +1,10 @@
 ---
-title: "Thấu Hiểu Hope: Thuật Toán Của Sự Bảo Vệ Nghệ Thuật"
+title: "Bên Trong Hope: Thuật Toán Bảo Vệ Nghệ Thuật"
 description: "Phân tích kỹ thuật về cơ chế đối kháng, chiếm quyền điều khiển không gian tiềm ẩn và quy trình kỹ thuật đằng sau ứng dụng Hope."
 publishDate: 2026-05-17
 ---
 
-# Thấu Hiểu Hope: Thuật Toán Của Sự Bảo Vệ Nghệ Thuật
+# Bên Trong Hope: Thuật Toán Bảo Vệ Nghệ Thuật
 
 Với con người, một bức tranh là sự hòa quyện của màu sắc, chất liệu và cảm xúc. Nhưng với một mô hình học máy (machine learning), hình ảnh chỉ là một điểm trong đa tạp cao chiều—một vector tiềm ẩn (latent vector). Chính khoảng cách giữa nhận thức con người và cách máy móc mã hóa đã tạo nên nền tảng cho **Hope**.
 
@@ -12,7 +12,7 @@ Sự trỗi dậy của AI tạo hình mang đến mối đe dọa trực tiếp
 
 Dự án này kế thừa những nghiên cứu đột phá từ **Dự án Glaze tại Đại học Chicago**. Chúng tớ tri ân các thuật toán nền tảng từ công trình của họ, đặc biệt là bài báo: [*Glaze: Protecting Artists from Style Mimicry by Text-to-Image Models* (arXiv:2302.04222)](https://arxiv.org/abs/2302.04222).
 
-### Hình Học Của Sự Nhiễu Loạn
+### Hình Học Nhiễu Loạn
 
 Về cốt lõi, Hope giải quyết bài toán tối ưu hóa đối kháng. Từ một tác phẩm gốc $x$, chúng tớ tạo ra nhiễu $\delta$ để có hình ảnh được bảo vệ $x' = x + \delta$. Mục tiêu là dịch chuyển biểu diễn của $x$ trong không gian đặc trưng (feature space) sao cho khớp với một phong cách hoặc khái niệm mục tiêu $x_{target}$, đồng thời giữ cho thay đổi thị giác ở mức mắt người không thể nhận ra.
 
@@ -27,7 +27,7 @@ Ràng buộc: $||\delta||_{\infty} \leq \epsilon$
 Trong đó $\Phi(\cdot)$ trích xuất các đặc trưng phong cách (ví dụ: qua Gram matrices hoặc bộ mã hóa phong cách chuyên biệt).
 
 #### 2. Nightshade: Concept Poisoning
-Nightshade nhắm vào sự căn chỉnh ngữ nghĩa bằng cách đẩy embedding thị giác CLIP của $x$ về phía một khái niệm hoàn toàn khác biệt $x_{target}$.
+Nightshade nhắm vào căn chỉnh ngữ nghĩa bằng cách đẩy embedding thị giác CLIP của $x$ về phía một khái niệm hoàn toàn khác biệt $x_{target}$.
 
 $$
 \min_{\delta} || E(x + \delta) - E(x_{target}) ||_2^2 + \lambda \cdot \text{PerceptualLoss}(x, x + \delta)

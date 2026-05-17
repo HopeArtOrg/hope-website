@@ -14,7 +14,7 @@ Chúng tớ tin rằng bảo vệ không nên là gánh nặng, mà phải tự 
 
 ### Lá Chắn Cho Nghệ Sĩ
 
-Hope:RE không chỉ là bản cập nhật; nó là sự tái hình dung toàn diện. Về cốt lõi, ứng dụng sử dụng các "adversarial perturbations" (nhiễu đối kháng)—những điều chỉnh chính xác về mặt thuật toán trên hình ảnh mà mắt người gần như không thể nhận thấy, nhưng gây rối loạn căn bản cho các mô hình AI.
+Hope:RE không chỉ là bản cập nhật; nó là bản tái hình dung toàn diện. Về cốt lõi, ứng dụng sử dụng các "adversarial perturbations" (nhiễu đối kháng)—những điều chỉnh chính xác về mặt thuật toán trên hình ảnh mà mắt người gần như không thể nhận thấy, nhưng gây rối loạn căn bản cho các mô hình AI.
 
 Chúng tớ xây dựng phiên bản này dựa trên ba trụ cột thiết yếu:
 
@@ -24,11 +24,12 @@ Chúng tớ xây dựng phiên bản này dựa trên ba trụ cột thiết y�
 
 Với nghệ sĩ, trải nghiệm luôn tĩnh lặng và liền mạch. Bạn không cần dùng dòng lệnh phức tạp hay cài đặt phụ thuộc nặng nề. Với các native installers cho Windows, macOS và Linux, cùng giao diện tinh gọn và thanh trượt cường độ trực quan, Hope:RE hoàn toàn không làm phiền bạn. Nó là người bảo vệ thầm lặng, giúp bạn tập trung vào công việc quan trọng nhất: sáng tạo.
 
-### Động Cơ Của Sự Kiên Cường
+### Động Cơ Kiên Cường
 
 Dành cho những người xây dựng và những ai quan tâm cách thức vận hành, Hope:RE đại diện cho bước chuyển mình mạnh mẽ trong kiến trúc phần mềm. Bản thử nghiệm dựa trên Python ban đầu đã hoàn thành sứ mệnh, nhưng để đạt hiệu suất cần thiết cho việc bảo vệ hình ảnh độ phân giải cao, chúng tớ phải đi sâu hơn.
 
-Chúng tớ chọn **Rust và Tauri v2** làm nền tảng. Sự nặng nề của runtime Python và "địa ngục phụ thuộc" được thay thế bằng tính an toàn bộ nhớ và các trừu tượng hóa chi phí bằng không (zero-cost abstractions). Kết quả là tập tin thực thi thu nhỏ từ hàng trăm megabyte xuống chỉ còn 5MB, trong khi tốc độ xử lý tăng theo cấp số nhân.
+Chúng tớ chọn **Rust và Tauri v2** làm nền tảng. Runtime Python nặng nề và "địa ngục phụ thuộc" được thay thế bằng tính an toàn bộ nhớ và các trừu tượng hóa chi phí bằng không (zero-cost abstractions). Kết quả là tập tin thực thi thu nhỏ từ hàng trăm megabyte xuống chỉ còn 5MB, trong khi tốc độ xử lý tăng theo cấp số nhân.
+
 
 Giao diện người dùng vận hành bởi **Svelte 5** và hệ thống **Runes** mới. Điều này cho phép phản hồi cực kỳ chi tiết (fine-grained reactivity)—đảm bảo UI luôn mượt mà ngay cả khi backend đang thực hiện hàng ngàn lệnh suy luận ONNX nặng nề. Chúng tớ kết hợp điều này với **Tailwind 4 (Oxide)**, tận dụng trình biên dịch dựa trên Rust để duy trì chu kỳ phát triển nhanh như chính ứng dụng.
 
