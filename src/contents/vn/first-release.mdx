@@ -50,7 +50,7 @@ graph LR
     E -->|Kết quả| F[Model AI bị hỏng]
 ```
 
-**Mô hình Toán học:**
+**Mô hình Thuật toán:**
 Giả sử $x$ là hình ảnh gốc, $c_\{source\}$ là khái niệm gốc (ví dụ: "chó"), và $c_\{target\}$ là khái niệm mục tiêu (ví dụ: "mèo"). Chúng ta tìm kiếm một nhiễu $\delta$ tối ưu hóa hàm mục tiêu sau:
 
 ```math
@@ -191,7 +191,7 @@ graph LR
     E -->|Kết quả| F[AI không học được Style thật]
 ```
 
-**Mô hình Toán học:**
+**Mô hình Thuật toán:**
 Glaze tối ưu hóa $\delta$ để đẩy biểu diễn của hình ảnh trong không gian tiềm ẩn về phía một phong cách đối lập $S_\{target\}$, trong khi vẫn giữ nguyên nội dung ngữ nghĩa $C$.
 
 ```math
@@ -425,7 +425,7 @@ Nhưng thay vì là biện pháp phòng thủ chống lại việc style mimicry
 
 A: **Tin tưởng, nhưng không tuyệt đối.**
 
-1.  **Về mặt Toán học**: Hope-AD sử dụng chung thuật toán lõi (Projected Gradient Descent) với bản chính gốc của ĐH Chicago (Glaze/Nightshade Team). Nên hiệu quả tấn công là tương đương.
+1.  **Về mặt Thuật toán**: Hope-AD sử dụng chung thuật toán lõi (Projected Gradient Descent) với bản chính gốc của ĐH Chicago (Glaze/Nightshade Team). Nên hiệu quả tấn công là tương đương.
 2.  **Về mặt Thực tế**:
     - **Hiệu quả cao (80-90%)**: Với các model phổ biến như Stable Diffusion 1.5, SDXL, NAI (Anime).
     - **Hiệu quả thấp hơn**: Với các model quá mới hoặc kiến trúc quá khác (Midjourney v6, DALL-E 3, Gemini Banana Pro, GPT-4o, etc.) - do chúng không công khai mã nguồn để tấn công.
@@ -457,7 +457,7 @@ Dự án được xây dựng dựa trên các nghiên cứu khoa học:
 - **High-Resolution Image Synthesis with Latent Diffusion Models**: [Rombach et al., CVPR 2022](https://arxiv.org/abs/2112.10752)
   - _Chi tiết tham khảo_: **Mục 3 (Phương pháp)**, tr. 4-9. Kiến trúc của mô hình Stable Diffusion (UNet + VAE) được sử dụng trong backend.
 - **Towards Deep Learning Models Resistant to Adversarial Attacks**: [Madry et al., ICLR 2018](https://arxiv.org/abs/1706.06083)
-  - _Chi tiết tham khảo_: **Mục 2 (Vấn đề Điểm yên ngựa)**, tr. 2-4. Định nghĩa thuật toán Projected Gradient Descent (PGD), là bộ giải toán học cốt lõi cho Hope-AD.
+  - _Chi tiết tham khảo_: **Mục 2 (Vấn đề Điểm yên ngựa)**, tr. 2-4. Định nghĩa thuật toán Projected Gradient Descent (PGD), là bộ giải thuật toán cốt lõi cho Hope-AD.
 - **Mist**: [Liang et al., "Mist: Towards Improved Adversarial Examples for Diffusion Models"](https://arxiv.org/abs/2305.12683)
   - _Chi tiết tham khảo_: **Mục 3.2 (Tấn công dựa trên kết cấu)**, tr. 5. Cách tiếp cận tương tự phương pháp "Nhiễu" của chúng tôi.
 - **Adversarial Example Generation for Diffusion Models (AdvDM)**: [Liang et al., 2023](https://arxiv.org/abs/2305.16494)
