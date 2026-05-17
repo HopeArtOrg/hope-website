@@ -11,7 +11,12 @@ const LINE_WIDTH_MIN = 0.5;
 const LINE_WIDTH_MAX = 1.2;
 const LINE_OPACITY_MIN = 0.15;
 const LINE_OPACITY_MAX = 0.35;
+const MOUSE_RADIUS = 200;
+const MOUSE_STRENGTH = 0.4;
+const MOUSE_LERP = 0.08;
+const MOUSE_FADE_DURATION = 0.6;
 const RESIZE_DEBOUNCE = 150;
+const MOUSE_R_SQ = MOUSE_RADIUS * MOUSE_RADIUS;
 
 function buildThresholds() {
   const values = new Float64Array(THRESHOLD_COUNT);
@@ -31,14 +36,16 @@ function buildThresholds() {
 }
 
 function resolveBaseColor(): string {
-  const isDark = document.documentElement.classList.contains("dark");
-  return isDark ? "rgb(180, 185, 175)" : "rgb(100, 105, 95)";
+  return document.documentElement.classList.contains("dark")
+    ? "rgb(150,153,148)"
+    : "rgb(122,120,115)";
 }
 
 export function setupAuroraBlogBg(canvas: HTMLCanvasElement): () => void {
   const ctx = canvas.getContext("2d", { alpha: true, desynchronized: true })!;
   const noise3D = createNoise3D();
   const { values, opacities, widths } = buildThresholds();
+  const isMobile = "ontouchstart" in window;
 
   let cols = 0;
   let rows = 0;
@@ -50,10 +57,13 @@ export function setupAuroraBlogBg(canvas: HTMLCanvasElement): () => void {
   let frameCount = 0;
   let isVisible = false;
 
+  const mouse = { x: -9999, y: -9999, s: 0 };
+  const smoothX = gsap.quickTo(mouse, "x", { duration: MOUSE_LERP, ease: "none" });
+  const smoothY = gsap.quickTo(mouse, "y", { duration: MOUSE_LERP, ease: "none" });
+
   const themeObserver = new MutationObserver(() => {
     baseColor = resolveBaseColor();
   });
-
   themeObserver.observe(document.documentElement, {
     attributes: true,
     attributeFilter: ["class"],
@@ -70,13 +80,28 @@ export function setupAuroraBlogBg(canvas: HTMLCanvasElement): () => void {
   }
 
   function computeGrid() {
+    const mx = mouse.x;
+    const my = mouse.y;
+    const ms = mouse.s;
+    const useM = !isMobile && ms > 0.001;
+
     for (let r = 0; r < rows; r++) {
       const py = r * GRID_STEP;
       const rowOff = r * cols;
       const pyNoise = py * NOISE_SCALE;
       for (let c = 0; c < cols; c++) {
         const px = c * GRID_STEP;
-        grid[rowOff + c] = noise3D(px * NOISE_SCALE, pyNoise, zOffset);
+        let v = noise3D(px * NOISE_SCALE, pyNoise, zOffset);
+        if (useM) {
+          const dx = px - mx;
+          const dy = py - my;
+          const dSq = dx * dx + dy * dy;
+          if (dSq < MOUSE_R_SQ) {
+            const t = dSq / MOUSE_R_SQ;
+            v += (1 - t) * (1 - t) * ms * MOUSE_STRENGTH;
+          }
+        }
+        grid[rowOff + c] = v;
       }
     }
   }
@@ -100,9 +125,8 @@ export function setupAuroraBlogBg(canvas: HTMLCanvasElement): () => void {
           | (br >= threshold ? 2 : 0)
           | (bl >= threshold ? 1 : 0);
 
-        if (cfg === 0 || cfg === 15) {
+        if (cfg === 0 || cfg === 15)
           continue;
-        }
 
         const x0 = c * GRID_STEP;
         const x1 = x0 + GRID_STEP;
@@ -196,17 +220,37 @@ export function setupAuroraBlogBg(canvas: HTMLCanvasElement): () => void {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
       resize();
+      if (isVisible) {
+        computeGrid();
+        render();
+      }
     }, RESIZE_DEBOUNCE);
   }
 
+  function onMouseMove(e: MouseEvent) {
+    if (!isVisible)
+      return;
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+      smoothX(x);
+      smoothY(y);
+      if (mouse.s < 0.001)
+        gsap.to(mouse, { s: 1, duration: 0.3, ease: "power2.out" });
+    }
+  }
+
+  function onMouseLeave() {
+    gsap.to(mouse, { s: 0, duration: MOUSE_FADE_DURATION, ease: "power2.out" });
+  }
+
   function tick(_: number, dt: number) {
-    if (!isVisible) {
+    if (!isVisible)
       return;
-    }
     frameCount++;
-    if (frameCount % 2 !== 0) {
+    if (frameCount % 2 !== 0)
       return;
-    }
     zOffset += Z_SPEED * dt;
     computeGrid();
     render();
@@ -221,6 +265,10 @@ export function setupAuroraBlogBg(canvas: HTMLCanvasElement): () => void {
   observer.observe(canvas);
 
   window.addEventListener("resize", onResize, { passive: true });
+  if (!isMobile) {
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    window.addEventListener("mouseleave", onMouseLeave, { passive: true });
+  }
   gsap.ticker.add(tick);
 
   return () => {
@@ -228,6 +276,10 @@ export function setupAuroraBlogBg(canvas: HTMLCanvasElement): () => void {
     themeObserver.disconnect();
     observer.disconnect();
     window.removeEventListener("resize", onResize);
+    if (!isMobile) {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseleave", onMouseLeave);
+    }
     gsap.ticker.remove(tick);
   };
 }
