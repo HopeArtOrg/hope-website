@@ -4,8 +4,6 @@ import type { APIContext } from "astro";
 import { getContainerRenderer as getMDXRenderer } from "@astrojs/mdx";
 import rss from "@astrojs/rss";
 import { getContainerRenderer as getSvelteRenderer } from "@astrojs/svelte";
-// @ts-expect-error - virtual module
-import { loadRenderers } from "astro:container";
 import { getCollection, render } from "astro:content";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import XMLBuilder from "fast-xml-builder";
@@ -43,9 +41,19 @@ export async function GET(context: APIContext) {
     },
   });
 
-  const renderers = await loadRenderers([getMDXRenderer(), getSvelteRenderer()]);
+  // Manually load renderers to avoid virtual module issues at runtime
+  const renderers = await Promise.all(
+    [getMDXRenderer(), getSvelteRenderer()].map(async (renderer) => {
+      const mod = await import(renderer.serverEntrypoint.toString());
+      return {
+        ...renderer,
+        ssr: mod.default,
+      };
+    }),
+  );
+
   const container = await AstroContainer.create({
-    renderers,
+    renderers: renderers as any,
   });
 
   const items: RSSFeedItem[] = await Promise.all(
