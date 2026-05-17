@@ -45,7 +45,7 @@
     "heading": "The creator",
     "haruyuName": "Haruyu Sato",
     "haruyuQuote": "I didn't think this app could become this famous overnight. Thank you everyone for supporting me.",
-    "noahName": "Noah Tran",
+    "noahName": "Noah Trần",
     "noahQuote": "I have a vision of a free, open-source tool that can help as many artists as possible.",
     "github": "GitHub",
     "vgen": "VGen",
@@ -69,6 +69,7 @@
     "heading": "Blogs",
     "description": "A place to share stories about art, technology, and the journey of Hope Art.",
     "readMore": "Read more",
+    "back": "Back",
     "minRead": "min read"
   }
 }

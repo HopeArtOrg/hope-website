@@ -12,14 +12,14 @@
   import Icon from "@iconify/svelte";
   import gsap from "gsap";
 
+  import { AuroraBackground } from "@/components/aurora-animations";
+  import { animateBigBang, animateBounce, animateFloatDown, animateStarDrift } from "@/components/aurora-animations/animations";
   import { StarIcon } from "@/components/icons";
   import { ScrollDownPill } from "@/components/landing/scroll-down-pill";
   import { CornerBrackets } from "@/components/ui/corner-brackets";
   import { DefinitionPanel } from "@/components/ui/definition-panel";
   import { prefersReducedMotion } from "@/lib/utils";
 
-  import { animateBigBang, animateBounce, animateFloatDown, animateStarDrift } from "./animations";
-  import { setupAuroraBg } from "./aurora-bg";
   import ComingSoonBadge from "./coming-soon-badge.svelte";
   import DownloadActions from "./download-actions.svelte";
 
@@ -35,12 +35,10 @@
   let desktopStar = $state<HTMLDivElement | null>(null);
   let heroContent = $state<HTMLDivElement | null>(null);
   let definitionRef = $state<HTMLDivElement | null>(null);
-  let auroraRef = $state<HTMLCanvasElement | null>(null);
-
-  let auroraCleanup: (() => void) | undefined;
+  let auroraWrapper = $state<HTMLDivElement | null>(null);
 
   $effect(() => {
-    if (!mobileStar || !heroContent || !auroraRef)
+    if (!mobileStar || !heroContent || !auroraWrapper)
       return;
 
     const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
@@ -50,8 +48,7 @@
     if (prefersReducedMotion()) {
       gsap.set(mobileStar, { autoAlpha: 1 });
       gsap.set(heroContent, { autoAlpha: 1 });
-      auroraCleanup = setupAuroraBg(auroraRef);
-      gsap.set(auroraRef, { opacity: 1 });
+      gsap.set(auroraWrapper, { opacity: 1 });
       return;
     }
 
@@ -61,18 +58,16 @@
       animateFloatDown(heroContent!, 80, 0.8, 0.15);
     });
     tl.add(() => {
-      auroraCleanup = setupAuroraBg(auroraRef!);
-      gsap.to(auroraRef!, { opacity: 1, duration: 1.2, ease: "power2.inOut" });
+      gsap.to(auroraWrapper!, { opacity: 1, duration: 1.2, ease: "power2.inOut" });
     }, "-=0.4");
 
     return () => {
       tl.kill();
-      auroraCleanup?.();
     };
   });
 
   $effect(() => {
-    if (!desktopStar || !heroContent || !definitionRef || !auroraRef)
+    if (!desktopStar || !heroContent || !definitionRef || !auroraWrapper)
       return;
 
     const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
@@ -83,8 +78,7 @@
       gsap.set(desktopStar, { autoAlpha: 1, left: "33.333%" });
       gsap.set(heroContent, { autoAlpha: 1 });
       gsap.set(definitionRef, { autoAlpha: 1 });
-      auroraCleanup = setupAuroraBg(auroraRef);
-      gsap.set(auroraRef, { opacity: 1 });
+      gsap.set(auroraWrapper, { opacity: 1 });
       return;
     }
 
@@ -102,13 +96,11 @@
     });
 
     master.add(() => {
-      auroraCleanup = setupAuroraBg(auroraRef!);
-      gsap.to(auroraRef!, { opacity: 1, duration: 1.2, ease: "power2.inOut" });
+      gsap.to(auroraWrapper!, { opacity: 1, duration: 1.2, ease: "power2.inOut" });
     }, "-=0.5");
 
     return () => {
       master.kill();
-      auroraCleanup?.();
     };
   });
 
@@ -121,12 +113,13 @@
   id="download"
   class=":uno: mx-auto px-6 flex flex-col max-w-screen-xl items-center justify-center relative overflow-hidden h-dvh"
 >
-  <canvas
-    bind:this={auroraRef}
-    class=":uno: h-full w-full pointer-events-none inset-0 absolute"
+  <div
+    bind:this={auroraWrapper}
+    class=":uno: pointer-events-none inset-0 absolute"
     style="opacity: 0;"
-    aria-hidden="true"
-  ></canvas>
+  >
+    <AuroraBackground />
+  </div>
 
   <CornerBrackets
     inset="inset-6 sm:inset-10"

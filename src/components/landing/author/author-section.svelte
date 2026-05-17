@@ -183,21 +183,21 @@
       <div class=":uno: mt-8 flex gap-4 items-center justify-center sm:mt-12">
         <button
           type="button"
-          class=":uno: text-muted-foreground border border-border/50 rounded-full inline-flex size-9 cursor-pointer transition-colors duration-200 items-center justify-center hover:text-foreground hover:border-border disabled:opacity-50 disabled:pointer-events-none"
+          class=":uno: text-muted-foreground border border-border/50 rounded-full inline-flex size-12 cursor-pointer transition-colors duration-200 items-center justify-center hover:text-foreground hover:border-border disabled:opacity-50 sm:size-10 disabled:pointer-events-none"
           onclick={() => carouselApi?.scrollPrev()}
           disabled={!carouselApi?.canScrollPrev()}
           aria-label={prevSlideLabel}
         >
-          <Icon icon="lucide:arrow-left" class=":uno: size-4" />
+          <Icon icon="lucide:arrow-left" class=":uno: size-5 sm:size-4" />
         </button>
         <button
           type="button"
-          class=":uno: text-muted-foreground border border-border/50 rounded-full inline-flex size-9 cursor-pointer transition-colors duration-200 items-center justify-center hover:text-foreground hover:border-border disabled:opacity-50 disabled:pointer-events-none"
+          class=":uno: text-muted-foreground border border-border/50 rounded-full inline-flex size-12 cursor-pointer transition-colors duration-200 items-center justify-center hover:text-foreground hover:border-border disabled:opacity-50 sm:size-10 disabled:pointer-events-none"
           onclick={() => carouselApi?.scrollNext()}
           disabled={!carouselApi?.canScrollNext()}
           aria-label={nextSlideLabel}
         >
-          <Icon icon="lucide:arrow-right" class=":uno: size-4" />
+          <Icon icon="lucide:arrow-right" class=":uno: size-5 sm:size-4" />
         </button>
       </div>
     </Carousel>

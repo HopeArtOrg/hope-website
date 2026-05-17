@@ -1,0 +1,26 @@
+.mermaid {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  width: 100%;
+  overflow-x: auto;
+  visibility: hidden;
+}
+
+.mermaid[data-processed="true"] {
+  visibility: visible;
+}
+
+.mermaid svg {
+  height: auto;
+}
+
+.mermaid-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.mermaid-wrapper {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

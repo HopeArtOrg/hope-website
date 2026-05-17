@@ -110,7 +110,7 @@
         {name}
       </button>
     </h2>
-    <blockquote class=":uno: text-sm text-muted-foreground leading-relaxed mt-4 pl-4 border-l-2 border-muted-foreground/20 max-w-md italic md:text-lg sm:text-base sm:mt-6">
+    <blockquote class=":uno: text-lg text-muted-foreground leading-relaxed font-semibold mt-4 pl-4 border-l-2 border-primary/40 max-w-md italic sm:text-xl sm:mt-6">
       &ldquo;{quote}&rdquo;
     </blockquote>
     <div class=":uno: mt-6 flex flex-wrap gap-3 items-center sm:mt-8">

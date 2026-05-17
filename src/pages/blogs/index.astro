@@ -13,12 +13,6 @@ import BlogLayout from "@/layouts/blog-layout.astro";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const blogNavLinks = [
-  { label: t("nav.download"), href: getLocalePath(lang, "/"), icon: "lucide:download" },
-  { label: t("nav.home"), href: getLocalePath(lang, "/blogs"), icon: "lucide:home" },
-  { label: t("nav.rss"), href: "/rss.xml", icon: "lucide:rss" },
-];
-
 const allPosts = await Promise.all(
   (await getCollection("vnBlog"))
     .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
@@ -45,7 +39,7 @@ const sortedYears = Object.keys(groupedPosts)
   .sort((a, b) => b - a);
 ---
 
-<BlogLayout links={blogNavLinks} title={t("blog.heading")} description={t("blog.description")}>
+<BlogLayout title={t("blog.heading")} description={t("blog.description")}>
   <div class="py-24 sm:py-32">
     <div class="mx-auto px-6 max-w-[720px]">
       <header class="mb-24 flex flex-col gap-8 items-start">
