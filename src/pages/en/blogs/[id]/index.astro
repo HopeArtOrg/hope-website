@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from "astro:content";
+
+import ReadingLayout from "@/layouts/reading-layout.astro";
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection("enBlog");
+  return blogEntries.map(entry => ({
+    params: { id: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await render(entry);
+
+const formattedDate = new Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+}).format(entry.data.publishDate);
+---
+
+<ReadingLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  pubDate={formattedDate}
+  readingTime={`${remarkPluginFrontmatter.readingTimeInMin} min read`}
+>
+  <Content />
+</ReadingLayout>

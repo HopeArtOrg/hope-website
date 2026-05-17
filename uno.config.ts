@@ -4,9 +4,12 @@ import extractorSvelte from "@unocss/extractor-svelte";
 import { createLocalFontProcessor } from "@unocss/preset-web-fonts/local";
 import {
   defineConfig,
+  presetTypography,
   presetWebFonts,
   presetWind4,
   transformerCompileClass,
+  transformerDirectives,
+  transformerVariantGroup,
 } from "unocss";
 import presetAnimations from "unocss-preset-animations";
 import { presetShadcn } from "unocss-preset-shadcn";
@@ -89,6 +92,7 @@ export default defineConfig({
   presets: [
     presetWind4({ preflights: { reset: true } }),
     presetAnimations() as Preset,
+    presetTypography(),
     presetShadcn(
       {
         color: {
@@ -135,5 +139,7 @@ export default defineConfig({
 
   transformers: [
     transformerCompileClass(),
+    transformerDirectives(),
+    transformerVariantGroup(),
   ],
 });

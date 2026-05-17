@@ -1,0 +1,82 @@
+---
+import "@/styles/shiki.css";
+import "@/styles/prose.css";
+import "@/styles/mermaid.css";
+import "@/styles/katex.css";
+import "katex/dist/katex.min.css";
+
+import { AuroraBackground } from "@/components/aurora-animations";
+
+import BlogLayout from "./blog-layout.astro";
+
+type Props = {
+  title: string;
+  description: string;
+  pubDate: string;
+  readingTime?: string;
+  ogImage?: string;
+};
+
+const {
+  title,
+  description,
+  pubDate,
+  readingTime,
+  ogImage,
+} = Astro.props;
+---
+
+<BlogLayout {title} {description} {ogImage}>
+  <div class=":uno: min-h-screen relative overflow-hidden">
+    <div class=":uno: opacity-50 pointer-events-none inset-0 fixed z-0">
+      <AuroraBackground client:load />
+    </div>
+
+    <div class=":uno: mx-auto px-4 py-24 flex flex-col max-w-screen-md items-center relative z-10 lg:py-32 sm:px-6">
+      <div
+        id="glass-container"
+        class=":uno: p-6 border border-white/10 rounded-2xl bg-background/40 w-full shadow-2xl overflow-hidden backdrop-blur-xl sm:p-12"
+      >
+        <header class=":uno: mb-12 text-center">
+          <h1 class=":uno: text-4xl text-foreground tracking-tight font-bold font-mono mb-4 sm:text-5xl">
+            {title}
+          </h1>
+          <div class=":uno: text-sm text-muted-foreground font-mono flex flex-wrap gap-4 items-center justify-center">
+            <time datetime={pubDate}>{pubDate}</time>
+            {readingTime && (
+              <>
+                <span class=":uno: text-muted-foreground/30">•</span>
+                <span>{readingTime}</span>
+              </>
+            )}
+          </div>
+        </header>
+
+        <article class=":uno: prose-zen max-w-none prose dark:prose-invert">
+          <slot />
+        </article>
+      </div>
+    </div>
+  </div>
+</BlogLayout>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from("#glass-container", {
+    y: 100,
+    opacity: 0,
+    duration: 1.2,
+    ease: "power4.out",
+    delay: 0.2,
+  });
+</script>
+
+<style is:global>
+  #glass-container {
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+</style>

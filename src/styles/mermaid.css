@@ -1,0 +1,5 @@
+:uno: {
+  .mermaid {
+    @apply flex justify-center my-10 bg-white/5 p-8 rounded-2xl backdrop-blur-md border border-border/20 shadow-inner;
+  }
+}
