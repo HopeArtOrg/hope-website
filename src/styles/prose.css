@@ -37,3 +37,27 @@
 .prose-zen ol {
   @apply my-6 space-y-2;
 }
+
+.prose-zen table {
+  @apply w-full border-collapse my-12 text-sm text-left block overflow-x-auto md:table;
+}
+
+.prose-zen thead {
+  @apply border-b-2 border-border/60 bg-muted/20;
+}
+
+.prose-zen th {
+  @apply p-4 font-mono font-bold text-foreground uppercase tracking-widest text-xs;
+}
+
+.prose-zen td {
+  @apply p-4 border-b border-border/30 text-muted-foreground/90 leading-relaxed;
+}
+
+.prose-zen tr:last-child td {
+  @apply border-b-0;
+}
+
+.prose-zen tr:hover td {
+  @apply bg-accent/5 text-foreground;
+}
