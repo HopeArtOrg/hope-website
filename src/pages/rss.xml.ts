@@ -3,6 +3,7 @@ import type { APIContext } from "astro";
 
 import { getContainerRenderer as getMDXRenderer } from "@astrojs/mdx";
 import rss from "@astrojs/rss";
+import { getContainerRenderer as getSvelteRenderer } from "@astrojs/svelte";
 import { getCollection, render } from "astro:content";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import XMLBuilder from "fast-xml-builder";
@@ -41,7 +42,7 @@ export async function GET(context: APIContext) {
   });
 
   const container = await AstroContainer.create({
-    renderers: [getMDXRenderer()],
+    renderers: [getMDXRenderer(), getSvelteRenderer()],
   });
 
   const items: RSSFeedItem[] = await Promise.all(
@@ -49,7 +50,7 @@ export async function GET(context: APIContext) {
       const { Content } = await render(post);
       const rawContent = await container.renderToString(Content);
 
-      const content = sanitizeHtml(rawContent, {
+      const sanitizedContent = sanitizeHtml(rawContent, {
         allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
         transformTags: {
           a: (tagName, attribs) => {
@@ -73,7 +74,7 @@ export async function GET(context: APIContext) {
         description: post.data.description,
         link: post.lang === "vn" ? `/blogs/${post.id}` : `/en/blogs/${post.id}`,
         author: "trananhquan1009@gmail.com (Noah Trần)",
-        content,
+        content: `<![CDATA[${sanitizedContent}]]>`,
       };
     }),
   );
