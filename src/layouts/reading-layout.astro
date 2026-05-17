@@ -5,8 +5,6 @@ import "@/styles/mermaid.css";
 import "@/styles/katex.css";
 import "katex/dist/katex.min.css";
 
-import AuroraBackground from "@/components/aurora-animations/aurora-background.svelte";
-
 import BlogLayout from "./blog-layout.astro";
 
 type Props = {
@@ -32,13 +30,11 @@ const {
   {ogImage}
 >
   <div class=":uno: flex flex-col min-h-screen relative">
-    <div
-      id="aurora-wrapper"
+    <canvas
+      id="aurora-canvas"
       class=":uno: pointer-events-none inset-0 fixed z-0 overflow-hidden"
       style="opacity: 0;"
-    >
-      <AuroraBackground client:load />
-    </div>
+    ></canvas>
 
     <div class=":uno: mx-auto flex flex-col w-full max-w-screen-md items-center relative z-10 lg:py-32 md:px-6 md:py-24">
       <div
@@ -72,25 +68,44 @@ const {
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import { setupAuroraBlogBg } from "@/components/aurora-animations/aurora-blog-background";
 import { setupMermaid } from "@/lib/mermaid";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const tl = gsap.timeline({ delay: 0.1 });
+let auroraCleanup: (() => void) | undefined;
 
-tl.to("#aurora-wrapper", {
-  opacity: 1,
-  duration: 1.2,
-  ease: "power2.inOut",
-});
+function initAurora() {
+  auroraCleanup?.();
+  const canvas = document.getElementById("aurora-canvas") as HTMLCanvasElement;
+  if (!canvas)
+    return;
+
+  auroraCleanup = setupAuroraBlogBg(canvas);
+
+  gsap.to(canvas, {
+    opacity: 1,
+    duration: 1.5,
+    ease: "power2.inOut",
+  });
+}
+
+const tl = gsap.timeline({ delay: 0.1 });
 
 tl.from("#glass-container", {
   y: 60,
   opacity: 0,
   duration: 1,
   ease: "power4.out",
-}, "-=0.6");
+});
 
+document.addEventListener("astro:page-load", () => {
+  initAurora();
+  setupMermaid();
+});
+
+// Initial load for first mount
+initAurora();
 setupMermaid();
 </script>
 
