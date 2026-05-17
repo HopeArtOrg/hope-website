@@ -44,7 +44,7 @@ export async function GET(context: APIContext) {
   // Manually load renderers to avoid virtual module issues at runtime
   const renderers = await Promise.all(
     [getMDXRenderer(), getSvelteRenderer()].map(async (renderer) => {
-      const mod = await import(renderer.serverEntrypoint.toString());
+      const mod = await import(/* @vite-ignore */ renderer.serverEntrypoint.toString());
       return {
         ...renderer,
         ssr: mod.default,
