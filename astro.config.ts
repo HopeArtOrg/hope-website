@@ -45,7 +45,7 @@ export default defineConfig({
         "fsevents",
         "sharp",
         "rollup",
-        /^@rollup\//,
+        "@rollup/rollup-win32-x64-msvc",
       ],
     },
     resolve: {
