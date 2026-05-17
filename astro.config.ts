@@ -26,11 +26,20 @@ export default defineConfig({
 
   vite: {
     plugins: [enhancedImages()],
+    build: {
+      rollupOptions: {
+        external: ["fsevents"],
+      },
+    },
+    define: {
+      __dirname: "import.meta.dirname",
+      __filename: "import.meta.filename",
+    },
     optimizeDeps: {
       exclude: ["takumi-js", "takumi-js/response"],
     },
     ssr: {
-      external: ["takumi-js", "takumi-js/response"],
+      external: ["takumi-js", "takumi-js/response", "fsevents"],
     },
     resolve: {
       noExternal: ["bits-ui"],
