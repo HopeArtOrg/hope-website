@@ -53,8 +53,17 @@ const sortedYears = Object.keys(groupedPosts)
 
       <div class="flex flex-col gap-24">
         {
-          sortedYears.map(year => (
+          sortedYears.map((year, index) => (
             <section class="relative">
+              {index !== 0 && (
+                <div class="mb-24 opacity-50 flex gap-8 items-center">
+                  <div class="bg-border flex-1 h-px" />
+                  <span class="text-xs text-muted-foreground tracking-[0.2em] font-bold font-mono uppercase">
+                    {year}
+                  </span>
+                  <div class="bg-border flex-1 h-px" />
+                </div>
+              )}
               <YearDecoration year={year} />
               <div class="flex flex-col gap-12 relative z-10 sm:gap-16">
                 {groupedPosts[year].map(post => (
