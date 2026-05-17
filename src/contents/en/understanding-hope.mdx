@@ -20,7 +20,7 @@ At its core, Hope solves an adversarial optimization problem. For an original ar
 Glaze minimizes the distance between the protected image's style embedding and a target style $S_{target}$, while preserving the original content $x$.
 
 $$
-\min_{\delta} || \Phi(x + \delta) - \Phi(S_{target}) ||_2^2 + \lambda \cdot \text{LPIPS}(x, x + \delta)
+\min_{\delta} || \Phi(x + \delta) - \Phi(S_{target}) ||_2^2 + \lambda \cdot \text\{LPIPS\}(x, x + \delta)
 $$
 Subject to: $||\delta||_{\infty} \leq \epsilon$
 
@@ -30,7 +30,7 @@ Where $\Phi(\cdot)$ extracts style features (e.g., via Gram matrices or speciali
 Nightshade targets semantic alignment by shifting the CLIP visual embedding of $x$ towards a completely unrelated concept $x_{target}$.
 
 $$
-\min_{\delta} || E(x + \delta) - E(x_{target}) ||_2^2 + \lambda \cdot \text{PerceptualLoss}(x, x + \delta)
+\min_{\delta} || E(x + \delta) - E(x_{target}) ||_2^2 + \lambda \cdot \text\{PerceptualLoss\}(x, x + \delta)
 $$
 Subject to: $||\delta||_{p} \leq \epsilon$
 
@@ -38,7 +38,7 @@ Subject to: $||\delta||_{p} \leq \epsilon$
 A high-frequency disruption layer designed to break the local texture consistency that AI encoders rely on for feature extraction.
 
 $$
-\min_{\delta} \sum_{i,j} \text{Var}(patch_{i,j}(x + \delta)) \quad \text{s.t.} \quad ||\delta||_{p} \leq \epsilon
+\min_{\delta} \sum_{i,j} \text\{Var\}(patch_{i,j}(x + \delta)) \quad \text\{s.t.\} \quad ||\delta||_{p} \leq \epsilon
 $$
 
 By minimizing these objectives, we create what researchers call an **unlearnable image**.

@@ -20,7 +20,7 @@ Về cốt lõi, Hope giải quyết bài toán tối ưu hóa đối kháng. T�
 Glaze giảm thiểu khoảng cách giữa embedding phong cách của ảnh được bảo vệ và một phong cách mục tiêu $S_{target}$, trong khi vẫn bảo toàn nội dung gốc $x$.
 
 $$
-\min_{\delta} || \Phi(x + \delta) - \Phi(S_{target}) ||_2^2 + \lambda \cdot \text{LPIPS}(x, x + \delta)
+\min_{\delta} || \Phi(x + \delta) - \Phi(S_{target}) ||_2^2 + \lambda \cdot \text\{LPIPS\}(x, x + \delta)
 $$
 Ràng buộc: $||\delta||_{\infty} \leq \epsilon$
 
@@ -30,7 +30,7 @@ Trong đó $\Phi(\cdot)$ trích xuất các đặc trưng phong cách (ví dụ:
 Nightshade nhắm vào căn chỉnh ngữ nghĩa bằng cách đẩy embedding thị giác CLIP của $x$ về phía một khái niệm hoàn toàn khác biệt $x_{target}$.
 
 $$
-\min_{\delta} || E(x + \delta) - E(x_{target}) ||_2^2 + \lambda \cdot \text{PerceptualLoss}(x, x + \delta)
+\min_{\delta} || E(x + \delta) - E(x_{target}) ||_2^2 + \lambda \cdot \text\{PerceptualLoss\}(x, x + \delta)
 $$
 Ràng buộc: $||\delta||_{p} \leq \epsilon$
 
@@ -38,7 +38,7 @@ Ràng buộc: $||\delta||_{p} \leq \epsilon$
 Một lớp nhiễu tần số cao được thiết kế để phá vỡ tính nhất quán của kết cấu cục bộ mà các bộ mã hóa AI dựa vào để trích xuất đặc trưng.
 
 $$
-\min_{\delta} \sum_{i,j} \text{Var}(patch_{i,j}(x + \delta)) \quad \text{s.t.} \quad ||\delta||_{p} \leq \epsilon
+\min_{\delta} \sum_{i,j} \text\{Var\}(patch_{i,j}(x + \delta)) \quad \text\{s.t.\} \quad ||\delta||_{p} \leq \epsilon
 $$
 
 Bằng cách tối ưu hóa các hàm này, chúng tớ tạo ra **hình ảnh không thể học được (unlearnable image)**.
