@@ -20,6 +20,9 @@
   import { DefinitionPanel } from "@/components/ui/definition-panel";
   import { prefersReducedMotion } from "@/lib/utils";
 
+  import ComingSoonBadge from "./coming-soon-badge.svelte";
+  import DownloadActions from "./download-actions.svelte";
+
   const {
     description,
     downloadLabel,
