@@ -4,8 +4,8 @@ import type { APIContext } from "astro";
 import { getContainerRenderer as getMDXRenderer } from "@astrojs/mdx";
 import rss from "@astrojs/rss";
 import { getContainerRenderer as getSvelteRenderer } from "@astrojs/svelte";
+import { experimental_AstroContainer as AstroContainer, loadRenderers } from "astro:container";
 import { getCollection, render } from "astro:content";
-import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import XMLBuilder from "fast-xml-builder";
 import sanitizeHtml from "sanitize-html";
 import { resolveURL } from "ufo";
@@ -41,8 +41,9 @@ export async function GET(context: APIContext) {
     },
   });
 
+  const renderers = await loadRenderers([getMDXRenderer(), getSvelteRenderer()]);
   const container = await AstroContainer.create({
-    renderers: [getMDXRenderer(), getSvelteRenderer()],
+    renderers,
   });
 
   const items: RSSFeedItem[] = await Promise.all(
