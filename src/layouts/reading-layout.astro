@@ -28,18 +28,19 @@ const {
   {title}
   {description}
   {ogImage}
+  bodyClass="bg-transparent"
 >
   <div class=":uno: flex flex-col min-h-screen relative">
     <canvas
       id="aurora-canvas"
-      class=":uno: pointer-events-none inset-0 fixed z-0 overflow-hidden"
+      class=":uno: pointer-events-none inset-0 fixed z-[-1] overflow-hidden"
       style="opacity: 0;"
     ></canvas>
 
     <div class=":uno: mx-auto flex flex-col w-full max-w-screen-md items-center relative z-10 lg:py-32 md:px-6 md:py-24">
       <div
         id="glass-container"
-        class=":uno: w-full transition-all duration-300 overflow-hidden md:p-12 md:border md:border-white/10 md:rounded-2xl md:bg-background/60 md:shadow-2xl md:backdrop-blur-2xl"
+        class=":uno: w-full transition-all duration-300 overflow-hidden md:p-12 md:border md:border-white/20 md:rounded-2xl md:bg-background/30 md:shadow-2xl md:backdrop-blur-3xl"
       >
         <header class=":uno: mb-12 px-6 text-center md:px-0">
           <h1 class=":uno: text-4xl text-foreground tracking-tight font-bold font-mono mb-4 sm:text-5xl">
