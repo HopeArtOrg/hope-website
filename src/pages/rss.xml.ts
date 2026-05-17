@@ -24,8 +24,8 @@ export async function GET(context: APIContext) {
   const channelMeta = builder.build({
     "language": "vn",
     "copyright": `CC BY-NC 4.0 © ${SITE_NAME}`,
-    "managingEditor": `contact@hope-art.app (${SITE_NAME})`,
-    "webMaster": `contact@hope-art.app (${SITE_NAME})`,
+    "managingEditor": `trananhquan1009@gmail.com (Noah Trần)`,
+    "webMaster": `trananhquan1009@gmail.com (Noah Trần)`,
     "image": {
       url: resolveURL(siteURL, "logo.svg"),
       link: siteURL,
@@ -46,7 +46,7 @@ export async function GET(context: APIContext) {
         pubDate: post.data.publishDate,
         description: post.data.description,
         link: post.lang === "vn" ? `/blogs/${post.id}` : `/en/blogs/${post.id}`,
-        author: `contact@hope-art.app (${SITE_NAME})`,
+        author: "trananhquan1009@gmail.com (Noah Trần)",
         content: sanitizeHtml(html, {
           allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
         }),
