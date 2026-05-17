@@ -28,7 +28,7 @@ export default defineConfig({
     plugins: [enhancedImages()],
     build: {
       rollupOptions: {
-        external: ["fsevents"],
+        external: ["fsevents", "rollup", /^@rollup\//, "sharp"],
       },
     },
     define: {
@@ -39,7 +39,14 @@ export default defineConfig({
       exclude: ["takumi-js", "takumi-js/response"],
     },
     ssr: {
-      external: ["takumi-js", "takumi-js/response", "fsevents"],
+      external: [
+        "takumi-js",
+        "takumi-js/response",
+        "fsevents",
+        "sharp",
+        "rollup",
+        /^@rollup\//,
+      ],
     },
     resolve: {
       noExternal: ["bits-ui"],
