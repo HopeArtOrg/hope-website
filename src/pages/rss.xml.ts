@@ -1,15 +1,9 @@
 import type { RSSFeedItem } from "@astrojs/rss";
 import type { APIContext } from "astro";
 
-import { getContainerRenderer as getMDXRenderer } from "@astrojs/mdx";
-import mdxServer from "@astrojs/mdx/server.js";
 import rss from "@astrojs/rss";
-import { getContainerRenderer as getSvelteRenderer } from "@astrojs/svelte";
-import svelteServer from "@astrojs/svelte/server.js";
-import { getCollection, render } from "astro:content";
-import { experimental_AstroContainer as AstroContainer } from "astro/container";
+import { getCollection } from "astro:content";
 import XMLBuilder from "fast-xml-builder";
-import sanitizeHtml from "sanitize-html";
 import { resolveURL } from "ufo";
 
 import { SITE_NAME } from "@/lib/constants";
@@ -43,48 +37,15 @@ export async function GET(context: APIContext) {
     },
   });
 
-  const renderers = [
-    { ...getMDXRenderer(), ssr: mdxServer },
-    { ...getSvelteRenderer(), ssr: svelteServer },
-  ];
-
-  const container = await AstroContainer.create({
-    renderers: renderers as any,
+  const items: RSSFeedItem[] = allPosts.map((post) => {
+    return {
+      title: `[${post.lang.toUpperCase()}] ${post.data.title}`,
+      pubDate: post.data.publishDate,
+      description: post.data.description,
+      link: post.lang === "vn" ? `/blogs/${post.id}` : `/en/blogs/${post.id}`,
+      author: "trananhquan1009@gmail.com (Noah Trần)",
+    };
   });
-
-  const items: RSSFeedItem[] = await Promise.all(
-    allPosts.map(async (post) => {
-      const { Content } = await render(post);
-      const rawContent = await container.renderToString(Content);
-
-      const sanitizedContent = sanitizeHtml(rawContent, {
-        allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
-        transformTags: {
-          a: (tagName, attribs) => {
-            if (attribs.href?.startsWith("/")) {
-              attribs.href = resolveURL(siteURL, attribs.href);
-            }
-            return { tagName, attribs };
-          },
-          img: (tagName, attribs) => {
-            if (attribs.src?.startsWith("/")) {
-              attribs.src = resolveURL(siteURL, attribs.src);
-            }
-            return { tagName, attribs };
-          },
-        },
-      });
-
-      return {
-        title: `[${post.lang.toUpperCase()}] ${post.data.title}`,
-        pubDate: post.data.publishDate,
-        description: post.data.description,
-        link: post.lang === "vn" ? `/blogs/${post.id}` : `/en/blogs/${post.id}`,
-        author: "trananhquan1009@gmail.com (Noah Trần)",
-        content: `<![CDATA[${sanitizedContent}]]>`,
-      };
-    }),
-  );
 
   return rss({
     xmlns: {
