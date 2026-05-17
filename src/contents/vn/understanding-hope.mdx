@@ -1,51 +1,51 @@
 ---
-title: "Thấu Hiểu Hope: Thuật Toán Của Sự Bảo Vệ Nghệ Thuật"
+title: "Bên Trong Hope: Thuật Toán Bảo Vệ Nghệ Thuật"
 description: "Phân tích kỹ thuật về cơ chế đối kháng, chiếm quyền điều khiển không gian tiềm ẩn và quy trình kỹ thuật đằng sau ứng dụng Hope."
 publishDate: 2026-05-17
 ---
 
-# Thấu Hiểu Hope: Thuật Toán Của Sự Bảo Vệ Nghệ Thuật
+# Bên Trong Hope: Thuật Toán Bảo Vệ Nghệ Thuật
 
-Với con người, một bức tranh là sự hòa quyện của màu sắc, chất liệu và cảm xúc. Nhưng với một mô hình học máy (machine learning), hình ảnh chỉ là một điểm trong đa tạp cao chiều—một vector tiềm ẩn (latent vector). Chính khoảng cách giữa nhận thức con người và cách máy móc mã hóa đã tạo nên nền tảng cho **Hope**.
+Với con người, một bức tranh là hòa quyện của màu sắc, chất liệu và cảm xúc. Nhưng với một mô hình học máy (machine learning), hình ảnh chỉ là một điểm trong đa tạp cao chiều—một vector tiềm ẩn (latent vector). Chính khoảng cách giữa nhận thức con người và cách máy móc mã hóa đã tạo nên nền tảng cho **Hope**.
 
-Sự trỗi dậy của AI tạo hình mang đến mối đe dọa trực tiếp cho quyền tự quyết nghệ thuật. Khi các mô hình học từ dữ liệu thu thập trái phép, chúng không chỉ "xem" tác phẩm mà còn nội tại hóa các quy luật thống kê về phong cách và khái niệm của nghệ sĩ. Hope vận hành trong chính sai số biểu diễn này, dùng các nhiễu đối kháng (adversarial perturbations) tinh vi để bảo vệ người sáng tạo.
+Trỗi dậy của AI tạo hình mang đến mối đe dọa trực tiếp cho quyền tự quyết nghệ thuật. Khi các mô hình học từ dữ liệu thu thập trái phép, chúng không chỉ "xem" tác phẩm mà còn nội tại hóa các quy luật thống kê về phong cách và khái niệm của nghệ sĩ. Hope vận hành trong chính sai số biểu diễn này, dùng các nhiễu đối kháng (adversarial perturbations) tinh vi để bảo vệ người sáng tạo.
 
 Dự án này kế thừa những nghiên cứu đột phá từ **Dự án Glaze tại Đại học Chicago**. Chúng tớ tri ân các thuật toán nền tảng từ công trình của họ, đặc biệt là bài báo: [*Glaze: Protecting Artists from Style Mimicry by Text-to-Image Models* (arXiv:2302.04222)](https://arxiv.org/abs/2302.04222).
 
-### Hình Học Của Sự Nhiễu Loạn
+### Hình Học Nhiễu Loạn
 
-Về cốt lõi, Hope giải quyết bài toán tối ưu hóa đối kháng. Từ một tác phẩm gốc $x$, chúng tớ tạo ra nhiễu $\delta$ để có hình ảnh được bảo vệ $x' = x + \delta$. Mục tiêu là dịch chuyển biểu diễn của $x$ trong không gian đặc trưng (feature space) sao cho khớp với một phong cách hoặc khái niệm mục tiêu $x_{target}$, đồng thời giữ cho thay đổi thị giác ở mức mắt người không thể nhận ra.
+Về cốt lõi, Hope giải quyết bài toán tối ưu hóa đối kháng. Từ một tác phẩm gốc $x$, chúng tớ tạo ra nhiễu $\delta$ để có hình ảnh được bảo vệ $x' = x + \delta$. Mục tiêu là dịch chuyển biểu diễn của $x$ trong không gian đặc trưng (feature space) sao cho khớp với một phong cách hoặc khái niệm mục tiêu $x_\{target\}$, đồng thời giữ cho thay đổi thị giác ở mức mắt người không thể nhận ra.
 
 #### 1. Glaze: Style Cloaking
-Glaze giảm thiểu khoảng cách giữa embedding phong cách của ảnh được bảo vệ và một phong cách mục tiêu $S_{target}$, trong khi vẫn bảo toàn nội dung gốc $x$.
+Glaze giảm thiểu khoảng cách giữa embedding phong cách của ảnh được bảo vệ và một phong cách mục tiêu $S_\{target\}$, trong khi vẫn bảo toàn nội dung gốc $x$.
 
 $$
-\min_{\delta} || \Phi(x + \delta) - \Phi(S_{target}) ||_2^2 + \lambda \cdot \text{LPIPS}(x, x + \delta)
+\min_\{\delta\} || \Phi(x + \delta) - \Phi(S_\{target\}) ||_2^2 + \lambda \cdot \text\{LPIPS\}(x, x + \delta)
 $$
-Ràng buộc: $||\delta||_{\infty} \leq \epsilon$
+Ràng buộc: $||\delta||_\{ \infty \} \leq \epsilon$
 
 Trong đó $\Phi(\cdot)$ trích xuất các đặc trưng phong cách (ví dụ: qua Gram matrices hoặc bộ mã hóa phong cách chuyên biệt).
 
 #### 2. Nightshade: Concept Poisoning
-Nightshade nhắm vào sự căn chỉnh ngữ nghĩa bằng cách đẩy embedding thị giác CLIP của $x$ về phía một khái niệm hoàn toàn khác biệt $x_{target}$.
+Nightshade nhắm vào căn chỉnh ngữ nghĩa bằng cách đẩy embedding thị giác CLIP của $x$ về phía một khái niệm hoàn toàn khác biệt $x_\{target\}$.
 
 $$
-\min_{\delta} || E(x + \delta) - E(x_{target}) ||_2^2 + \lambda \cdot \text{PerceptualLoss}(x, x + \delta)
+\min_\{\delta\} || E(x + \delta) - E(x_\{target\}) ||_2^2 + \lambda \cdot \text\{PerceptualLoss\}(x, x + \delta)
 $$
-Ràng buộc: $||\delta||_{p} \leq \epsilon$
+Ràng buộc: $||\delta||_\{p\} \leq \epsilon$
 
 #### 3. Noise: Feature Disruption
 Một lớp nhiễu tần số cao được thiết kế để phá vỡ tính nhất quán của kết cấu cục bộ mà các bộ mã hóa AI dựa vào để trích xuất đặc trưng.
 
 $$
-\min_{\delta} \sum_{i,j} \text{Var}(patch_{i,j}(x + \delta)) \quad \text{với} \quad ||\delta||_{p} \leq \epsilon
+\min_\{\delta\} \sum_\{i,j\} \text\{Var\}(patch_\{i,j\}(x + \delta)) \quad \text\{s.t.\} \quad ||\delta||_\{p\} \leq \epsilon
 $$
 
 Bằng cách tối ưu hóa các hàm này, chúng tớ tạo ra **hình ảnh không thể học được (unlearnable image)**.
 
 ### Chiếm Quyền Điều Khiển Bộ Mã Hóa
 
-"Cây cầu" nối giữa văn bản và điểm ảnh trong các mô hình như Stable Diffusion chính là bộ mã hóa **CLIP (Contrastive Language-Image Pre-training)**. Hope chiếm quyền điều khiển cây cầu này bằng cách tạo ra sự sai lệch trong không gian đặc trưng.
+"Cây cầu" nối giữa văn bản và điểm ảnh trong các mô hình như Stable Diffusion chính là bộ mã hóa **CLIP (Contrastive Language-Image Pre-training)**. Hope chiếm quyền điều khiển cây cầu này bằng cách tạo ra sai lệch trong không gian đặc trưng.
 
 ```mermaid
 graph TD
@@ -88,7 +88,7 @@ Hemlock hướng tới lớp bảo vệ thống nhất, bền bỉ, được t�
 
 ### Kết Luận
 
-Sự chính xác là hình thức bảo vệ tốt nhất của chúng tớ. Bằng cách thấu hiểu và khai thác các ranh giới thuật toán của học máy, chúng tớ đưa công nghệ về đúng vị trí: công cụ phục vụ người sáng tạo, không phải ký sinh trùng tiêu thụ họ.
+Chính xác là hình thức bảo vệ tốt nhất của chúng tớ. Bằng cách thấu hiểu và khai thác các ranh giới thuật toán của học máy, chúng tớ đưa công nghệ về đúng vị trí: công cụ phục vụ người sáng tạo, không phải ký sinh trùng tiêu thụ họ.
 
 ---
 

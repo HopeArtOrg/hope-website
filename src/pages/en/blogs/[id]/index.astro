@@ -26,6 +26,7 @@ const formattedDate = new Intl.DateTimeFormat("en-US", {
   description={entry.data.description}
   pubDate={formattedDate}
   readingTime={`${remarkPluginFrontmatter.readingTimeInMin} min read`}
+  ogImage={`/en/blogs/${entry.id}/og.png`}
 >
   <Content />
 </ReadingLayout>

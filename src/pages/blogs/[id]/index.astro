@@ -26,6 +26,7 @@ const formattedDate = new Intl.DateTimeFormat("vi-VN", {
   description={entry.data.description}
   pubDate={formattedDate}
   readingTime={`${remarkPluginFrontmatter.readingTimeInMin} phút đọc`}
+  ogImage={`/blogs/${entry.id}/og.png`}
 >
   <Content />
 </ReadingLayout>

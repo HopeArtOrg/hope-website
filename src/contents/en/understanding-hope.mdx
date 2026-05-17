@@ -14,31 +14,31 @@ This project is built upon the groundbreaking research of the **Glaze Project at
 
 ### The Geometry of Perturbation
 
-At its core, Hope solves an adversarial optimization problem. For an original artwork $x$, we seek to generate a perturbation $\delta$ to create a protected image $x' = x + \delta$. The objective is to shift the representation of $x$ in the model's feature space to match a target style or concept $x_{target}$, while ensuring the visual difference remains imperceptible to humans.
+At its core, Hope solves an adversarial optimization problem. For an original artwork $x$, we seek to generate a perturbation $\delta$ to create a protected image $x' = x + \delta$. The objective is to shift the representation of $x$ in the model's feature space to match a target style or concept $x_\{target\}$, while ensuring the visual difference remains imperceptible to humans.
 
 #### 1. Glaze: Style Cloaking
-Glaze minimizes the distance between the protected image's style embedding and a target style $S_{target}$, while preserving the original content $x$.
+Glaze minimizes the distance between the protected image's style embedding and a target style $S_\{target\}$, while preserving the original content $x$.
 
 $$
-\min_{\delta} || \Phi(x + \delta) - \Phi(S_{target}) ||_2^2 + \lambda \cdot \text{LPIPS}(x, x + \delta)
+\min_\{\delta\} || \Phi(x + \delta) - \Phi(S_\{target\}) ||_2^2 + \lambda \cdot \text\{LPIPS\}(x, x + \delta)
 $$
-Subject to: $||\delta||_{\infty} \leq \epsilon$
+Subject to: $||\delta||_\{ \infty \} \leq \epsilon$
 
 Where $\Phi(\cdot)$ extracts style features (e.g., via Gram matrices or specialized style encoders).
 
 #### 2. Nightshade: Concept Poisoning
-Nightshade targets semantic alignment by shifting the CLIP visual embedding of $x$ towards a completely unrelated concept $x_{target}$.
+Nightshade targets semantic alignment by shifting the CLIP visual embedding of $x$ towards a completely unrelated concept $x_\{target\}$.
 
 $$
-\min_{\delta} || E(x + \delta) - E(x_{target}) ||_2^2 + \lambda \cdot \text{PerceptualLoss}(x, x + \delta)
+\min_\{\delta\} || E(x + \delta) - E(x_\{target\}) ||_2^2 + \lambda \cdot \text\{PerceptualLoss\}(x, x + \delta)
 $$
-Subject to: $||\delta||_{p} \leq \epsilon$
+Subject to: $||\delta||_\{p\} \leq \epsilon$
 
 #### 3. Noise: Feature Disruption
 A high-frequency disruption layer designed to break the local texture consistency that AI encoders rely on for feature extraction.
 
 $$
-\min_{\delta} \sum_{i,j} \text{Var}(patch_{i,j}(x + \delta)) \quad \text{s.t.} \quad ||\delta||_{p} \leq \epsilon
+\min_\{\delta\} \sum_\{i,j\} \text\{Var\}(patch_\{i,j\}(x + \delta)) \quad \text\{s.t.\} \quad ||\delta||_\{p\} \leq \epsilon
 $$
 
 By minimizing these objectives, we create what researchers call an **unlearnable image**.
