@@ -4,6 +4,14 @@ import "@/styles/prose.css";
 import "@/styles/mermaid.css";
 import "@/styles/katex.css";
 import "katex/dist/katex.min.css";
+import { Icon } from "astro-icon/components";
+
+import { Button } from "@/components/ui/button";
+import {
+  getLangFromUrl,
+  getLocalePath,
+  useTranslations,
+} from "@/i18n/utils";
 
 import BlogLayout from "./blog-layout.astro";
 
@@ -22,6 +30,9 @@ const {
   readingTime,
   ogImage,
 } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <BlogLayout
@@ -36,6 +47,23 @@ const {
       class=":uno: pointer-events-none inset-0 fixed z-[-1] overflow-hidden"
       style="opacity: 0;"
     ></canvas>
+
+    <div
+      id="back-button-container"
+      class=":uno: opacity-0 translate-y-4 transition-all duration-300 bottom-8 left-8 fixed z-50"
+    >
+      <Button
+        variant="ghost"
+        href={getLocalePath(lang, "/blogs")}
+        class=":uno: font-mono gap-2 group"
+      >
+        <Icon
+          name="lucide:undo-2"
+          class=":uno: size-4 transition-transform duration-300 group-hover:-translate-x-1"
+        />
+        {t("blog.back")}
+      </Button>
+    </div>
 
     <div class=":uno: mx-auto flex flex-col w-full max-w-screen-md items-center relative z-10 lg:py-32 md:px-6 md:py-24">
       <div
@@ -100,14 +128,42 @@ tl.from("#glass-container", {
   ease: "power4.out",
 });
 
+function initScrollAnimations() {
+  const backButton = document.getElementById("back-button-container");
+  if (!backButton)
+    return;
+
+  ScrollTrigger.create({
+    trigger: "#glass-container",
+    start: "top +=200",
+    onEnter: () => {
+      gsap.to(backButton, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+    },
+    onLeaveBack: () => {
+      gsap.to(backButton, {
+        opacity: 0,
+        y: 16,
+        duration: 0.4,
+        ease: "power2.in",
+      });
+    },
+  });
+}
+
 document.addEventListener("astro:page-load", () => {
   initAurora();
   setupMermaid();
+  initScrollAnimations();
 });
 
-// Initial load for first mount
 initAurora();
 setupMermaid();
+initScrollAnimations();
 </script>
 
 <style is:global>
