@@ -2,8 +2,9 @@ import type { RSSFeedItem } from "@astrojs/rss";
 import type { APIContext } from "astro";
 
 import rss from "@astrojs/rss";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import XMLBuilder from "fast-xml-builder";
+import sanitizeHtml from "sanitize-html";
 import { resolveURL } from "ufo";
 
 import { SITE_NAME } from "@/lib/constants";
@@ -13,12 +14,12 @@ export async function GET(context: APIContext) {
   const vnPosts = await getCollection("vnBlog");
   const enPosts = await getCollection("enBlog");
 
+  const siteURL = context.site!.toString();
+
   const allPosts = [
     ...vnPosts.map(post => ({ ...post, lang: "vn" })),
     ...enPosts.map(post => ({ ...post, lang: "en" })),
   ].sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
-
-  const siteURL = context.site!.toString();
 
   const channelMeta = builder.build({
     "language": "vn",
@@ -37,6 +38,22 @@ export async function GET(context: APIContext) {
     },
   });
 
+  const items: RSSFeedItem[] = await Promise.all(
+    allPosts.map(async (post) => {
+      const { html } = await render(post);
+      return {
+        title: `[${post.lang.toUpperCase()}] ${post.data.title}`,
+        pubDate: post.data.publishDate,
+        description: post.data.description,
+        link: post.lang === "vn" ? `/blogs/${post.id}` : `/en/blogs/${post.id}`,
+        author: `contact@hope-art.app (${SITE_NAME})`,
+        content: sanitizeHtml(html, {
+          allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+        }),
+      };
+    }),
+  );
+
   return rss({
     xmlns: {
       atom: "http://www.w3.org/2005/Atom",
@@ -44,13 +61,7 @@ export async function GET(context: APIContext) {
     title: SITE_NAME,
     description: "Hope Art - Protecting Artists from AI style mimicry.",
     site: context.site!,
-    items: allPosts.map(post => ({
-      title: `[${post.lang.toUpperCase()}] ${post.data.title}`,
-      pubDate: post.data.publishDate,
-      description: post.data.description,
-      link: post.lang === "vn" ? `/blogs/${post.id}` : `/en/blogs/${post.id}`,
-      author: `contact@hope-art.app (${SITE_NAME})`,
-    } satisfies RSSFeedItem)),
+    items,
     customData: channelMeta,
   });
 }
