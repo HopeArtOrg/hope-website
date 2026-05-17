@@ -1,0 +1,63 @@
+import type { APIRoute } from "astro";
+import type { Font } from "takumi-js";
+
+import { getCollection } from "astro:content";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import { ImageResponse } from "takumi-js/response";
+
+import DefaultOG from "@/components/templates/og/default-og";
+import { LATEST_VERSION } from "@/lib/constants";
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection("enBlog");
+  return blogEntries.map(entry => ({
+    params: { id: entry.id },
+    props: { entry },
+  }));
+}
+
+const beVietnamProData = await readFile(
+  path.resolve(process.cwd(), "src/assets/fonts/be-vietnam-pro.ttf"),
+);
+const jetBrainsMonoData = await readFile(
+  path.resolve(process.cwd(), "src/assets/fonts/jetbrains-mono.ttf"),
+);
+
+const fonts: Font[] = [
+  {
+    name: "Be Vietnam Pro",
+    data: beVietnamProData.buffer as ArrayBuffer,
+    weight: 400,
+    style: "normal",
+  },
+  {
+    name: "Be Vietnam Pro",
+    data: beVietnamProData.buffer as ArrayBuffer,
+    weight: 700,
+    style: "normal",
+  },
+  {
+    name: "JetBrains Mono",
+    data: jetBrainsMonoData.buffer as ArrayBuffer,
+    weight: 700,
+    style: "normal",
+  },
+];
+
+export const GET: APIRoute = ({ props }) => {
+  const { entry } = props;
+  return new ImageResponse(
+    DefaultOG({
+      title: entry.data.title,
+      description: entry.data.description,
+      version: LATEST_VERSION,
+    }),
+    {
+      width: 1200,
+      height: 630,
+      format: "png",
+      fonts,
+    },
+  );
+};
