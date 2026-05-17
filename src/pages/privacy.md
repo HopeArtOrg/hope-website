@@ -20,7 +20,7 @@ As an open-source project, our core philosophy is transparency. We aim to collec
 Depending on how you interact with our project, we may collect the following types of information:
 
 - **Voluntary Information:** When you contact us via email, submit an issue, or contribute to the repository, you may provide us with your name, email address, GitHub/GitLab username, and the content of your messages.
-- **Usage Data & Analytics (Optional):** If you visit our official website, we may automatically collect basic, non-personally identifiable information such as your IP address, browser type, operating system, and pages visited. _(Note: If your software collects telemetry or crash reports, state it here: "Our software runs locally on your device and does not collect or transmit any telemetry, usage data, or personal information back to us.")_
+- **Usage Data & Analytics (Optional):** If you visit our official website, we may automatically collect basic, non-personally identifiable information such as your IP address, browser type, operating system, and pages visited. Our software runs locally on your device and does not collect or transmit any telemetry, usage data, or personal information back to us.
 - **Cookies:** Our website may use standard cookies to enhance user experience and analyze site traffic.
 
 ## 2. How We Use Your Information
