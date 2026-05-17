@@ -56,11 +56,7 @@ const sortedYears = Object.keys(groupedPosts)
           sortedYears.map((year, index) => (
             <section class="relative">
               {index !== 0 && (
-                <div class="mb-24 opacity-50 flex gap-8 items-center">
-                  <div class="bg-border flex-1 h-px" />
-                  <span class="text-xs text-muted-foreground tracking-[0.2em] font-bold font-mono uppercase">
-                    {year}
-                  </span>
+                <div class="mb-24 opacity-50 flex items-center">
                   <div class="bg-border flex-1 h-px" />
                 </div>
               )}
