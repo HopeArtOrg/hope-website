@@ -26,11 +26,27 @@ export default defineConfig({
 
   vite: {
     plugins: [enhancedImages()],
+    build: {
+      rollupOptions: {
+        external: ["fsevents", "rollup", "@rollup/rollup-win32-x64-msvc", "sharp"],
+      },
+    },
+    define: {
+      __dirname: "import.meta.dirname",
+      __filename: "import.meta.filename",
+    },
     optimizeDeps: {
       exclude: ["takumi-js", "takumi-js/response"],
     },
     ssr: {
-      external: ["takumi-js", "takumi-js/response"],
+      external: [
+        "takumi-js",
+        "takumi-js/response",
+        "fsevents",
+        "sharp",
+        "rollup",
+        "@rollup/rollup-win32-x64-msvc",
+      ],
     },
     resolve: {
       noExternal: ["bits-ui"],

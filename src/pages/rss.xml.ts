@@ -1,9 +1,9 @@
 import type { RSSFeedItem } from "@astrojs/rss";
 import type { APIContext } from "astro";
 
-import { getContainerRenderer as getMDXRenderer } from "@astrojs/mdx";
+import mdxServer from "@astrojs/mdx/server.js";
 import rss from "@astrojs/rss";
-import { getContainerRenderer as getSvelteRenderer } from "@astrojs/svelte";
+import svelteServer from "@astrojs/svelte/server.js";
 import { getCollection, render } from "astro:content";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import XMLBuilder from "fast-xml-builder";
@@ -41,19 +41,17 @@ export async function GET(context: APIContext) {
     },
   });
 
-  // Manually load renderers to avoid virtual module issues at runtime
-  const renderers = await Promise.all(
-    [getMDXRenderer(), getSvelteRenderer()].map(async (renderer) => {
-      const mod = await import(/* @vite-ignore */ renderer.serverEntrypoint.toString());
-      return {
-        ...renderer,
-        ssr: mod.default,
-      };
-    }),
-  );
-
   const container = await AstroContainer.create({
-    renderers: renderers as any,
+    renderers: [
+      {
+        name: "astro:jsx",
+        ssr: mdxServer,
+      } as any,
+      {
+        name: "@astrojs/svelte",
+        ssr: svelteServer,
+      } as any,
+    ],
   });
 
   const items: RSSFeedItem[] = await Promise.all(
