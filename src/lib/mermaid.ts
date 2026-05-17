@@ -23,7 +23,8 @@ export async function renderMermaid() {
     div.className = "mermaid-wrapper :uno: cursor-grab active:cursor-grabbing overflow-auto my-12 border border-border/20 rounded-xl bg-white/5 backdrop-blur-sm p-4";
 
     const inner = document.createElement("div");
-    inner.className = "mermaid flex justify-center min-w-max scale-110 origin-center py-8";
+    inner.className = "mermaid flex justify-center min-w-max origin-center py-8";
+    inner.style.transform = "scale(1.1)";
     inner.textContent = content ?? "";
 
     div.appendChild(inner);
@@ -33,13 +34,17 @@ export async function renderMermaid() {
 
   await mermaid.run();
 
-  const wrappers = document.querySelectorAll(".mermaid-wrapper");
+  const wrappers = document.querySelectorAll(".mermaid-wrapper:not([data-zoom-initialized])");
   wrappers.forEach((wrapper) => {
     let isDown = false;
     let startX: number;
     let scrollLeft: number;
     let scrollTop: number;
     let startY: number;
+    let currentScale = 1.1;
+    let initialPinchDistance = 0;
+
+    wrapper.setAttribute("data-zoom-initialized", "true");
 
     wrapper.addEventListener("mousedown", (e) => {
       isDown = true;
@@ -72,13 +77,41 @@ export async function renderMermaid() {
     });
 
     wrapper.addEventListener("wheel", (e) => {
-      if ((e as WheelEvent).ctrlKey) {
+      const wheelEvent = e as WheelEvent;
+      if (wheelEvent.ctrlKey || wheelEvent.metaKey) {
         e.preventDefault();
         const inner = wrapper.querySelector(".mermaid") as HTMLElement;
-        const delta = (e as WheelEvent).deltaY > 0 ? 0.9 : 1.1;
-        const currentScale = Number.parseFloat(inner.style.transform.replace("scale(", "").replace(")", "") || "1.1");
-        const newScale = Math.min(Math.max(currentScale * delta, 0.5), 3);
-        inner.style.transform = `scale(${newScale})`;
+        if (!inner)
+          return;
+        const delta = wheelEvent.deltaY > 0 ? 0.9 : 1.1;
+        currentScale = Math.min(Math.max(currentScale * delta, 0.5), 3);
+        inner.style.transform = `scale(${currentScale})`;
+      }
+    }, { passive: false });
+
+    wrapper.addEventListener("touchstart", (e) => {
+      if (e.touches.length === 2) {
+        initialPinchDistance = Math.hypot(
+          e.touches[0].pageX - e.touches[1].pageX,
+          e.touches[0].pageY - e.touches[1].pageY,
+        );
+      }
+    }, { passive: true });
+
+    wrapper.addEventListener("touchmove", (e) => {
+      if (e.touches.length === 2 && initialPinchDistance > 0) {
+        e.preventDefault();
+        const currentDistance = Math.hypot(
+          e.touches[0].pageX - e.touches[1].pageX,
+          e.touches[0].pageY - e.touches[1].pageY,
+        );
+        const inner = wrapper.querySelector(".mermaid") as HTMLElement;
+        if (!inner)
+          return;
+        const delta = currentDistance / initialPinchDistance;
+        currentScale = Math.min(Math.max(currentScale * delta, 0.5), 3);
+        inner.style.transform = `scale(${currentScale})`;
+        initialPinchDistance = currentDistance;
       }
     }, { passive: false });
   });
