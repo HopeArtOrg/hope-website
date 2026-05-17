@@ -1,5 +1,27 @@
-:uno: {
-  .mermaid {
-    @apply flex justify-center my-10 bg-white/5 p-8 rounded-2xl backdrop-blur-md border border-border/20 shadow-inner;
-  }
+.mermaid {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  width: 100%;
+  overflow-x: auto;
+  visibility: hidden;
+}
+
+.mermaid[data-processed="true"] {
+  visibility: visible;
+}
+
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.mermaid-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.mermaid-wrapper {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

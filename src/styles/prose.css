@@ -1,41 +1,39 @@
-:uno: {
-  .prose-zen {
-    @apply text-foreground/90 leading-relaxed;
-  }
-  .prose-zen h2,
-  .prose-zen h3,
-  .prose-zen h4 {
-    @apply text-foreground font-mono font-bold mt-12 mb-6 tracking-tight;
-  }
-  .prose-zen h2 {
-    @apply text-3xl border-b border-border/40 pb-2;
-  }
-  .prose-zen h3 {
-    @apply text-2xl;
-  }
+.prose-zen {
+  @apply text-foreground/90 leading-relaxed;
+}
+.prose-zen h2,
+.prose-zen h3,
+.prose-zen h4 {
+  @apply text-foreground font-mono font-bold mt-12 mb-6 tracking-tight;
+}
+.prose-zen h2 {
+  @apply text-3xl border-b border-border/40 pb-2;
+}
+.prose-zen h3 {
+  @apply text-2xl;
+}
 
-  .prose-zen a {
-    @apply text-primary hover:text-primary/80 underline underline-offset-4 decoration-primary/30 transition-all duration-200;
-  }
+.prose-zen a {
+  @apply text-primary hover:text-primary/80 underline underline-offset-4 decoration-primary/30 transition-all duration-200;
+}
 
-  .prose-zen code {
-    @apply bg-muted/50 px-1.5 py-0.5 rounded text-sm font-mono border border-border/30;
-  }
+.prose-zen code {
+  @apply bg-muted/50 px-1.5 py-0.5 rounded text-sm font-mono border border-border/30;
+}
 
-  .prose-zen pre {
-    @apply bg-card/30 backdrop-blur-md border border-border/50 rounded-xl my-8 p-6 overflow-hidden shadow-xl;
-  }
+.prose-zen pre {
+  @apply bg-card/30 backdrop-blur-md border border-border/50 rounded-xl my-8 p-6 overflow-hidden shadow-xl;
+}
 
-  .prose-zen img {
-    @apply rounded-2xl border border-border/50 my-12 shadow-2xl mx-auto;
-  }
+.prose-zen img {
+  @apply rounded-2xl border border-border/50 my-12 shadow-2xl mx-auto;
+}
 
-  .prose-zen blockquote {
-    @apply border-l-4 border-primary/40 pl-8 italic text-muted-foreground/80 my-10 text-xl font-light;
-  }
+.prose-zen blockquote {
+  @apply border-l-4 border-primary/40 pl-8 italic text-muted-foreground/80 my-10 text-xl font-light;
+}
 
-  .prose-zen ul,
-  .prose-zen ol {
-    @apply my-6 space-y-2;
-  }
+.prose-zen ul,
+.prose-zen ol {
+  @apply my-6 space-y-2;
 }

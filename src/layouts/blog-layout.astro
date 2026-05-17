@@ -2,14 +2,19 @@
 import Footer from "@/components/footer/index.astro";
 import Navbar from "@/components/navbar/index.astro";
 import Head from "@/components/templates/head.astro";
-import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import {
+  getLangFromUrl,
+  getLocalePath,
+  useTranslations,
+} from "@/i18n/utils";
+import { cn } from "@/lib/utils";
 
 type Props = {
   title?: string;
   description?: string;
   canonical?: string;
   ogImage?: string;
-  links?: Array<{ label: string; href: string; icon: string }>;
+  bodyClass?: string;
 };
 
 const lang = getLangFromUrl(Astro.url);
@@ -20,30 +25,36 @@ const {
   description = t("site.description"),
   canonical,
   ogImage,
-  links,
+  bodyClass = "bg-background",
 } = Astro.props;
+
+const links = [
+  { label: t("nav.download"), href: getLocalePath(lang, "/"), icon: "lucide:download" },
+  { label: t("nav.home"), href: getLocalePath(lang, "/blogs"), icon: "lucide:home" },
+  { label: t("nav.rss"), href: "/rss.xml", icon: "lucide:rss" },
+];
 ---
 
 <!doctype html>
 <html lang={lang} class=":uno: scroll-smooth">
   <head>
     <Head
-      title={title}
-      description={description}
-      canonical={canonical}
-      ogImage={ogImage}
+      {title}
+      {description}
+      {canonical}
+      {ogImage}
       locale={lang}
     />
   </head>
 
-  <body class=":uno: text-foreground font-primary bg-background min-h-screen antialiased">
+  <body class={cn(":uno: text-foreground font-primary min-h-screen antialiased", bodyClass)}>
     <a
       href="#main-content"
       class=":uno: text-sm text-primary-foreground font-medium px-4 py-2 bg-primary transition-transform duration-200 left-0 top-0 fixed z-[100] -translate-y-full focus:translate-y-0"
     >
       {t("nav.skipToContent")}
     </a>
-    <Navbar links={links} />
+    <Navbar {links} />
     <main id="main-content">
       <slot />
     </main>
