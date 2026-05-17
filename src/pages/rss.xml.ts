@@ -45,14 +45,12 @@ export async function GET(context: APIContext) {
     renderers: [
       {
         name: "astro:jsx",
-        serverEntrypoint: "@astrojs/mdx/server.js",
         ssr: mdxServer,
-      },
+      } as any,
       {
         name: "@astrojs/svelte",
-        serverEntrypoint: "@astrojs/svelte/server.js",
         ssr: svelteServer,
-      },
+      } as any,
     ],
   });
 

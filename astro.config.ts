@@ -28,7 +28,7 @@ export default defineConfig({
     plugins: [enhancedImages()],
     build: {
       rollupOptions: {
-        external: ["fsevents", "rollup", /^@rollup\//, "sharp"],
+        external: ["fsevents", "rollup", "@rollup/rollup-win32-x64-msvc", "sharp"],
       },
     },
     define: {
