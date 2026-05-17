@@ -1,0 +1,12 @@
+---
+import { NotFound } from "@/components/not-found";
+import { getLangFromUrl, getLocalePath } from "@/i18n/utils";
+import BaseLayout from "@/layouts/base-layout.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const homeHref = getLocalePath(lang, "/");
+---
+
+<BaseLayout title="404 - Not Found">
+  <NotFound homeHref={homeHref} client:load />
+</BaseLayout>
