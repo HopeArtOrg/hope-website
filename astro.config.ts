@@ -28,7 +28,7 @@ export default defineConfig({
     plugins: [enhancedImages()],
     build: {
       rollupOptions: {
-        external: ["fsevents", "rollup", "@rollup/rollup-win32-x64-msvc", "sharp"],
+        external: ["fsevents", "sharp"],
       },
     },
     define: {
@@ -44,8 +44,6 @@ export default defineConfig({
         "takumi-js/response",
         "fsevents",
         "sharp",
-        "rollup",
-        "@rollup/rollup-win32-x64-msvc",
       ],
     },
     resolve: {
