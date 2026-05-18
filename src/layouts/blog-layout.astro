@@ -1,4 +1,5 @@
 ---
+import { AuroraBackground } from "@/components/aurora-animations";
 import Footer from "@/components/footer/index.astro";
 import Navbar from "@/components/navbar/index.astro";
 import Head from "@/components/templates/head.astro";
@@ -15,6 +16,7 @@ type Props = {
   canonical?: string;
   ogImage?: string;
   bodyClass?: string;
+  showAurora?: boolean;
 };
 
 const lang = getLangFromUrl(Astro.url);
@@ -26,6 +28,7 @@ const {
   canonical,
   ogImage,
   bodyClass = "bg-background",
+  showAurora = true,
 } = Astro.props;
 
 const links = [
@@ -36,7 +39,7 @@ const links = [
 ---
 
 <!doctype html>
-<html lang={lang} class=":uno: scroll-smooth">
+<html lang={lang} class=":uno: scroll-smooth bg-background">
   <head>
     <Head
       {title}
@@ -54,8 +57,15 @@ const links = [
     >
       {t("nav.skipToContent")}
     </a>
+
+    {showAurora && (
+      <div class=":uno: pointer-events-none inset-0 fixed z-0">
+        <AuroraBackground client:load />
+      </div>
+    )}
+
     <Navbar {links} />
-    <main id="main-content">
+    <main id="main-content" class=":uno: relative z-10">
       <slot />
     </main>
     <Footer />
