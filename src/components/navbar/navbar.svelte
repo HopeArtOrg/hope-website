@@ -49,7 +49,7 @@
         alt="Hope:Re"
         class="h-8 w-8 sm:h-12 sm:w-12"
       />
-      <span class="text-base text-foreground tracking-tight font-mono font-semibold transition-all duration-300 sm:text-xl group-hover:text-primary group-hover:drop-shadow-[0_0_10px_oklch(0.55_0.04_255/0.6)] dark:group-hover:drop-shadow-[0_0_12px_oklch(var(--color-primary)/0.7)]">
+      <span class="text-base text-foreground tracking-tight font-mono font-semibold transition-all duration-200 sm:text-xl group-hover:text-primary group-hover:drop-shadow-[0_0_10px_oklch(0.55_0.04_255/0.6)] dark:group-hover:drop-shadow-[0_0_12px_oklch(var(--color-primary)/0.7)]">
         {SITE_NAME}
       </span>
     </a>
