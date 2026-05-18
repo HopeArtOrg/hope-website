@@ -1,76 +1,76 @@
 ---
 layout: ../layouts/reading-layout.astro
-title: "Privacy Policy"
-description: "Read the Privacy Policy for Hope:RE. Learn how we protect your data, respect your privacy, and maintain transparency in our open-source project."
-publishDate: 2026-05-18
+title: "Chính sách Quyền riêng tư"
+description: "Đọc Chính sách Quyền riêng tư của Hope:RE. Tìm hiểu cách chúng tôi bảo vệ dữ liệu của bạn, tôn trọng quyền riêng tư của bạn và duy trì sự minh bạch trong dự án mã nguồn mở của chúng tôi."
+publishDate: 2026-05-19
 ---
 
-# PRIVACY POLICY
+# CHÍNH SÁCH QUYỀN RIÊNG TƯ
 
-**Last Updated:** 5/18/2026
+**Cập nhật lần cuối:** 19/05/2026
 
-Welcome to **Hope:RE**. We deeply respect your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and safeguard your information when you use our software, website, and related services.
+Chào mừng bạn đến với **Hope:RE**. Chúng tôi tôn trọng sâu sắc quyền riêng tư của bạn và cam kết bảo vệ dữ liệu cá nhân của bạn. Chính sách Quyền riêng tư này giải thích cách chúng tôi thu thập, sử dụng và bảo vệ thông tin của bạn khi bạn sử dụng phần mềm, trang web và các dịch vụ liên quan của chúng tôi.
 
-As an open-source project, our core philosophy is transparency. We aim to collect the absolute minimum amount of data necessary to maintain and improve the project.
+Là một dự án mã nguồn mở, triết lý cốt lõi của chúng tôi là sự minh bạch. Chúng tôi hướng tới việc thu thập lượng dữ liệu tối thiểu tuyệt đối cần thiết để duy trì và cải thiện dự án.
 
 ---
 
-## 1. Information We Collect
+## 1. Thông tin Chúng tôi Thu thập
 
-Depending on how you interact with our project, we may collect the following types of information:
+Tùy thuộc vào cách bạn tương tác với dự án của chúng tôi, chúng tôi có thể thu thập các loại thông tin sau:
 
-- **Voluntary Information:** When you contact us via email, submit an issue, or contribute to the repository, you may provide us with your name, email address, GitHub/GitLab username, and the content of your messages.
-- **Usage Data & Analytics (Optional):** If you visit our official website, we may automatically collect basic, non-personally identifiable information such as your IP address, browser type, operating system, and pages visited. Our software runs locally on your device and does not collect or transmit any telemetry, usage data, or personal information back to us.
-- **Cookies:** Our website may use standard cookies to enhance user experience and analyze site traffic.
+- **Thông tin Tự nguyện:** Khi bạn liên hệ với chúng tôi qua email, gửi lỗi (issue) hoặc đóng góp vào kho lưu trữ, bạn có thể cung cấp cho chúng tôi tên, địa chỉ email, tên người dùng GitHub/GitLab và nội dung tin nhắn của bạn.
+- **Dữ liệu Sử dụng & Phân tích (Tùy chọn):** Nếu bạn truy cập trang web chính thức của chúng tôi, chúng tôi có thể tự động thu thập thông tin cơ bản, không định danh cá nhân như địa chỉ IP, loại trình duyệt, hệ điều hành và các trang đã truy cập. Phần mềm của chúng tôi chạy cục bộ trên thiết bị của bạn và không thu thập hoặc truyền bất kỳ dữ liệu đo lường từ xa (telemetry), dữ liệu sử dụng hoặc thông tin cá nhân nào về cho chúng tôi.
+- **Cookies:** Trang web của chúng tôi có thể sử dụng các cookie tiêu chuẩn để nâng cao trải nghiệm người dùng và phân tích lưu lượng truy cập trang web.
 
-## 2. How We Use Your Information
+## 2. Cách Chúng tôi Sử dụng Thông tin của Bạn
 
-We do not sell, rent, or monetize your personal data. The information we collect is used strictly for the following purposes:
+Chúng tôi không bán, cho thuê hoặc thương mại hóa dữ liệu cá nhân của bạn. Thông tin chúng tôi thu thập được sử dụng nghiêm ngặt cho các mục đích sau:
 
-- To provide, maintain, and improve the software.
-- To respond to your questions, support requests, or community contributions.
-- To analyze usage trends and fix technical issues (bugs and crashes).
-- To protect the security and integrity of our project.
+- Để cung cấp, duy trì và cải thiện phần mềm.
+- Để trả lời các câu hỏi, yêu cầu hỗ trợ hoặc đóng góp cộng đồng của bạn.
+- Để phân tích xu hướng sử dụng và khắc phục các sự cố kỹ thuật (lỗi và treo máy).
+- Để bảo vệ an ninh và tính toàn vẹn của dự án của chúng tôi.
 
-## 3. Sharing of Information
+## 3. Chia sẻ Thông tin
 
-We will only share your information in the following limited circumstances:
+Chúng tôi sẽ chỉ chia sẻ thông tin của bạn trong các trường hợp hạn chế sau:
 
-- **With Service Providers:** We may use third-party services (such as GitHub, GitLab, web hosting providers, or analytics tools) to facilitate our project. These providers have access to your data only to perform specific tasks on our behalf and are obligated not to disclose or use it for other purposes.
-- **Legal Requirements:** We may disclose your information if required to do so by law, or in response to valid requests by public authorities.
-- **Community Transparency:** Please remember that any information you submit publicly to our source code repositories (e.g., opening an Issue or Pull Request) becomes public information.
+- **Với các Nhà cung cấp Dịch vụ:** Chúng tôi có thể sử dụng các dịch vụ của bên thứ ba (như GitHub, GitLab, nhà cung cấp dịch vụ lưu trữ web hoặc các công cụ phân tích) để tạo điều kiện thuận lợi cho dự án của chúng tôi. Các nhà cung cấp này chỉ có quyền truy cập vào dữ liệu của bạn để thực hiện các tác vụ cụ thể thay mặt chúng tôi và có nghĩa vụ không tiết lộ hoặc sử dụng dữ liệu đó cho các mục đích khác.
+- **Yêu cầu Pháp lý:** Chúng tôi có thể tiết lộ thông tin của bạn nếu luật pháp yêu cầu, hoặc để đáp ứng các yêu cầu hợp lệ của các cơ quan công quyền.
+- **Sự Minh bạch trong Cộng đồng:** Vui lòng nhớ rằng bất kỳ thông tin nào bạn gửi công khai lên các kho lưu trữ mã nguồn của chúng tôi (ví dụ: mở một Issue hoặc Pull Request) sẽ trở thành thông tin công khai.
 
-## 4. Data Security
+## 4. Bảo mật Dữ liệu
 
-We implement reasonable security measures to protect your personal information from unauthorized access, alteration, disclosure, or destruction. However, please be aware that no method of transmission over the internet or electronic storage is 100% secure, and we cannot guarantee absolute security.
+Chúng tôi thực hiện các biện pháp bảo mật hợp lý để bảo vệ thông tin cá nhân của bạn khỏi việc truy cập, thay đổi, tiết lộ hoặc phá hủy trái phép. Tuy nhiên, xin lưu ý rằng không có phương thức truyền dẫn nào qua internet hoặc lưu trữ điện tử là an toàn 100%, và chúng tôi không thể đảm bảo an ninh tuyệt đối.
 
-## 5. Your Data Rights
+## 5. Quyền về Dữ liệu của Bạn
 
-Depending on your location (such as under the GDPR or CCPA), you may have the following rights regarding your personal data:
+Tùy thuộc vào vị trí của bạn (chẳng hạn như theo GDPR hoặc CCPA), bạn có thể có các quyền sau đối với dữ liệu cá nhân của mình:
 
-- The right to access the data we have about you.
-- The right to request correction of inaccurate data.
-- The right to request the deletion of your personal data.
-- The right to opt out of data collection (e.g., disabling cookies or telemetry).
+- Quyền truy cập vào dữ liệu chúng tôi có về bạn.
+- Quyền yêu cầu chỉnh sửa dữ liệu không chính xác.
+- Quyền yêu cầu xóa dữ liệu cá nhân của bạn.
+- Quyền chọn không tham gia thu thập dữ liệu (ví dụ: tắt cookie hoặc đo lường từ xa).
 
-If you wish to exercise any of these rights, please contact us using the information provided below.
+Nếu bạn muốn thực hiện bất kỳ quyền nào trong số này, vui lòng liên hệ với chúng tôi bằng thông tin được cung cấp bên dưới.
 
-## 6. Third-Party Links
+## 6. Liên kết của Bên thứ ba
 
-Our website or documentation may contain links to other websites or services that are not operated by us. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party sites or services. We strongly advise you to review the Privacy Policy of every site you visit.
+Trang web hoặc tài liệu của chúng tôi có thể chứa các liên kết đến các trang web hoặc dịch vụ khác không do chúng tôi điều hành. Chúng tôi không kiểm soát và không chịu trách nhiệm về nội dung, chính sách quyền riêng tư hoặc thực tiễn của bất kỳ trang web hoặc dịch vụ bên thứ ba nào. Chúng tôi khuyên bạn nên xem lại Chính sách Quyền riêng tư của mọi trang web bạn truy cập.
 
-## 7. Children's Privacy
+## 7. Quyền riêng tư của Trẻ em
 
-Our software and services are not directed to individuals under the age of 13. We do not knowingly collect personal data from children under 13. If we become aware that a child under 13 has provided us with personal information, we will take steps to delete such information immediately.
+Phần mềm và dịch vụ của chúng tôi không hướng đến các cá nhân dưới 13 tuổi. Chúng tôi không cố ý thu thập dữ liệu cá nhân từ trẻ em dưới 13 tuổi. Nếu chúng tôi nhận thấy rằng một trẻ em dưới 13 tuổi đã cung cấp cho chúng tôi thông tin cá nhân, chúng tôi sẽ thực hiện các bước để xóa thông tin đó ngay lập tức.
 
-## 8. Changes to This Privacy Policy
+## 8. Thay đổi đối với Chính sách Quyền riêng tư này
 
-We may update our Privacy Policy from time to time to reflect changes in our practices or legal requirements. Any changes will be posted on this page with an updated "Last Updated" date. Your continued use of the software after such updates constitutes your acceptance of the new Privacy Policy.
+Chúng tôi có thể cập nhật Chính sách Quyền riêng tư của mình theo thời gian để phản ánh những thay đổi trong thực tiễn hoặc yêu cầu pháp lý của chúng tôi. Mọi thay đổi sẽ được đăng trên trang này với ngày "Cập nhật lần cuối" được làm mới. Việc bạn tiếp tục sử dụng phần mềm sau những cập nhật đó đồng nghĩa với việc bạn chấp nhận Chính sách Quyền riêng tư mới.
 
-## 9. Contact Us
+## 9. Liên hệ với Chúng tôi
 
-If you have any questions, concerns, or requests regarding this Privacy Policy, please contact us at:
+Nếu bạn có bất kỳ câu hỏi, thắc mắc hoặc yêu cầu nào liên quan đến Chính sách Quyền riêng tư này, vui lòng liên hệ với chúng tôi tại:
 
 - **Email:** trananhquan1009@gmail.com
 - **Website:** https://www.hope-art.app
-- **Source Code (Repository):** https://github.com/HopeArtOrg/hope-re
+- **Mã nguồn (Kho lưu trữ):** https://github.com/HopeArtOrg/hope-re

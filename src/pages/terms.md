@@ -1,82 +1,82 @@
 ---
 layout: ../layouts/reading-layout.astro
-title: "Terms and Conditions"
-description: "These Terms and Conditions govern the use of our open-source software, detailing the licensing agreement, community contribution guidelines, trademark protection, and essential liability disclaimers."
-publishDate: 2026-05-18
+title: "Điều khoản và Điều kiện"
+description: "Các Điều khoản và Điều kiện này quy định việc sử dụng phần mềm mã nguồn mở của chúng tôi, nêu chi tiết thỏa thuận cấp phép, hướng dẫn đóng góp cộng đồng, bảo hộ thương hiệu và các tuyên bố miễn trừ trách nhiệm thiết yếu."
+publishDate: 2026-05-19
 ---
 
-# TERMS AND CONDITIONS OF USE
+# ĐIỀU KHOẢN VÀ ĐIỀU KIỆN SỬ DỤNG
 
-**Last Updated:** 5/18/2026
+**Cập nhật lần cuối:** 19/05/2026
 
-Welcome to **Hope:RE**. By downloading, installing, accessing, or using our software and related services, you agree to be bound by the following Terms and Conditions. If you do not agree to any part of these terms, please discontinue use of the software immediately.
+Chào mừng bạn đến với **Hope:RE**. Bằng cách tải xuống, cài đặt, truy cập hoặc sử dụng phần mềm và các dịch vụ liên quan của chúng tôi, bạn đồng ý chịu sự ràng buộc của các Điều khoản và Điều kiện sau đây. Nếu bạn không đồng ý với bất kỳ phần nào của các điều khoản này, vui lòng ngừng sử dụng phần mềm ngay lập tức.
 
 ---
 
-## 1. Acceptance of Terms
+## 1. Chấp nhận các Điều khoản
 
-By using **Hope:RE**, you acknowledge that you have read, understood, and agree to comply with all provisions of these Terms. These terms apply to all users, developers, and anyone who accesses or uses the software.
+Bằng cách sử dụng **Hope:RE**, bạn xác nhận rằng bạn đã đọc, hiểu và đồng ý tuân thủ tất cả các quy định của các Điều khoản này. Các điều khoản này áp dụng cho tất cả người dùng, nhà phát triển và bất kỳ ai truy cập hoặc sử dụng phần mềm.
 
-## 2. Software License
+## 2. Giấy phép Phần mềm
 
-**Hope:RE** is an open-source software and is distributed completely free of charge under the **MIT License**.
+**Hope:RE** là một phần mềm mã nguồn mở và được phân phối hoàn toàn miễn phí theo **Giấy phép MIT**.
 
-- All source code, methods of use, copying, modification, and redistribution must strictly comply with the provisions specified in the `LICENSE` file included in the root directory of this software.
-- Violation of the terms of the Open Source License means you automatically lose the right to use the software.
+- Tất cả mã nguồn, phương thức sử dụng, sao chép, sửa đổi và phân phối lại phải tuân thủ nghiêm ngặt các quy định được nêu trong tệp `LICENSE` đi kèm trong thư mục gốc của phần mềm này.
+- Vi phạm các điều khoản của Giấy phép Mã nguồn mở có nghĩa là bạn tự động mất quyền sử dụng phần mềm.
 
-## 3. Community Contributions
+## 3. Đóng góp Cộng đồng
 
-We always welcome and appreciate contributions from the community (including source code, bug reports, documentation, or new feature requests).
+Chúng tôi luôn chào đón và đánh giá cao những đóng góp từ cộng đồng (bao gồm mã nguồn, báo cáo lỗi, tài liệu hoặc yêu cầu tính năng mới).
 
-- By submitting any contribution to **Hope:RE** (via Pull Request, Issue, etc.), you agree that your contributions will also be licensed under the project's current open-source license.
-- You warrant that the contributed content is your legal property and does not violate the copyrights of any third party.
-- Contributions are completely voluntary and do not come with any financial compensation unless otherwise agreed in writing.
+- Bằng cách gửi bất kỳ đóng góp nào cho **Hope:RE** (thông qua Pull Request, Issue, v.v.), bạn đồng ý rằng các đóng góp của bạn cũng sẽ được cấp phép theo giấy phép mã nguồn mở hiện tại của dự án.
+- Bạn cam đoan rằng nội dung đóng góp là tài sản hợp pháp của bạn và không vi phạm bản quyền của bất kỳ bên thứ ba nào.
+- Các đóng góp là hoàn toàn tự nguyện và không đi kèm với bất kỳ sự đền bù tài chính nào trừ khi có thỏa thuận khác bằng văn bản.
 
-## 4. Disclaimer of Warranties
+## 4. Miễn trừ Bảo hành
 
-THIS SOFTWARE IS PROVIDED COMPLETELY FREE OF CHARGE ON AN **"AS IS"** AND **"AS AVAILABLE"** BASIS.
+PHẦN MỀM NÀY ĐƯỢC CUNG CẤP HOÀN TOÀN MIỄN PHÍ TRÊN CƠ SỞ **"NGUYÊN TRẠNG" (AS IS)** VÀ **"SẴN CÓ" (AS AVAILABLE)**.
 
-To the maximum extent permitted by applicable law, the development team and contributors disclaim all forms of warranties, whether express or implied, including but not limited to:
+Trong phạm vi tối đa được pháp luật hiện hành cho phép, đội ngũ phát triển và những người đóng góp từ chối mọi hình thức bảo hành, dù rõ ràng hay ngụ ý, bao gồm nhưng không giới hạn ở:
 
-- Warranties of merchantability or fitness for a particular purpose.
-- Warranties that the software will operate error-free, uninterrupted, completely safe, or secure.
-- Warranties that any software errors or defects will be corrected immediately.
+- Bảo hành về khả năng thương mại hoặc tính phù hợp cho một mục đích cụ thể.
+- Bảo hành rằng phần mềm sẽ hoạt động không có lỗi, không bị gián đoạn, hoàn toàn an toàn hoặc bảo mật.
+- Bảo hành rằng bất kỳ lỗi hoặc khiếm khuyết phần mềm nào sẽ được khắc phục ngay lập tức.
 
-## 5. Limitation of Liability
+## 5. Giới hạn Trách nhiệm
 
-In no event shall the authors, developers, contributors, or copyright holders of **Hope:RE** be liable for any claims, losses, or damages (including direct, indirect, incidental, special, or consequential damages) arising from:
+Trong mọi trường hợp, các tác giả, nhà phát triển, những người đóng góp hoặc người giữ bản quyền của **Hope:RE** sẽ không chịu trách nhiệm cho bất kỳ khiếu nại, tổn thất hoặc thiệt hại nào (bao gồm các thiệt hại trực tiếp, gián tiếp, ngẫu nhiên, đặc biệt hoặc hệ quả) phát sinh từ:
 
-- The use or inability to use the software.
-- Loss of data, information leakage, hardware or system failure.
-- Business interruption or any other commercial loss.
+- Việc sử dụng hoặc không thể sử dụng phần mềm.
+- Mất dữ liệu, rò rỉ thông tin, hỏng hóc phần cứng hoặc hệ thống.
+- Gián đoạn kinh doanh hoặc bất kỳ tổn thất thương mại nào khác.
 
-_Whether such damages were forewarned or arise from contract, tort, or other legal actions._
+_Cho dù những thiệt hại đó đã được cảnh báo trước hay phát sinh từ hợp đồng, sai sót dân sự hoặc các hành động pháp lý khác._
 
-## 6. Intellectual Property and Trademarks
+## 6. Sở hữu Trí tuệ và Thương hiệu
 
-- **Source Code:** Owned by the community and protected under the selected open-source license.
-- **Trademarks:** The name **"Hope:RE"**, logo, visual identity, and official domain name are the exclusive property of **Hope Art Organisation**.
-- You are **not permitted** to use this brand name or logo to promote or represent your derivative products or personal projects without prior written consent, in order to avoid confusing users about the official origin of the software.
+- **Mã nguồn:** Thuộc sở hữu của cộng đồng và được bảo hộ theo giấy phép mã nguồn mở đã chọn.
+- **Thương hiệu:** Tên **"Hope:RE"**, logo, nhận diện hình ảnh và tên miền chính thức là tài sản độc quyền của **Hope Art Organisation**.
+- Bạn **không được phép** sử dụng tên thương hiệu hoặc logo này để quảng bá hoặc đại diện cho các sản phẩm phái sinh hoặc dự án cá nhân của mình mà không có sự đồng ý trước bằng văn bản, nhằm tránh gây nhầm lẫn cho người dùng về nguồn gốc chính thức của phần mềm.
 
-## 7. Third-Party Links
+## 7. Liên kết của Bên thứ ba
 
-Our software or website may contain links to third-party websites, software libraries, or services that are not under our control. We are not responsible for the content, privacy policies, or availability of any third-party services. You access these links at your own risk.
+Phần mềm hoặc trang web của chúng tôi có thể chứa các liên kết đến các trang web, thư viện phần mềm hoặc dịch vụ của bên thứ ba không thuộc sự kiểm soát của chúng tôi. Chúng tôi không chịu trách nhiệm về nội dung, chính sách quyền riêng tư hoặc tính sẵn có của bất kỳ dịch vụ bên thứ ba nào. Bạn truy cập các liên kết này và tự chịu rủi ro.
 
-## 8. Changes to Terms
+## 8. Thay đổi Điều khoản
 
-We reserve the right to modify, add, or replace these Terms at any time by updating the latest version on the source code repository or the official website of the project.
+Chúng tôi có quyền sửa đổi, bổ sung hoặc thay thế các Điều khoản này bất kỳ lúc nào bằng cách cập nhật phiên bản mới nhất trên kho lưu trữ mã nguồn hoặc trang web chính thức của dự án.
 
-- Your continued use of the software after any changes implies your acceptance of those new Terms.
-- You should periodically check this page to stay informed of the latest updates.
+- Việc bạn tiếp tục sử dụng phần mềm sau bất kỳ thay đổi nào đồng nghĩa với việc bạn chấp nhận các Điều khoản mới đó.
+- Bạn nên định kỳ kiểm tra trang này để nắm bắt các cập nhật mới nhất.
 
-## 9. Governing Law and Jurisdiction
+## 9. Luật áp dụng và Thẩm quyền xét xử
 
-These Terms shall be governed by and construed in accordance with the laws of **Vietnam**. Any disputes arising in connection with these terms shall be subject to the exclusive jurisdiction of the competent courts in **Ho Chi Minh city**.
+Các Điều khoản này sẽ được điều chỉnh và giải thích theo luật pháp của **Việt Nam**. Mọi tranh chấp phát sinh liên quan đến các điều khoản này sẽ thuộc thẩm quyền giải quyết duy nhất của các tòa án có thẩm quyền tại **Thành phố Hồ Chí Minh**.
 
-## 10. Contact Us
+## 10. Liên hệ với Chúng tôi
 
-If you have any questions, suggestions, or requests regarding these Terms of Use, please contact us via:
+Nếu bạn có bất kỳ câu hỏi, góp ý hoặc yêu cầu nào liên quan đến các Điều khoản sử dụng này, vui lòng liên hệ với chúng tôi qua:
 
 - **Email:** trananhquan1009@gmail.com
 - **Website:** https://www.hope-art.app
-- **Source Code (Repository):** https://github.com/HopeArtOrg/hope-re
+- **Mã nguồn (Kho lưu trữ):** https://github.com/HopeArtOrg/hope-re
