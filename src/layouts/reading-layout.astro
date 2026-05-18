@@ -44,7 +44,7 @@ const t = useTranslations(lang);
   <div class=":uno: flex flex-col min-h-screen relative">
     <canvas
       id="aurora-canvas"
-      class=":uno: pointer-events-none inset-0 fixed z-0 overflow-hidden"
+      class=":uno: pointer-events-none inset-0 fixed z-[-1] overflow-hidden"
       style="opacity: 0;"
     ></canvas>
 
@@ -55,7 +55,7 @@ const t = useTranslations(lang);
       <Button
         variant="ghost"
         href={getLocalePath(lang, "/blogs")}
-        class=":uno: font-mono px-5 border border-white/10 rounded-full bg-white/5 gap-2 backdrop-blur-lg group"
+        class=":uno: font-mono px-5 border border-white/10 rounded-full bg-white/5 gap-2 backdrop-blur-md group"
       >
         <Icon
           name="lucide:undo-2"
