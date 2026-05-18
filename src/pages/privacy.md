@@ -2,12 +2,12 @@
 layout: ../layouts/reading-layout.astro
 title: "Chính sách Quyền riêng tư"
 description: "Đọc Chính sách Quyền riêng tư của Hope:RE. Tìm hiểu cách chúng tôi bảo vệ dữ liệu của bạn, tôn trọng quyền riêng tư của bạn và duy trì sự minh bạch trong dự án mã nguồn mở của chúng tôi."
-publishDate: 2026-05-18
+publishDate: 2026-05-19
 ---
 
 # CHÍNH SÁCH QUYỀN RIÊNG TƯ
 
-**Cập nhật lần cuối:** 18/05/2026
+**Cập nhật lần cuối:** 19/05/2026
 
 Chào mừng bạn đến với **Hope:RE**. Chúng tôi tôn trọng sâu sắc quyền riêng tư của bạn và cam kết bảo vệ dữ liệu cá nhân của bạn. Chính sách Quyền riêng tư này giải thích cách chúng tôi thu thập, sử dụng và bảo vệ thông tin của bạn khi bạn sử dụng phần mềm, trang web và các dịch vụ liên quan của chúng tôi.
 

@@ -2,12 +2,12 @@
 layout: ../../layouts/reading-layout.astro
 title: "Privacy Policy"
 description: "Read the Privacy Policy for Hope:RE. Learn how we protect your data, respect your privacy, and maintain transparency in our open-source project."
-publishDate: 2026-05-18
+publishDate: 2026-05-19
 ---
 
 # PRIVACY POLICY
 
-**Last Updated:** 5/18/2026
+**Last Updated:** 5/19/2026
 
 Welcome to **Hope:RE**. We deeply respect your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and safeguard your information when you use our software, website, and related services.
 

@@ -2,12 +2,12 @@
 layout: ../../layouts/reading-layout.astro
 title: "Terms and Conditions"
 description: "These Terms and Conditions govern the use of our open-source software, detailing the licensing agreement, community contribution guidelines, trademark protection, and essential liability disclaimers."
-publishDate: 2026-05-18
+publishDate: 2026-05-19
 ---
 
 # TERMS AND CONDITIONS OF USE
 
-**Last Updated:** 5/18/2026
+**Last Updated:** 5/19/2026
 
 Welcome to **Hope:RE**. By downloading, installing, accessing, or using our software and related services, you agree to be bound by the following Terms and Conditions. If you do not agree to any part of these terms, please discontinue use of the software immediately.
 

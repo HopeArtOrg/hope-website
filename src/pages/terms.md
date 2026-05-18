@@ -2,12 +2,12 @@
 layout: ../layouts/reading-layout.astro
 title: "Điều khoản và Điều kiện"
 description: "Các Điều khoản và Điều kiện này quy định việc sử dụng phần mềm mã nguồn mở của chúng tôi, nêu chi tiết thỏa thuận cấp phép, hướng dẫn đóng góp cộng đồng, bảo hộ thương hiệu và các tuyên bố miễn trừ trách nhiệm thiết yếu."
-publishDate: 2026-05-18
+publishDate: 2026-05-19
 ---
 
 # ĐIỀU KHOẢN VÀ ĐIỀU KIỆN SỬ DỤNG
 
-**Cập nhật lần cuối:** 18/05/2026
+**Cập nhật lần cuối:** 19/05/2026
 
 Chào mừng bạn đến với **Hope:RE**. Bằng cách tải xuống, cài đặt, truy cập hoặc sử dụng phần mềm và các dịch vụ liên quan của chúng tôi, bạn đồng ý chịu sự ràng buộc của các Điều khoản và Điều kiện sau đây. Nếu bạn không đồng ý với bất kỳ phần nào của các điều khoản này, vui lòng ngừng sử dụng phần mềm ngay lập tức.
 
