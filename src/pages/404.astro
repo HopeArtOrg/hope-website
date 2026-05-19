@@ -9,6 +9,12 @@ const homeHref = getLocalePath(lang, "/");
 ---
 
 <BaseLayout title={t("404.title")}>
+  <script is:inline>
+    const pathname = window.location.pathname;
+    if (pathname.startsWith("/en/") && !pathname.includes("/404")) {
+      window.location.replace("/en/404");
+    }
+  </script>
   <NotFound
     homeHref={homeHref}
     heading={t("404.heading")}
