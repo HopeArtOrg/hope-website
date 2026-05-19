@@ -1,3 +1,12 @@
+<script lang="ts" module>
+  type NotFoundProps = {
+    homeHref: string;
+    heading: string;
+    description: string;
+    homeLabel: string;
+  };
+</script>
+
 <script lang="ts">
   import { onMount } from "svelte";
 
@@ -8,12 +17,7 @@
     heading,
     homeHref,
     homeLabel,
-  } = $props<{
-    homeHref: string;
-    heading: string;
-    description: string;
-    homeLabel: string;
-  }>();
+  }: NotFoundProps = $props();
 
   let container: HTMLElement;
   let title: HTMLElement;
