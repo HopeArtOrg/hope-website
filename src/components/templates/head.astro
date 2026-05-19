@@ -38,11 +38,16 @@ const title = overrideTitle || props.title === SITE_NAME ? props.title : `${prop
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = joinURL(Astro.site?.toString() ?? "", ogImage);
 
+const keywords = locale === "vn"
+  ? "Hope Art, Hope:Re, bảo vệ tác phẩm, chống AI, Glaze, Nightshade, công cụ họa sĩ, mã nguồn mở"
+  : "Hope Art, Hope:Re, AI protection, art protection, Glaze, Nightshade, adversarial perturbation, artist tools, open source";
+
 const meta: Partial<Meta>[] = [
   { name: "generator", content: Astro.generator },
   { name: "author", content: SITE_NAME },
   { name: "viewport", content: "width=device-width, initial-scale=1.0" },
   { name: "color-scheme", content: "dark light" },
+  { name: "keywords", content: keywords },
   { name: "theme-color", content: "#e3e1d9", media: "(prefers-color-scheme: light)" },
   { name: "theme-color", content: "#3a3936", media: "(prefers-color-scheme: dark)" },
 ];
