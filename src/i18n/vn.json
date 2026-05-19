@@ -71,5 +71,11 @@
     "readMore": "Đọc tiếp",
     "back": "Quay lại",
     "minRead": "phút đọc"
+  },
+  "404": {
+    "title": "404 - Không tìm thấy",
+    "heading": "Sương mù và bóng tối.",
+    "description": "Con đường bạn tìm kiếm đã tan biến vào hư không. Hãy quay lại cội nguồn.",
+    "backToHome": "Quay lại Trang chủ"
   }
 }

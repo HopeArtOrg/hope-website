@@ -71,5 +71,11 @@
     "readMore": "Read more",
     "back": "Back",
     "minRead": "min read"
+  },
+  "404": {
+    "title": "404 - Not Found",
+    "heading": "Mist and shadows.",
+    "description": "The path you seek has dissolved into the void. Return to the source.",
+    "backToHome": "Back to Home"
   }
 }

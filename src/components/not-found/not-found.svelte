@@ -3,8 +3,16 @@
 
   import { initNotFoundAnimations } from "./animations";
 
-  const { homeHref } = $props<{
+  const {
+    description,
+    heading,
+    homeHref,
+    homeLabel,
+  } = $props<{
     homeHref: string;
+    heading: string;
+    description: string;
+    homeLabel: string;
   }>();
 
   let container: HTMLElement;
@@ -36,11 +44,10 @@
   >
     <div class=":uno: space-y-2">
       <h2 class=":uno: text-2xl tracking-tight font-medium md:text-3xl">
-        Mist and shadows.
+        {heading}
       </h2>
       <p class=":uno: text-muted-foreground mx-auto max-w-md">
-        The path you seek has dissolved into the void.
-        Return to the source.
+        {description}
       </p>
     </div>
 
@@ -48,7 +55,7 @@
       href={homeHref}
       class=":uno: text-primary-foreground font-medium px-8 py-3 rounded-full bg-primary inline-flex shadow-lg shadow-primary/20 transition-all duration-300 items-center justify-center active:scale-95 hover:scale-105"
     >
-      Back to Home
+      {homeLabel}
     </a>
   </div>
 </div>
