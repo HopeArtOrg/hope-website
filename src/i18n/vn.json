@@ -64,10 +64,8 @@
     "sitemap": "Sơ đồ trang",
     "rss": "Nguồn RSS",
     "feedback": "Góp ý",
-    "banner": {
-      "text": "Được xây dựng với tình yêu dành cho nhân loại.",
-      "cta": "Ủng hộ chúng mình"
-    }
+    "bannerText": "Được xây dựng với tình yêu dành cho nhân loại.",
+    "bannerCta": "Ủng hộ chúng mình"
   },
   "blog": {
     "heading": "Bài viết",

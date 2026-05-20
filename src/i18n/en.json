@@ -64,10 +64,8 @@
     "sitemap": "Sitemap",
     "rss": "RSS Feed",
     "feedback": "Feedback",
-    "banner": {
-      "text": "Crafted with love for humanity.",
-      "cta": "Support us"
-    }
+    "bannerText": "Crafted with love for humanity.",
+    "bannerCta": "Support us"
   },
   "blog": {
     "heading": "Blogs",
