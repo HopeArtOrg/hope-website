@@ -63,7 +63,10 @@
     "blog": "Blog",
     "sitemap": "Sitemap",
     "rss": "RSS Feed",
-    "feedback": "Feedback"
+    "feedback": "Feedback",
+    "bannerText": "Crafted with love for humanity.",
+    "bannerCta": "Support Palestine with us",
+    "bannerCtaLink": "https://www.instagram.com/designersforpalestine/"
   },
   "blog": {
     "heading": "Blogs",

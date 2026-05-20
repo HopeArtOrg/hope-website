@@ -9,6 +9,8 @@ import { ThemeSwitch } from "@/components/theme-toggle";
 import { languages } from "@/i18n/ui";
 import { getLangFromUrl, getLocalePath, useTranslations } from "@/i18n/utils";
 
+import Banner from "./banner/index.astro";
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
@@ -120,3 +122,6 @@ const locales = Object.keys(languages).map(code => ({
     </div>
   </div>
 </footer>
+
+<Banner />
+

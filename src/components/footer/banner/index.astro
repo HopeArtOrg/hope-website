@@ -1,0 +1,31 @@
+---
+import { WatermelonIcon } from "@/components/icons";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<div class=":uno: py-3 border-t border-border/40 bg-background/50 w-full">
+  <div class=":uno: mx-auto px-6 flex flex-col gap-2 max-w-screen-xl items-center justify-between sm:flex-row">
+    <p class=":uno: text-[10px] text-muted-foreground/80 tracking-widest font-medium uppercase">
+      {t("footer.bannerText")}
+    </p>
+    <a
+      href={t("footer.bannerCtaLink")}
+      target="_blank"
+      rel="noopener noreferrer"
+      class:list={[
+        "group",
+        ":uno: text-[10px] text-primary/80 tracking-widest flex gap-2 uppercase transition-all duration-300 items-center hover:text-primary",
+      ]}
+    >
+      <span class=":uno: bg-primary/20 h-px w-8 hidden transition-all duration-300 group-hover:bg-primary/40 group-hover:w-12 sm:block"></span>
+      {t("footer.bannerCta")}
+      <WatermelonIcon
+        client:load
+        class=":uno: size-4"
+      />
+    </a>
+  </div>
+</div>
