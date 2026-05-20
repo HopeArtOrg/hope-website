@@ -63,7 +63,11 @@
     "blog": "Blog",
     "sitemap": "Sitemap",
     "rss": "RSS Feed",
-    "feedback": "Feedback"
+    "feedback": "Feedback",
+    "banner": {
+      "text": "Crafted with love for the artistic community.",
+      "cta": "Support us"
+    }
   },
   "blog": {
     "heading": "Blogs",

@@ -63,7 +63,11 @@
     "blog": "Bài viết",
     "sitemap": "Sơ đồ trang",
     "rss": "Nguồn RSS",
-    "feedback": "Góp ý"
+    "feedback": "Góp ý",
+    "banner": {
+      "text": "Được xây dựng với tình yêu dành cho cộng đồng nghệ thuật.",
+      "cta": "Ủng hộ chúng mình"
+    }
   },
   "blog": {
     "heading": "Bài viết",

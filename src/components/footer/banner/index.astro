@@ -1,0 +1,23 @@
+---
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<div class=":uno: py-3 border-t border-border/40 bg-background/50 w-full">
+  <div class=":uno: mx-auto px-6 flex flex-col gap-2 max-w-screen-xl items-center justify-between sm:flex-row">
+    <p class=":uno: text-[10px] text-muted-foreground/80 tracking-widest font-medium uppercase">
+      {t("footer.banner.text")}
+    </p>
+    <a
+      href="https://github.com/HopeArtOrg/hope-website"
+      target="_blank"
+      rel="noopener noreferrer"
+      class=":uno: text-[10px] text-primary/80 tracking-widest flex gap-2 uppercase transition-all duration-300 items-center group hover:text-primary"
+    >
+      <span class=":uno: bg-primary/20 h-px w-8 transition-all duration-300 group-hover:bg-primary/40 group-hover:w-12"></span>
+      {t("footer.banner.cta")}
+    </a>
+  </div>
+</div>
