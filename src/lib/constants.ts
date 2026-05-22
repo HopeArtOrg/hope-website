@@ -19,6 +19,7 @@ export const STAR_SVG_STROKE_WIDTH = "121.78";
 const releaseBase = `${GITHUB_REPO_URL}/releases/download/${LATEST_VERSION}`;
 
 type Platform = {
+  index: number;
   name: string;
   arch: string;
   icon: string;
@@ -26,10 +27,10 @@ type Platform = {
 };
 
 export const platforms: Platform[] = [
-  { name: "Windows", arch: "x64", icon: "cib:windows", href: `${releaseBase}/Hope-RE_${LATEST_VERSION}_x64-setup.exe` },
-  { name: "macOS", arch: "aarch64", icon: "cib:apple", href: `${releaseBase}/Hope-RE_${LATEST_VERSION}_aarch64.dmg` },
-  { name: "Linux", arch: "amd64", icon: "cib:linux", href: `${releaseBase}/Hope-RE_${LATEST_VERSION}_amd64.AppImage` },
-  { name: "Linux", arch: "arm64", icon: "cib:linux", href: `${releaseBase}/Hope-RE_${LATEST_VERSION}_arm64.deb` },
+  { index: 1, name: "Windows", arch: "x64", icon: "cib:windows", href: `${releaseBase}/Hope-RE_${LATEST_VERSION}_x64-setup.exe` },
+  { index: 2, name: "macOS", arch: "aarch64", icon: "cib:apple", href: `${releaseBase}/Hope-RE_${LATEST_VERSION}_aarch64.dmg` },
+  { index: 3, name: "Linux", arch: "amd64", icon: "cib:linux", href: `${releaseBase}/Hope-RE_${LATEST_VERSION}_amd64.AppImage` },
+  { index: 4, name: "Linux", arch: "aarch64", icon: "cib:linux", href: `${releaseBase}/Hope-RE_${LATEST_VERSION}_aarch64.AppImage` },
 ];
 
 export function detectPlatform(): Platform | null {
