@@ -1,41 +1,34 @@
 <script lang="ts">
-  import AboutImages from "./about-images.svelte";
-  import { createBringForwardState, setupImageInteractions } from "./animations";
+  import AboutImage from "./about-image.svelte";
+  import { setupSingleImageInteraction } from "./animations";
 
   export type AboutVisualsProps = {
-    appScreenshotAlt: string;
-    repoScreenshotAlt: string;
+    screenshotAlt: string;
     leftCol?: HTMLDivElement | null;
   };
 
   let {
-    appScreenshotAlt,
-    repoScreenshotAlt,
+    screenshotAlt,
     leftCol = $bindable(null),
   }: AboutVisualsProps = $props();
 
-  let appImgRef = $state<HTMLImageElement | null>(null);
-  let repoBtnRef = $state<HTMLButtonElement | null>(null);
-
-  const bringForwardState = createBringForwardState();
+  let containerRef = $state<HTMLDivElement | null>(null);
 
   $effect(() => {
-    if (!appImgRef || !repoBtnRef)
+    if (!containerRef)
       return;
 
-    return setupImageInteractions(appImgRef, repoBtnRef, bringForwardState);
+    return setupSingleImageInteraction(containerRef);
   });
 </script>
 
 <div
   bind:this={leftCol}
   class=":uno: flex invisible items-center justify-center order-2 relative lg:order-1"
-  style="perspective: 800px;"
+  style="perspective: 1200px;"
 >
-  <AboutImages
-    {appScreenshotAlt}
-    {repoScreenshotAlt}
-    bind:appImgRef
-    bind:repoBtnRef
+  <AboutImage
+    {screenshotAlt}
+    bind:containerRef
   />
 </div>
