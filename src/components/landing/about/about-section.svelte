@@ -5,8 +5,7 @@
     description2: string;
     ctaLabel: string;
     ctaHref: string;
-    appScreenshotAlt: string;
-    repoScreenshotAlt: string;
+    screenshotAlt: string;
   };
 </script>
 
@@ -27,8 +26,7 @@
     description2,
     ctaLabel,
     ctaHref,
-    appScreenshotAlt,
-    repoScreenshotAlt,
+    screenshotAlt,
   }: AboutSectionProps = $props();
 
   let sectionEl = $state<HTMLElement | null>(null);
@@ -61,20 +59,23 @@
 
   <AboutDefinition bind:ref={definitionRef} />
 
-  <div class=":uno: gap-8 grid w-full items-center lg:gap-16 sm:gap-12 lg:grid-cols-2">
-    <AboutVisuals
-      {appScreenshotAlt}
-      {repoScreenshotAlt}
-      bind:leftCol
-    />
+  <div class=":uno: flex flex-col gap-10 w-full items-center lg:flex-row lg:gap-16 lg:justify-center">
+    <div class=":uno: w-full lg:flex lg:flex-1 lg:max-w-md lg:w-auto lg:justify-end">
+      <AboutVisuals
+        {screenshotAlt}
+        bind:leftCol
+      />
+    </div>
 
-    <AboutContent
-      {heading}
-      {description1}
-      {description2}
-      {ctaLabel}
-      {ctaHref}
-      bind:rightCol
-    />
+    <div class=":uno: w-full lg:flex-1 lg:max-w-xl lg:w-auto">
+      <AboutContent
+        {heading}
+        {description1}
+        {description2}
+        {ctaLabel}
+        {ctaHref}
+        bind:rightCol
+      />
+    </div>
   </div>
 </section>

@@ -17,55 +17,6 @@ const TILT_PERSPECTIVE = 800;
 const CORNER_STAR_BASE_ROTATION = 15;
 const CORNER_STAR_TILT_ROTATION = 30;
 
-const BRING_FORWARD_OFFSET_X = 80;
-const BRING_FORWARD_OFFSET_Y = -50;
-const BRING_FORWARD_OFFSET_X_MOBILE = 40;
-const BRING_FORWARD_OFFSET_Y_MOBILE = -25;
-const BRING_FORWARD_SCALE = 1.05;
-const BRING_FORWARD_Z_INDEX = 20;
-const BRING_FORWARD_DURATION = 0.5;
-
-const MOBILE_BREAKPOINT = 1024;
-
-type BringForwardState = {
-  active: boolean;
-};
-
-export function createBringForwardState(): BringForwardState {
-  return { active: false };
-}
-
-export function toggleBringForward(
-  el: HTMLElement,
-  state: BringForwardState,
-) {
-  const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
-
-  if (state.active) {
-    state.active = false;
-    gsap.to(el, {
-      x: 0,
-      y: 0,
-      zIndex: 1,
-      scale: 1,
-      duration: BRING_FORWARD_DURATION,
-      ease: "power2.out",
-    });
-  }
-  else {
-    state.active = true;
-    resetTilt(el);
-    gsap.to(el, {
-      x: isMobile ? BRING_FORWARD_OFFSET_X_MOBILE : BRING_FORWARD_OFFSET_X,
-      y: isMobile ? BRING_FORWARD_OFFSET_Y_MOBILE : BRING_FORWARD_OFFSET_Y,
-      zIndex: BRING_FORWARD_Z_INDEX,
-      scale: BRING_FORWARD_SCALE,
-      duration: BRING_FORWARD_DURATION,
-      ease: "power2.out",
-    });
-  }
-}
-
 export function tiltCornerStar(el: HTMLElement) {
   if (prefersReducedMotion())
     return;
@@ -74,36 +25,14 @@ export function tiltCornerStar(el: HTMLElement) {
     .to(el, { rotation: CORNER_STAR_BASE_ROTATION, scale: 1, duration: 0.3, ease: "elastic.out(1, 0.4)" });
 }
 
-export function setupImageInteractions(
-  appImg: HTMLElement,
-  repoBtn: HTMLElement,
-  state: BringForwardState,
+export function setupSingleImageInteraction(
+  el: HTMLElement,
 ): () => void {
   const controller = new AbortController();
   const { signal } = controller;
 
-  appImg.addEventListener("mousemove", e => applyTilt(e, appImg, TILT_MAX_DEG, TILT_PERSPECTIVE, TILT_SCALE), { signal });
-  appImg.addEventListener("mouseleave", () => resetTilt(appImg), { signal });
-
-  repoBtn.addEventListener("mousemove", (e) => {
-    if (!state.active)
-      applyTilt(e, repoBtn, TILT_MAX_DEG, TILT_PERSPECTIVE, TILT_SCALE);
-  }, { signal });
-
-  repoBtn.addEventListener("mouseleave", () => {
-    if (!state.active)
-      resetTilt(repoBtn);
-  }, { signal });
-
-  repoBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    toggleBringForward(repoBtn, state);
-  }, { signal });
-
-  document.addEventListener("click", () => {
-    if (state.active)
-      toggleBringForward(repoBtn, state);
-  }, { signal });
+  el.addEventListener("mousemove", e => applyTilt(e, el, TILT_MAX_DEG, TILT_PERSPECTIVE, TILT_SCALE), { signal });
+  el.addEventListener("mouseleave", () => resetTilt(el), { signal });
 
   return () => controller.abort();
 }
