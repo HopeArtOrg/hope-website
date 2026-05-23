@@ -6,7 +6,7 @@
 </script>
 
 <script lang="ts">
-  import screenshot from "@/assets/full-screenshot.png?enhanced";
+  import screenshot from "./assets/full-screenshot.png?enhanced";
 
   let {
     screenshotAlt,
