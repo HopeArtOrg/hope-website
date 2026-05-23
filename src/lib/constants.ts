@@ -62,9 +62,9 @@ type TechItem = {
 
 export const MESSAGE_LIST: TechItem[] = [
   { name: "Art", color: "#f96743" },
-  { name: "Draw", color: "#ffc131" },
-  { name: "Human", color: "#38bdf8" },
-  { name: "Hope", color: "#a78bfa" },
+  { name: "Creativity", color: "#ffc131" },
+  { name: "Hope", color: "#38bdf8" },
+  { name: "Humanity", color: "#a78bfa" },
 ];
 
 export const navLinks: NavLink[] = [
