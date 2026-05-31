@@ -63,8 +63,6 @@ export default defineConfig({
     processor: unified({
       remarkPlugins: [remarkMath, remarkReadingTime],
       rehypePlugins: [rehypeKatex],
-      gfm: true,
-      smartypants: true,
     }),
     syntaxHighlight: {
       excludeLangs: ["mermaid"],
