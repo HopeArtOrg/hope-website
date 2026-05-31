@@ -29,7 +29,7 @@
   let starCount = $state<number | null>(null);
   let downloadOpen = $state(false);
 
-  const detectedPlatform = detectPlatform();
+  const detectedPlatform = $derived(detectPlatform());
   const altPlatforms = $derived(
     detectedPlatform
       ? platforms.filter(p => p !== detectedPlatform)

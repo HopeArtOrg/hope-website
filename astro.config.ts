@@ -1,3 +1,4 @@
+import { unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import svelte from "@astrojs/svelte";
 import { enhancedImages } from "@sveltejs/enhanced-img";
@@ -15,10 +16,7 @@ export default defineConfig({
   integrations: [
     UnoCSS(),
     svelte(),
-    mdx({
-      remarkPlugins: [remarkMath, remarkReadingTime],
-      rehypePlugins: [rehypeKatex],
-    }),
+    mdx(),
     icon(),
   ],
 
@@ -62,6 +60,12 @@ export default defineConfig({
   server: { port: 3000 },
 
   markdown: {
+    processor: unified({
+      remarkPlugins: [remarkMath, remarkReadingTime],
+      rehypePlugins: [rehypeKatex],
+      gfm: true,
+      smartypants: true,
+    }),
     syntaxHighlight: {
       excludeLangs: ["mermaid"],
     },

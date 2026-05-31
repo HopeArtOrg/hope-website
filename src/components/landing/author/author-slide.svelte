@@ -36,6 +36,13 @@
     backImage,
   }: AuthorSlideProps = $props();
 
+  const resolvedLinks = $derived(
+    links.map(link => ({
+      ...link,
+      resolvedLabel: resolveLabel(link),
+    })),
+  );
+
   let imageContainer = $state<HTMLDivElement | null>(null);
   let frontImg = $state<HTMLDivElement | null>(null);
   let backImg = $state<HTMLDivElement | null>(null);
@@ -114,17 +121,17 @@
       &ldquo;{quote}&rdquo;
     </blockquote>
     <div class=":uno: mt-6 flex flex-wrap gap-3 items-center sm:mt-8">
-      {#each links as link (link.href)}
+      {#each resolvedLinks as link (link.href)}
         <a
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
           class=":uno: text-xs font-medium px-3 py-1.5 border border-border/50 rounded-sm inline-flex gap-1.5 transition-colors duration-200 items-center sm:text-sm hover:border-border"
           style="color: {link.color};"
-          aria-label="{resolveLabel(link)} (opens in a new tab)"
+          aria-label="{link.resolvedLabel} (opens in a new tab)"
         >
           <Icon icon={link.icon} class=":uno: size-3.5 sm:size-4" />
-          {resolveLabel(link)}
+          {link.resolvedLabel}
         </a>
       {/each}
     </div>
