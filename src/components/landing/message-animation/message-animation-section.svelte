@@ -12,7 +12,7 @@
   import MessageRow from "./message-row.svelte";
 
   const REPEAT_COUNT = 15;
-  const CENTER_INDEX = Math.floor(REPEAT_COUNT / 2);
+  const CENTER_INDEX = $derived(Math.floor(REPEAT_COUNT / 2));
 
   const { label }: MessageAnimationSectionProps = $props();
 
