@@ -6,6 +6,7 @@ trustPolicyExclude:
   - astro-mermaid@2.0.1
   - semver@6.3.1
   - chokidar@4.0.3
+  - tinyclip@0.1.13
 
 allowBuilds:
   esbuild: true

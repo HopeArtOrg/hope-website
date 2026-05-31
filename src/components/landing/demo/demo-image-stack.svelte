@@ -19,6 +19,18 @@
     frameSvgRef = $bindable(null),
     images,
   }: DemoImageStackProps = $props();
+
+  const processedImages = $derived(
+    images.map((image, i) => {
+      const offset = images.length - 1 - i;
+      return {
+        ...image,
+        index: i,
+        zIndex: i + 1,
+        transform: `translate(${-offset * DEMO_IMAGE_STACK_OFFSET_X}px, ${offset * DEMO_IMAGE_STACK_OFFSET_Y}px)`,
+      };
+    }),
+  );
 </script>
 
 <div
@@ -26,11 +38,11 @@
   class=":uno: max-w-xs w-full aspect-4/3 relative md:max-w-md sm:max-w-sm"
   style="perspective: 800px;"
 >
-  {#each images as image, i (i)}
+  {#each processedImages as image (image.index)}
     <div
-      bind:this={imageEls[i]}
+      bind:this={imageEls[image.index]}
       class=":uno: border border-border/50 rounded-lg shadow-lg transition-transform duration-200 ease-out inset-0 absolute overflow-hidden"
-      style="z-index: {i + 1}; transform: translate({-(images.length - 1 - i) * DEMO_IMAGE_STACK_OFFSET_X}px, {(images.length - 1 - i) * DEMO_IMAGE_STACK_OFFSET_Y}px);"
+      style="z-index: {image.zIndex}; transform: {image.transform};"
     >
       <img
         src={typeof image.src === "string" ? image.src : image.src.src}

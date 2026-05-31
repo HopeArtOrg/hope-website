@@ -30,11 +30,15 @@
     heading,
     description,
     courtesy,
-    images = DEFAULT_IMAGES.map(img => ({
+    images: imagesProp,
+  }: DemoSectionProps = $props();
+
+  const images = $derived(
+    imagesProp ?? DEFAULT_IMAGES.map(img => ({
       src: typeof img.src === "string" ? img.src : img.src.src,
       alt: img.alt,
     })),
-  }: DemoSectionProps = $props();
+  );
 
   let sectionEl = $state<HTMLElement | null>(null);
   let leftCol = $state<HTMLDivElement | null>(null);
