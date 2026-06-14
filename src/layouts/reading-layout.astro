@@ -44,7 +44,7 @@ const t = useTranslations(lang);
   <div class=":uno: flex flex-col min-h-screen relative">
     <canvas
       id="aurora-canvas"
-      class=":uno: pointer-events-none inset-0 fixed z-[-1] overflow-hidden"
+      class=":uno: hidden pointer-events-none inset-0 fixed z-[-1] overflow-hidden md:block"
       style="opacity: 0;"
     ></canvas>
 
@@ -107,7 +107,7 @@ let auroraCleanup: (() => void) | undefined;
 function initAurora() {
   auroraCleanup?.();
   const canvas = document.getElementById("aurora-canvas") as HTMLCanvasElement;
-  if (!canvas)
+  if (!canvas || window.innerWidth < 768)
     return;
 
   auroraCleanup = setupAuroraBlogBg(canvas);
