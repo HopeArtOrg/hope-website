@@ -27,8 +27,8 @@
   },
   "about": {
     "heading": "What is Hope?",
-    "description1": "Hope:Re is an <strong>open-source sanctuary</strong> for artists, safeguarding your creative intellectual property from unauthorized AI scraping, training, and stylistic exploitation.",
-    "description2": "By combining <strong>invisible adversarial perturbations</strong> with robust <strong>frequency-domain watermarking</strong> (powered by <a href=\"https://github.com/guofei9987/blind_watermark\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline hover:text-foreground transition-colors\">blind_watermark</a>), Hope embeds indestructible, invisible signatures deep within your art—protecting your unique voice even through cropping, compression, and AI processing.",
+    "description1": "Hope:Re is a <strong>free, open-source tool</strong> built to protect your artwork from being scraped, trained, or copied by generative AI without your permission.",
+    "description2": "In a nutshell, it adds <strong>invisible changes</strong> (adversarial perturbations) and a permanent <strong>hidden watermark</strong> (using <a href=\"https://github.com/guofei9987/blind_watermark\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline hover:text-foreground transition-colors\">blind_watermark</a>) to your images. This shields your unique style and proves your ownership, even if the image is cropped or compressed.",
     "cta": "Learn more",
     "screenshot": "Hope:Re application screenshots"
   },

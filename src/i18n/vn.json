@@ -27,8 +27,8 @@
   },
   "about": {
     "heading": "Hope:Re là gì?",
-    "description1": "Hope:Re là một <strong>thánh đường mã nguồn mở</strong> dành cho các nghệ sĩ, giúp bảo vệ quyền sở hữu trí tuệ sáng tạo của bạn khỏi việc quét dữ liệu, huấn luyện AI và khai thác phong cách trái phép.",
-    "description2": "Bằng cách kết hợp <strong>nhiễu đối kháng vô hình</strong> với công nghệ <strong>thủy vân miền tần số</strong> mạnh mẽ (hỗ trợ bởi <a href=\"https://github.com/guofei9987/blind_watermark\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline hover:text-foreground transition-colors\">blind_watermark</a>), Hope nhúng các chữ ký vô hình không thể phá hủy vào sâu trong tác phẩm của bạn—bảo vệ tiếng nói độc bản ngay cả qua cắt xén, nén ảnh hay xử lý AI.",
+    "description1": "Hope:Re là một <strong>công cụ mã nguồn mở miễn phí</strong> giúp bảo vệ tranh vẽ của bạn khỏi bị quét dữ liệu, huấn luyện AI hoặc sao chép phong cách trái phép.",
+    "description2": "Nói một cách đơn giản, ứng dụng sẽ thêm <strong>những thay đổi vô hình</strong> (nhiễu đối kháng) và một <strong>chữ ký ẩn</strong> chống cắt xén/nén ảnh (qua <a href=\"https://github.com/guofei9987/blind_watermark\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline hover:text-foreground transition-colors\">blind_watermark</a>) vào tranh vẽ. Điều này giúp giữ an toàn cho phong cách vẽ của bạn và bảo vệ quyền sở hữu của bạn một cách dễ dàng nhất.",
     "cta": "Tìm hiểu thêm",
     "screenshot": "Ảnh chụp màn hình ứng dụng Hope:Re"
   },
