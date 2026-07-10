@@ -13,7 +13,7 @@
   import { Button } from "@/components/ui/button";
   import { useTranslations } from "@/i18n/utils";
 
-  import sample1 from "./assets/sample-1.jpg?enhanced";
+  import demo from "./assets/demo-watermark.png?enhanced";
 
   const { lang = "vn" }: DemoWatermarkVisualsProps = $props();
   const t = (key: any) => useTranslations(lang)(key);
@@ -100,8 +100,10 @@
 
     {#if status === "idle"}
       <enhanced:img
-        src={sample1}
+        src={demo}
         alt=""
+        loading="lazy"
+        decoding="async"
         class=":uno: h-full w-full block object-cover"
       />
     {/if}
@@ -110,32 +112,40 @@
       <div class=":uno: bg-border/20 gap-px grid grid-cols-2 grid-rows-2 inset-0 absolute z-10 animate-pulse">
         <div class=":uno: bg-background relative overflow-hidden">
           <enhanced:img
-            src={sample1}
+            src={demo}
             alt=""
+            loading="lazy"
+            decoding="async"
             class=":uno: h-full w-full object-cover blur-[2px] contrast-[0.9]"
           />
           <span class=":uno: text-[9px] text-muted-foreground/60 font-mono select-none bottom-1 right-2 absolute">LL (Low Freq)</span>
         </div>
         <div class=":uno: bg-background relative overflow-hidden">
           <enhanced:img
-            src={sample1}
+            src={demo}
             alt=""
+            loading="lazy"
+            decoding="async"
             class=":uno: h-full w-full object-cover brightness-[0.7] contrast-[6] grayscale invert-[0.1]"
           />
           <span class=":uno: text-[9px] text-muted-foreground/60 font-mono select-none bottom-1 right-2 absolute">LH (Horiz)</span>
         </div>
         <div class=":uno: bg-background relative overflow-hidden">
           <enhanced:img
-            src={sample1}
+            src={demo}
             alt=""
+            loading="lazy"
+            decoding="async"
             class=":uno: h-full w-full rotate-90 object-cover brightness-[0.7] contrast-[6] grayscale invert-[0.1]"
           />
           <span class=":uno: text-[9px] text-muted-foreground/60 font-mono select-none bottom-1 right-2 absolute">HL (Vert)</span>
         </div>
         <div class=":uno: bg-background relative overflow-hidden">
           <enhanced:img
-            src={sample1}
+            src={demo}
             alt=""
+            loading="lazy"
+            decoding="async"
             class=":uno: opacity-50 h-full w-full object-cover brightness-[0.4] contrast-[12] grayscale"
           />
           <span class=":uno: text-[9px] text-muted-foreground/60 font-mono select-none bottom-1 right-2 absolute">HH (Diag Noise)</span>
@@ -157,8 +167,10 @@
     {#if status === "watermarked"}
       <div class=":uno: h-full w-full relative">
         <enhanced:img
-          src={sample1}
+          src={demo}
           alt=""
+          loading="lazy"
+          decoding="async"
           class=":uno: h-full w-full block object-cover"
         />
         <div class=":uno: bg-primary/5 pointer-events-none inset-0 absolute animate-pulse"></div>
@@ -175,8 +187,10 @@
     {#if status === "distorted" || status === "extracting" || status === "extracted"}
       <div class=":uno: h-full w-full relative">
         <enhanced:img
-          src={sample1}
+          src={demo}
           alt=""
+          loading="lazy"
+          decoding="async"
           class=":uno: h-full w-full block object-cover brightness-[0.7] contrast-[0.9] grayscale filter"
         />
 
@@ -204,7 +218,7 @@
                 icon="lucide:shield-check"
                 class=":uno: text-emerald-500 size-3"
               />
-              Signature Found: "© Hope Art Org - Authorized"
+              Signature Found: "© Haruyu Sato - Authorized"
             </div>
             <div class=":uno: text-[8px] text-primary/50 mt-0.5">[Frequency Match: 99.7%]</div>
           </div>

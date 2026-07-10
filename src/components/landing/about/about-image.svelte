@@ -39,6 +39,8 @@
   <enhanced:img
     src={screenshot1}
     alt=""
+    loading="lazy"
+    decoding="async"
     class=":uno: opacity-0 h-auto w-full pointer-events-none select-none"
   />
 
@@ -52,6 +54,8 @@
     <enhanced:img
       src={screenshot1}
       alt={`${screenshotAlt} 1`}
+      loading="lazy"
+      decoding="async"
       class=":uno: h-auto w-full block"
     />
     <div class=":uno: rounded-xl pointer-events-none ring-1 ring-foreground/5 ring-inset inset-0 absolute"></div>
@@ -67,6 +71,8 @@
     <enhanced:img
       src={screenshot2}
       alt={`${screenshotAlt} 2`}
+      loading="lazy"
+      decoding="async"
       class=":uno: h-auto w-full block"
     />
     <div class=":uno: rounded-xl pointer-events-none ring-1 ring-foreground/5 ring-inset inset-0 absolute"></div>
@@ -82,6 +88,8 @@
     <enhanced:img
       src={screenshot3}
       alt={`${screenshotAlt} 3`}
+      loading="lazy"
+      decoding="async"
       class=":uno: h-auto w-full block"
     />
     <div class=":uno: rounded-xl pointer-events-none ring-1 ring-foreground/5 ring-inset inset-0 absolute"></div>
