@@ -30,17 +30,17 @@
   aria-label="Cycle screenshots"
 >
   <enhanced:img
-    src={screenshot2}
+    src={screenshot1}
     alt=""
     class=":uno: opacity-0 h-auto w-full pointer-events-none select-none"
   />
 
   <div
     class={positions[0] === 0
-      ? ":uno: border border-border/40 rounded-xl bg-card h-auto w-full pointer-events-none shadow-lg origin-bottom transition-all duration-500 ease-out left-0 top-0 absolute z-10 overflow-hidden -rotate-6 group-hover:-translate-x-14 group-hover:-rotate-18"
+      ? ":uno: will-change-transform border border-border/40 rounded-xl bg-card h-auto w-full pointer-events-none shadow-lg origin-bottom transition-transform duration-500 ease-out bottom-0 left-0 absolute z-10 overflow-hidden -rotate-6 group-hover:-translate-x-14 group-hover:-rotate-18"
       : positions[0] === 1
-      ? ":uno: border border-border/40 rounded-xl bg-card h-auto w-full pointer-events-none shadow-2xl origin-bottom transition-all duration-500 ease-out left-0 top-0 absolute z-20 overflow-hidden group-hover:-translate-y-6"
-      : ":uno: border border-border/40 rounded-xl bg-card h-auto w-full pointer-events-none shadow-lg origin-bottom rotate-6 transition-all duration-500 ease-out left-0 top-0 absolute z-10 overflow-hidden group-hover:translate-x-14 group-hover:rotate-18"}
+      ? ":uno: will-change-transform border border-border/40 rounded-xl bg-card h-auto w-full pointer-events-none shadow-2xl origin-bottom transition-transform duration-500 ease-out bottom-0 left-0 absolute z-20 overflow-hidden group-hover:-translate-y-6"
+      : ":uno: will-change-transform border border-border/40 rounded-xl bg-card h-auto w-full pointer-events-none shadow-lg origin-bottom rotate-6 transition-transform duration-500 ease-out bottom-0 left-0 absolute z-10 overflow-hidden group-hover:translate-x-14 group-hover:rotate-18"}
   >
     <enhanced:img
       src={screenshot1}
@@ -52,10 +52,10 @@
 
   <div
     class={positions[1] === 0
-      ? ":uno: border border-border/40 rounded-xl bg-card h-auto w-full pointer-events-none shadow-lg origin-bottom transition-all duration-500 ease-out left-0 top-0 absolute z-10 overflow-hidden -rotate-6 group-hover:-translate-x-14 group-hover:-rotate-18"
+      ? ":uno: will-change-transform border border-border/40 rounded-xl bg-card h-auto w-full pointer-events-none shadow-lg origin-bottom transition-transform duration-500 ease-out bottom-0 left-0 absolute z-10 overflow-hidden -rotate-6 group-hover:-translate-x-14 group-hover:-rotate-18"
       : positions[1] === 1
-      ? ":uno: border border-border/40 rounded-xl bg-card h-auto w-full pointer-events-none shadow-2xl origin-bottom transition-all duration-500 ease-out left-0 top-0 absolute z-20 overflow-hidden group-hover:-translate-y-6"
-      : ":uno: border border-border/40 rounded-xl bg-card h-auto w-full pointer-events-none shadow-lg origin-bottom rotate-6 transition-all duration-500 ease-out left-0 top-0 absolute z-10 overflow-hidden group-hover:translate-x-14 group-hover:rotate-18"}
+      ? ":uno: will-change-transform border border-border/40 rounded-xl bg-card h-auto w-full pointer-events-none shadow-2xl origin-bottom transition-transform duration-500 ease-out bottom-0 left-0 absolute z-20 overflow-hidden group-hover:-translate-y-6"
+      : ":uno: will-change-transform border border-border/40 rounded-xl bg-card h-auto w-full pointer-events-none shadow-lg origin-bottom rotate-6 transition-transform duration-500 ease-out bottom-0 left-0 absolute z-10 overflow-hidden group-hover:translate-x-14 group-hover:rotate-18"}
   >
     <enhanced:img
       src={screenshot2}
@@ -67,10 +67,10 @@
 
   <div
     class={positions[2] === 0
-      ? ":uno: border border-border/40 rounded-xl bg-card h-auto w-full pointer-events-none shadow-lg origin-bottom transition-all duration-500 ease-out left-0 top-0 absolute z-10 overflow-hidden -rotate-6 group-hover:-translate-x-14 group-hover:-rotate-18"
+      ? ":uno: will-change-transform border border-border/40 rounded-xl bg-card h-auto w-full pointer-events-none shadow-lg origin-bottom transition-transform duration-500 ease-out bottom-0 left-0 absolute z-10 overflow-hidden -rotate-6 group-hover:-translate-x-14 group-hover:-rotate-18"
       : positions[2] === 1
-      ? ":uno: border border-border/40 rounded-xl bg-card h-auto w-full pointer-events-none shadow-2xl origin-bottom transition-all duration-500 ease-out left-0 top-0 absolute z-20 overflow-hidden group-hover:-translate-y-6"
-      : ":uno: border border-border/40 rounded-xl bg-card h-auto w-full pointer-events-none shadow-lg origin-bottom rotate-6 transition-all duration-500 ease-out left-0 top-0 absolute z-10 overflow-hidden group-hover:translate-x-14 group-hover:rotate-18"}
+      ? ":uno: will-change-transform border border-border/40 rounded-xl bg-card h-auto w-full pointer-events-none shadow-2xl origin-bottom transition-transform duration-500 ease-out bottom-0 left-0 absolute z-20 overflow-hidden group-hover:-translate-y-6"
+      : ":uno: will-change-transform border border-border/40 rounded-xl bg-card h-auto w-full pointer-events-none shadow-lg origin-bottom rotate-6 transition-transform duration-500 ease-out bottom-0 left-0 absolute z-10 overflow-hidden group-hover:translate-x-14 group-hover:rotate-18"}
   >
     <enhanced:img
       src={screenshot3}
