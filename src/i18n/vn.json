@@ -27,10 +27,10 @@
   },
   "about": {
     "heading": "Hope:Re là gì?",
-    "description1": "Hope:Re là công cụ <strong>mã nguồn mở</strong> <strong>bảo vệ tác phẩm nghệ thuật của bạn</strong> khỏi việc bị AI học và bắt chước phong cách trái phép.",
-    "description2": "Ứng dụng áp dụng <strong>nhiễu loạn đối kháng vô hình</strong> lên hình ảnh, khiến các hệ thống AI tạo sinh <strong>không thể</strong> học hỏi hoặc tái tạo phong cách độc đáo của bạn mà không có sự đồng ý.",
+    "description1": "Hope:Re là một <strong>thánh đường mã nguồn mở</strong> dành cho các nghệ sĩ, giúp bảo vệ quyền sở hữu trí tuệ sáng tạo của bạn khỏi việc quét dữ liệu, huấn luyện AI và khai thác phong cách trái phép.",
+    "description2": "Bằng cách kết hợp <strong>nhiễu đối kháng vô hình</strong> với công nghệ <strong>thủy vân miền tần số</strong> mạnh mẽ (hỗ trợ bởi <a href=\"https://github.com/guofei9987/blind_watermark\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline hover:text-foreground transition-colors\">blind_watermark</a>), Hope nhúng các chữ ký vô hình không thể phá hủy vào sâu trong tác phẩm của bạn—bảo vệ tiếng nói độc bản ngay cả qua cắt xén, nén ảnh hay xử lý AI.",
     "cta": "Tìm hiểu thêm",
-    "screenshot": "Ảnh chụp màn hình đầy đủ ứng dụng Hope:Re"
+    "screenshot": "Ảnh chụp màn hình ứng dụng Hope:Re"
   },
   "messageAnimation": {
     "label": "Thông điệp từ Hope Art"

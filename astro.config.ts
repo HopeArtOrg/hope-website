@@ -3,7 +3,7 @@ import mdx from "@astrojs/mdx";
 import svelte from "@astrojs/svelte";
 import { enhancedImages } from "@sveltejs/enhanced-img";
 import icon from "astro-icon";
-import { defineConfig } from "astro/config";
+import { defineConfig, passthroughImageService } from "astro/config";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import UnoCSS from "unocss/astro";
@@ -22,11 +22,15 @@ export default defineConfig({
 
   output: "static",
 
+  image: {
+    service: import.meta.env?.PROD ? undefined : passthroughImageService(),
+  },
+
   vite: {
     plugins: [enhancedImages()],
     build: {
       rollupOptions: {
-        external: ["fsevents", "sharp"],
+        external: ["fsevents"],
       },
     },
     define: {
@@ -41,7 +45,6 @@ export default defineConfig({
         "takumi-js",
         "takumi-js/response",
         "fsevents",
-        "sharp",
       ],
     },
     resolve: {
@@ -73,9 +76,5 @@ export default defineConfig({
         dark: "catppuccin-macchiato",
       },
     },
-  },
-
-  experimental: {
-    rustCompiler: true,
   },
 });

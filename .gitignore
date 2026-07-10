@@ -26,15 +26,3 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# opencode
-.opencode/
-AGENTS.md
-opencode.json
-
-# gemini
-GEMINI.md
-.gemini/
-
-# skills
-skills-lock.json
-.agents/

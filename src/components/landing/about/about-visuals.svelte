@@ -12,7 +12,7 @@
     leftCol = $bindable(null),
   }: AboutVisualsProps = $props();
 
-  let containerRef = $state<HTMLDivElement | null>(null);
+  let containerRef = $state<HTMLElement | null>(null);
 
   $effect(() => {
     if (!containerRef)
