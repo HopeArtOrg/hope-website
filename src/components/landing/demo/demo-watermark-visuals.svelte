@@ -102,6 +102,8 @@
       <enhanced:img
         src={demo}
         alt=""
+        loading="lazy"
+        decoding="async"
         class=":uno: h-full w-full block object-cover"
       />
     {/if}
@@ -112,6 +114,8 @@
           <enhanced:img
             src={demo}
             alt=""
+            loading="lazy"
+            decoding="async"
             class=":uno: h-full w-full object-cover blur-[2px] contrast-[0.9]"
           />
           <span class=":uno: text-[9px] text-muted-foreground/60 font-mono select-none bottom-1 right-2 absolute">LL (Low Freq)</span>
@@ -120,6 +124,8 @@
           <enhanced:img
             src={demo}
             alt=""
+            loading="lazy"
+            decoding="async"
             class=":uno: h-full w-full object-cover brightness-[0.7] contrast-[6] grayscale invert-[0.1]"
           />
           <span class=":uno: text-[9px] text-muted-foreground/60 font-mono select-none bottom-1 right-2 absolute">LH (Horiz)</span>
@@ -128,6 +134,8 @@
           <enhanced:img
             src={demo}
             alt=""
+            loading="lazy"
+            decoding="async"
             class=":uno: h-full w-full rotate-90 object-cover brightness-[0.7] contrast-[6] grayscale invert-[0.1]"
           />
           <span class=":uno: text-[9px] text-muted-foreground/60 font-mono select-none bottom-1 right-2 absolute">HL (Vert)</span>
@@ -136,6 +144,8 @@
           <enhanced:img
             src={demo}
             alt=""
+            loading="lazy"
+            decoding="async"
             class=":uno: opacity-50 h-full w-full object-cover brightness-[0.4] contrast-[12] grayscale"
           />
           <span class=":uno: text-[9px] text-muted-foreground/60 font-mono select-none bottom-1 right-2 absolute">HH (Diag Noise)</span>
@@ -159,6 +169,8 @@
         <enhanced:img
           src={demo}
           alt=""
+          loading="lazy"
+          decoding="async"
           class=":uno: h-full w-full block object-cover"
         />
         <div class=":uno: bg-primary/5 pointer-events-none inset-0 absolute animate-pulse"></div>
@@ -177,6 +189,8 @@
         <enhanced:img
           src={demo}
           alt=""
+          loading="lazy"
+          decoding="async"
           class=":uno: h-full w-full block object-cover brightness-[0.7] contrast-[0.9] grayscale filter"
         />
 

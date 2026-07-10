@@ -105,6 +105,7 @@
                 src="./assets/haru-1.jpg"
                 alt={haruyuName}
                 loading="lazy"
+                decoding="async"
                 class=":uno: h-full w-full object-cover"
               />
             {/snippet}
@@ -113,6 +114,7 @@
                 src="./assets/haru-2.jpg"
                 alt={haruyuName}
                 loading="lazy"
+                decoding="async"
                 class=":uno: h-full w-full object-cover"
               />
             {/snippet}
@@ -129,6 +131,7 @@
                 src="./assets/noah-1.jpg"
                 alt={noahName}
                 loading="lazy"
+                decoding="async"
                 class=":uno: h-full w-full object-cover"
               />
             {/snippet}
@@ -137,6 +140,7 @@
                 src="./assets/noah-2.jpg"
                 alt={noahName}
                 loading="lazy"
+                decoding="async"
                 class=":uno: h-full w-full object-cover"
               />
             {/snippet}
