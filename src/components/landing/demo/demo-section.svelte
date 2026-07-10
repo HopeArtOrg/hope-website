@@ -1,101 +1,49 @@
 <script lang="ts" module>
+  import type { Locale } from "@/i18n/ui";
+
   export type DemoSectionProps = {
-    heading: string;
-    description: string;
-    courtesy: string;
-    images?: { src: string; alt: string }[];
+    lang: Locale;
   };
 </script>
 
 <script lang="ts">
+  import Icon from "@iconify/svelte";
   import gsap from "gsap";
-  import { untrack } from "svelte";
 
-  import { CornerBrackets } from "@/components/ui/corner-brackets";
-  import { DefinitionPanel } from "@/components/ui/definition-panel";
-  import { animateScrollReveal } from "@/lib/animation-utils";
-  import { DEMO_IMAGES as DEFAULT_IMAGES, PROTECTION_METHODS } from "@/lib/constants";
-  import { prefersReducedMotion } from "@/lib/utils";
+  import type { CarouselAPI } from "@/components/ui/carousel/context";
 
   import {
-    animateDottedFrame,
-    cycleImage,
-    explodeStars,
-    setupImageTilt,
-  } from "./animations";
-  import DemoImageStack from "./demo-image-stack.svelte";
-  import DemoTriggerButton from "./demo-trigger-button.svelte";
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+  } from "@/components/ui/carousel";
+  import { CornerBrackets } from "@/components/ui/corner-brackets";
+  import { DefinitionPanel } from "@/components/ui/definition-panel";
+  import { useTranslations } from "@/i18n/utils";
+  import { animateScrollReveal } from "@/lib/animation-utils";
+  import { prefersReducedMotion } from "@/lib/utils";
 
-  const {
-    heading,
-    description,
-    courtesy,
-    images: imagesProp,
-  }: DemoSectionProps = $props();
+  import DemoAdversarialSlide from "./demo-adversarial-slide.svelte";
+  import DemoWatermarkSlide from "./demo-watermark-slide.svelte";
 
-  const images = $derived(
-    imagesProp ?? DEFAULT_IMAGES.map(img => ({
-      src: typeof img.src === "string" ? img.src : img.src.src,
-      alt: img.alt,
-    })),
-  );
+  const { lang = "vn" }: DemoSectionProps = $props();
+  const t = (key: any) => useTranslations(lang)(key);
 
   let sectionEl = $state<HTMLElement | null>(null);
-  let leftCol = $state<HTMLDivElement | null>(null);
-  let rightCol = $state<HTMLDivElement | null>(null);
   let definitionRef = $state<HTMLDivElement | null>(null);
-  let imageEls = $state<HTMLDivElement[]>([]);
-  let triggerBtnEl = $state<HTMLButtonElement | null>(null);
-  let explosionContainer = $state<HTMLDivElement | null>(null);
-  let frameSvg = $state<SVGSVGElement | null>(null);
-  let imageStackEl = $state<HTMLDivElement | null>(null);
+  let carouselWrapper = $state<HTMLDivElement | null>(null);
+  let carouselApi = $state<CarouselAPI | undefined>(undefined);
 
-  let currentImageIndex = $state(0);
-  let methodCounter = $state(0);
-  let isAnimating = $state(false);
-
-  $effect.pre(() => {
-    untrack(() => {
-      currentImageIndex = images.length - 1;
-    });
-  });
-
-  function handleTrigger() {
-    if (isAnimating || !explosionContainer || !frameSvg || !imageStackEl)
-      return;
-
-    isAnimating = true;
-
-    if (!prefersReducedMotion() && explosionContainer) {
-      explodeStars(explosionContainer);
-    }
-
-    currentImageIndex = cycleImage(imageEls, currentImageIndex);
-    methodCounter += 1;
-
-    if (!prefersReducedMotion() && frameSvg && imageStackEl) {
-      animateDottedFrame(frameSvg, imageStackEl, methodCounter - 1);
-    }
-
-    gsap.delayedCall(0.8, () => {
-      isAnimating = false;
-    });
+  function setCarouselApi(api: CarouselAPI | undefined) {
+    carouselApi = api;
   }
 
   $effect(() => {
-    if (imageEls.length === 0)
-      return;
-
-    return setupImageTilt(imageEls);
-  });
-
-  $effect(() => {
-    if (!sectionEl || !leftCol || !rightCol)
+    if (!sectionEl || !carouselWrapper)
       return;
 
     if (prefersReducedMotion()) {
-      gsap.set(leftCol, { opacity: 1 });
-      gsap.set(rightCol, { opacity: 1 });
+      gsap.set(carouselWrapper, { opacity: 1 });
       if (definitionRef)
         gsap.set(definitionRef, { autoAlpha: 1 });
       return;
@@ -103,9 +51,8 @@
 
     return animateScrollReveal({
       trigger: sectionEl,
-      elements: [leftCol, rightCol],
+      elements: [carouselWrapper],
       definitionEl: definitionRef ?? undefined,
-      useAutoAlpha: false,
     });
   });
 </script>
@@ -120,11 +67,14 @@
   <DefinitionPanel
     bind:ref={definitionRef}
     position="right"
-    gap="gap-1.5"
     class=":uno: font-primary text-right"
   >
     <span class=":uno: text-sm">
       <span class=":uno: text-base font-semibold">l'espoir</span>
+      <Icon
+        icon="lucide:star"
+        class=":uno: size-3.5 inline"
+      />
       <br />
       <span class=":uno: text-xs font-mono">/l.ɛs.pwaʁ/</span>
       <br />
@@ -142,63 +92,46 @@
     </span>
   </DefinitionPanel>
 
-  <div class=":uno: gap-8 grid w-full items-center lg:gap-16 sm:gap-12 lg:grid-cols-2">
-    <div
-      bind:this={leftCol}
-      class=":uno: text-center opacity-0 flex flex-col items-center order-2 lg:text-left lg:items-start lg:order-1"
+  <div
+    bind:this={carouselWrapper}
+    class=":uno: w-full invisible"
+  >
+    <Carousel
+      opts={{ loop: true, align: "center" }}
+      setApi={setCarouselApi}
+      class="w-full"
+      aria-label="Demo Showcase"
     >
-      <h2
-        class=":uno: text-2xl text-foreground tracking-tight font-bold font-mono lg:text-5xl md:text-4xl sm:text-3xl"
-      >
-        {heading}
-      </h2>
-      <!-- eslint-disable svelte/no-at-html-tags -->
-      <p class=":uno: text-sm text-muted-foreground leading-relaxed mt-3 max-w-lg md:text-lg sm:text-base md:mt-6 sm:mt-4">
-        {@html description}
-      </p>
-      <div class=":uno: mt-4 flex flex-wrap gap-3 sm:mt-6">
-        {#each PROTECTION_METHODS as method (method.name)}
-          <span
-            class=":uno: text-xs text-muted-foreground font-medium px-3 py-1 border border-border/50 rounded-sm inline-flex gap-1.5 items-center sm:text-sm"
-          >
-            <span
-              class=":uno: rounded-full size-2 inline-block"
-              style="background-color: {method.color};"
-            ></span>
-            {method.name}
-          </span>
-        {/each}
-      </div>
-      <p class=":uno: text-xs text-muted-foreground/50 mt-3 sm:text-sm sm:mt-4">
-        {courtesy}
-        <a
-          href="https://vgen.co/iceyDh"
-          target="_blank"
-          rel="noopener noreferrer"
-          class=":uno: underline decoration-muted-foreground/30 underline-offset-2 transition-colors duration-200 hover:text-muted-foreground hover:decoration-muted-foreground/60"
+      <CarouselContent>
+        <CarouselItem aria-label="Slide 1 of 2: Adversarial Protection">
+          <DemoAdversarialSlide {lang} />
+        </CarouselItem>
+
+        <CarouselItem aria-label="Slide 2 of 2: Frequency Watermarking">
+          <DemoWatermarkSlide {lang} />
+        </CarouselItem>
+      </CarouselContent>
+
+      <div class=":uno: mt-8 flex gap-4 items-center justify-center sm:mt-12">
+        <button
+          type="button"
+          class=":uno: text-muted-foreground border border-border/50 rounded-full inline-flex size-12 cursor-pointer transition-colors duration-200 items-center justify-center hover:text-foreground hover:border-border disabled:opacity-50 sm:size-10 disabled:pointer-events-none"
+          onclick={() => carouselApi?.scrollPrev()}
+          disabled={!carouselApi?.canScrollPrev()}
+          aria-label={t("demo.prevSlide")}
         >
-          Haruyu Sato
-          <span class=":uno: sr-only">(opens in a new tab)</span>
-        </a>
-      </p>
-    </div>
-
-    <div
-      bind:this={rightCol}
-      class=":uno: opacity-0 flex flex-col items-center order-1 relative lg:order-2"
-    >
-      <DemoImageStack
-        bind:imageEls
-        bind:imageStackRef={imageStackEl}
-        bind:frameSvgRef={frameSvg}
-        {images}
-      />
-
-      <DemoTriggerButton
-        onclick={handleTrigger}
-        bind:explosionContainerRef={explosionContainer}
-        bind:triggerBtnRef={triggerBtnEl}
-      />
-    </div>
+          <Icon icon="lucide:arrow-left" class=":uno: size-5 sm:size-4" />
+        </button>
+        <button
+          type="button"
+          class=":uno: text-muted-foreground border border-border/50 rounded-full inline-flex size-12 cursor-pointer transition-colors duration-200 items-center justify-center hover:text-foreground hover:border-border disabled:opacity-50 sm:size-10 disabled:pointer-events-none"
+          onclick={() => carouselApi?.scrollNext()}
+          disabled={!carouselApi?.canScrollNext()}
+          aria-label={t("demo.nextSlide")}
+        >
+          <Icon icon="lucide:arrow-right" class=":uno: size-5 sm:size-4" />
+        </button>
+      </div>
+    </Carousel>
   </div>
 </section>

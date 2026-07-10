@@ -36,9 +36,24 @@
     "label": "Thông điệp từ Hope Art"
   },
   "demo": {
-    "heading": "Hoạt động như thế nào?",
-    "description": "Hope:Re tích hợp các thuật toán từ <strong>The Glaze Project</strong> (Đại học Chicago) — bao gồm <strong>Glaze</strong>, <strong>Nightshade</strong>, và <strong>Noise</strong> — để tạo ra một lớp nhiễu loạn đối kháng vô hình trên tác phẩm nghệ thuật của bạn, vô hiệu hóa khả năng tái tạo img2img trên hầu hết các mô hình AI tạo sinh.",
-    "courtesy": "Tài sản của"
+    "heading": "Hoạt động ra sao?",
+    "description": "Hope:Re tích hợp các thuật toán từ <strong>The Glaze Project</strong> (Glaze, Nightshade và Noise) để phủ một lớp bảo vệ vô hình lên tranh.<br /><br />Lớp nhiễu này vô hiệu hóa tính năng img2img, ngăn các mô hình AI sao chép hoặc học phong cách nghệ thuật của bạn.",
+    "courtesy": "Tài sản của",
+    "watermarkHeading": "Hoạt động ra sao?",
+    "watermarkDescription": "Hope:Re nhúng một <strong>chữ kí ẩn</strong> vào sâu trong phổ tần số của ảnh (hỗ trợ bởi <a href=\"https://github.com/guofei9987/blind_watermark\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">blind_watermark</a>).<br /><br />Khác với dấu mờ thông thường, chữ kí này <strong>không thể bị phá hủy</strong>—vẫn trích xuất được ngay cả khi ảnh bị cắt xén, nén mạnh hoặc chụp màn hình.",
+    "watermarkLabel": "Đã bảo vệ",
+    "originalLabel": "Ảnh gốc",
+    "triggerEmbed": "Nhúng chữ kí ẩn",
+    "triggerExtract": "Trích xuất chữ ký",
+    "triggerDistort": "Thử phá hủy ảnh",
+    "triggerReset": "Thử lại từ đầu",
+    "stateEmbedding": "Đang nhúng...",
+    "stateExtracting": "Đang trích xuất...",
+    "watermarkMethodDwt": "DWT (Sóng nhỏ)",
+    "watermarkMethodDct": "DCT (Cosin)",
+    "watermarkMethodSvd": "SVD (Phân tích giá trị)",
+    "prevSlide": "Slide trước",
+    "nextSlide": "Slide sau"
   },
   "author": {
     "heading": "Tác giả",

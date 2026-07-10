@@ -1,10 +1,8 @@
 <script lang="ts" module>
+  import type { Locale } from "@/i18n/ui";
+
   export type HeroSectionProps = {
-    description: string;
-    downloadLabel: string;
-    downloadForLabel: string;
-    githubLabel: string;
-    comingSoonLabel: string;
+    lang: Locale;
   };
 </script>
 
@@ -18,18 +16,14 @@
   import { ScrollDownPill } from "@/components/landing/scroll-down-pill";
   import { CornerBrackets } from "@/components/ui/corner-brackets";
   import { DefinitionPanel } from "@/components/ui/definition-panel";
+  import { useTranslations } from "@/i18n/utils";
   import { prefersReducedMotion } from "@/lib/utils";
 
   import ComingSoonBadge from "./coming-soon-badge.svelte";
   import DownloadActions from "./download-actions.svelte";
 
-  const {
-    description,
-    downloadLabel,
-    downloadForLabel,
-    githubLabel,
-    comingSoonLabel,
-  }: HeroSectionProps = $props();
+  const { lang = "vn" }: HeroSectionProps = $props();
+  const t = (key: any) => useTranslations(lang)(key);
 
   let mobileStar = $state<HTMLDivElement | null>(null);
   let desktopStar = $state<HTMLDivElement | null>(null);
@@ -180,18 +174,14 @@
     </h1>
 
     <p class=":uno: text-lg text-muted-foreground text-center sm:text-xl lg:text-left">
-      {description}
+      {t("hero.description")}
     </p>
 
     <hr class=":uno: border-0 bg-border h-px w-24 sm:w-32" />
 
-    <DownloadActions
-      {downloadLabel}
-      {downloadForLabel}
-      {githubLabel}
-    />
+    <DownloadActions {lang} />
 
-    <ComingSoonBadge label={comingSoonLabel} />
+    <ComingSoonBadge {lang} />
   </div>
 
   <div class=":uno: flex inset-x-0 bottom-8 justify-center absolute z-10 sm:bottom-12">

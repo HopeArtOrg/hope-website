@@ -1,50 +1,23 @@
 ---
-import { getImage } from "astro:assets";
-
 import { AboutSection } from "@/components/landing/about";
 import { AuthorSection } from "@/components/landing/author";
 import { DemoSection } from "@/components/landing/demo";
 import { HeroSection } from "@/components/landing/hero-section";
 import { MessageAnimationSection } from "@/components/landing/message-animation";
-import { getLangFromUrl, getLocalePath, useTranslations } from "@/i18n/utils";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import BaseLayout from "@/layouts/base-layout.astro";
-import { DEMO_IMAGES } from "@/lib/constants";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-
-const optimizedDemoImages = await Promise.all(
-  DEMO_IMAGES.map(async (image) => {
-    const optimized = await getImage({
-      src: image.src,
-      width: 800,
-      format: "webp",
-      quality: 80,
-    });
-    return {
-      src: optimized.src,
-      alt: t(image.alt as any),
-    };
-  }),
-);
 ---
 
 <BaseLayout>
   <HeroSection
-    description={t("hero.description")}
-    downloadLabel={t("hero.download")}
-    downloadForLabel={t("hero.downloadFor")}
-    githubLabel={t("hero.github")}
-    comingSoonLabel={t("hero.comingSoon")}
+    lang={lang}
     client:load
   />
   <AboutSection
-    heading={t("about.heading")}
-    description1={t("about.description1")}
-    description2={t("about.description2")}
-    ctaLabel={t("about.cta")}
-    ctaHref={getLocalePath(lang, "/blogs")}
-    screenshotAlt={t("about.screenshot")}
+    lang={lang}
     client:visible
   />
   <MessageAnimationSection
@@ -52,24 +25,11 @@ const optimizedDemoImages = await Promise.all(
     client:visible
   />
   <DemoSection
-    heading={t("demo.heading")}
-    description={t("demo.description")}
-    courtesy={t("demo.courtesy")}
-    images={optimizedDemoImages}
+    lang={lang}
     client:visible
   />
   <AuthorSection
-    heading={t("author.heading")}
-    haruyuName={t("author.haruyuName")}
-    haruyuQuote={t("author.haruyuQuote")}
-    noahName={t("author.noahName")}
-    noahQuote={t("author.noahQuote")}
-    githubLabel={t("author.github")}
-    vgenLabel={t("author.vgen")}
-    facebookLabel={t("author.facebook")}
-    portfolioLabel={t("author.portfolio")}
-    prevSlideLabel={t("author.prevSlide")}
-    nextSlideLabel={t("author.nextSlide")}
+    lang={lang}
     client:idle
   />
 </BaseLayout>

@@ -1,19 +1,26 @@
 <script lang="ts" module>
+  import type { Locale } from "@/i18n/ui";
+
   export type AboutImageProps = {
-    screenshotAlt: string;
+    lang: Locale;
     containerRef?: HTMLElement | null;
   };
 </script>
 
 <script lang="ts">
+  import { useTranslations } from "@/i18n/utils";
+
   import screenshot1 from "./assets/screenshot-1.png?enhanced";
   import screenshot2 from "./assets/screenshot-2.png?enhanced";
   import screenshot3 from "./assets/screenshot-3.png?enhanced";
 
   let {
-    screenshotAlt,
+    lang = "vn",
     containerRef = $bindable(null),
   }: AboutImageProps = $props();
+
+  const t = (key: any) => useTranslations(lang)(key);
+  const screenshotAlt = $derived(t("about.screenshot"));
 
   let positions = $state([0, 1, 2]);
 

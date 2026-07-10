@@ -37,8 +37,23 @@
   },
   "demo": {
     "heading": "How does it work?",
-    "description": "Hope:Re integrates algorithms from <strong>The Glaze Project</strong> (University of Chicago) — including <strong>Glaze</strong>, <strong>Nightshade</strong>, and <strong>Noise</strong> — to generate an invisible adversarial perturbation layer over your artwork, effectively neutralizing img2img reproduction across most generative AI models.",
-    "courtesy": "Courtesy of"
+    "description": "Hope:Re integrates algorithms from <strong>The Glaze Project</strong> (Glaze, Nightshade, and Noise) to overlay an invisible protection layer.<br /><br />This perturbation neutralizes img2img styles, preventing generative AI models from successfully replicating or learning your art style.",
+    "courtesy": "Courtesy of",
+    "watermarkHeading": "How does it work?",
+    "watermarkDescription": "Hope:Re embeds an <strong>invisible signature</strong> deep within the image's frequency spectrum (powered by <a href=\"https://github.com/guofei9987/blind_watermark\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">blind_watermark</a>).<br /><br />Unlike standard watermarks, this hidden mark is <strong>indestructible</strong>—remaining fully extractable even after cropping, compression, or screenshotting.",
+    "watermarkLabel": "Protected",
+    "originalLabel": "Original",
+    "triggerEmbed": "Embed Signature",
+    "triggerExtract": "Extract Signature",
+    "triggerDistort": "Distort Image",
+    "triggerReset": "Reset Demo",
+    "stateEmbedding": "Embedding...",
+    "stateExtracting": "Extracting...",
+    "watermarkMethodDwt": "DWT (Wavelet)",
+    "watermarkMethodDct": "DCT (Cosine)",
+    "watermarkMethodSvd": "SVD (Value Dec.)",
+    "prevSlide": "Previous slide",
+    "nextSlide": "Next slide"
   },
   "author": {
     "heading": "The creator",

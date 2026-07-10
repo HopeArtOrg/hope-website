@@ -1,11 +1,8 @@
 <script lang="ts" module>
+  import type { Locale } from "@/i18n/ui";
+
   export type AboutSectionProps = {
-    heading: string;
-    description1: string;
-    description2: string;
-    ctaLabel: string;
-    ctaHref: string;
-    screenshotAlt: string;
+    lang: Locale;
   };
 </script>
 
@@ -20,14 +17,7 @@
   import AboutVisuals from "./about-visuals.svelte";
   import { animateScrollReveal } from "./animations";
 
-  const {
-    heading,
-    description1,
-    description2,
-    ctaLabel,
-    ctaHref,
-    screenshotAlt,
-  }: AboutSectionProps = $props();
+  const { lang = "vn" }: AboutSectionProps = $props();
 
   let sectionEl = $state<HTMLElement | null>(null);
   let leftCol = $state<HTMLDivElement | null>(null);
@@ -62,18 +52,14 @@
   <div class=":uno: flex flex-col gap-10 w-full items-center lg:flex-row lg:gap-16 lg:justify-center">
     <div class=":uno: w-full lg:flex lg:flex-1 lg:max-w-md lg:w-auto lg:justify-end">
       <AboutVisuals
-        {screenshotAlt}
+        {lang}
         bind:leftCol
       />
     </div>
 
     <div class=":uno: w-full lg:flex-1 lg:max-w-xl lg:w-auto">
       <AboutContent
-        {heading}
-        {description1}
-        {description2}
-        {ctaLabel}
-        {ctaHref}
+        {lang}
         bind:rightCol
       />
     </div>

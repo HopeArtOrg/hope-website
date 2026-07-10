@@ -1,7 +1,8 @@
 <script lang="ts" module>
+  import type { Locale } from "@/i18n/ui";
+
   export type AboutCtaProps = {
-    ctaLabel: string;
-    ctaHref: string;
+    lang: Locale;
     doodleArrow1Ref?: HTMLImageElement | null;
     doodleArrow2Ref?: HTMLImageElement | null;
     doodleArrow3Ref?: HTMLImageElement | null;
@@ -12,16 +13,20 @@
   import Icon from "@iconify/svelte";
 
   import { Button } from "@/components/ui/button";
+  import { getLocalePath, useTranslations } from "@/i18n/utils";
 
   import { setupCtaAnimation } from "./animations";
 
   let {
-    ctaLabel,
-    ctaHref,
+    lang = "vn",
     doodleArrow1Ref = $bindable(null),
     doodleArrow2Ref = $bindable(null),
     doodleArrow3Ref = $bindable(null),
   }: AboutCtaProps = $props();
+
+  const t = (key: any) => useTranslations(lang)(key);
+  const ctaHref = $derived(getLocalePath(lang, "/blogs"));
+  const ctaLabel = $derived(t("about.cta"));
 
   let buttonRef = $state<HTMLElement | null>(null);
   let overlayRef = $state<HTMLElement | null>(null);
