@@ -8,7 +8,7 @@ publishDate: 2026-07-11
 
 While adversarial cloaking tools like Glaze and Nightshade defend against style hijacking by shifting features in the latent space, creators also require a mechanism to prove ownership of their work after it has been distributed. Conventional watermarks—such as visible stamps or simple metadata headers—are easily removed via cropping, compression, or screenshotting.
 
-To solve this, **Hope** implements a robust, invisible frequency-domain watermarking pipeline based on the Python library `blind_watermark` and its high-performance Rust port `blind-watermark-rust`. This approach embeds ownership signatures directly into the mathematical structure of the image, making the watermark indestructible under normal modifications.
+To solve this, **Hope** implements a robust, invisible frequency-domain watermarking pipeline. This approach embeds ownership signatures directly into the mathematical structure of the image, making the watermark indestructible under normal modifications.
 
 ### The Mathematics of Blind Watermarking
 
@@ -97,9 +97,17 @@ graph TD
 
 ### Rust Implementation and Client Integration
 
-To enable fast, client-side watermarking on creators' machines without relying on Python runtimes, the Hope application uses `blind-watermark-rust`. Written in pure Rust, it optimizes matrix transformations by replacing slow interpreters with compiled native code.
+To enable fast, client-side watermarking on creators' machines without relying on Python runtimes, the Hope application optimizes matrix transformations by replacing slow interpreters with compiled native code.
 
 Key architectural optimizations in our Rust implementation include:
 - **Matrix Math acceleration**: Utilizes the modern `faer` linear algebra crate to compute SVD decompositions at near-native hardware speed.
 - **Multithreading**: Employs `rayon` to perform block-wise DCT and SVD operations in parallel across CPU cores.
 - **Randomized Seeding**: Allows creators to seed block selection using a private passphrase, ensuring the signature cannot be read or forged by third parties.
+
+---
+
+### Credits and Open Source Contributions
+
+This feature is made possible thanks to the following open-source projects and their developers:
+- **`blind_watermark`** by **Guo Fei** ([guofei9987/blind_watermark](https://github.com/guofei9987/blind_watermark)), which designed the foundational Python implementation of the DWT-DCT-SVD algorithm.
+- **`blind-watermark-rust`** by **naganohara-yoshino** ([naganohara-yoshino/blind-watermark-rust](https://github.com/naganohara-yoshino/blind-watermark-rust)), providing the highly performant Rust implementation that powers our client-side extraction.
