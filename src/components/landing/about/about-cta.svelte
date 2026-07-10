@@ -25,7 +25,7 @@
   }: AboutCtaProps = $props();
 
   const t = (key: any) => useTranslations(lang)(key);
-  const ctaHref = $derived(getLocalePath(lang, "/blogs"));
+  const ctaHref = $derived(getLocalePath(lang, "/blog"));
   const ctaLabel = $derived(t("about.cta"));
 
   let buttonRef = $state<HTMLElement | null>(null);

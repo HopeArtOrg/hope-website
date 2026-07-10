@@ -16,11 +16,11 @@ export async function GET(context: APIContext) {
 
   const staticPages = [
     "",
-    "/blogs",
+    "/blog",
     "/privacy",
     "/terms",
     "/en",
-    "/en/blogs",
+    "/en/blog",
   ];
 
   const urls = [
@@ -31,13 +31,13 @@ export async function GET(context: APIContext) {
       priority: page === "" || page === "/en" ? "1.0" : "0.8",
     })),
     ...vnPosts.map(post => ({
-      loc: resolveURL(siteURL, `/blogs/${post.id}`),
+      loc: resolveURL(siteURL, `/blog/${post.id}`),
       lastmod: post.data.publishDate.toISOString(),
       changefreq: "monthly",
       priority: "0.6",
     })),
     ...enPosts.map(post => ({
-      loc: resolveURL(siteURL, `/en/blogs/${post.id}`),
+      loc: resolveURL(siteURL, `/en/blog/${post.id}`),
       lastmod: post.data.publishDate.toISOString(),
       changefreq: "monthly",
       priority: "0.6",

@@ -1,0 +1,105 @@
+---
+title: "Invisible Signatures: Frequency-Domain Watermarking in Hope"
+description: "A rigorous exploration of DWT, DCT, and SVD blind watermarking algorithms, and how Hope secures ownership data directly within the image spectrum."
+publishDate: 2026-07-11
+---
+
+# Invisible Signatures: Frequency-Domain Watermarking in Hope
+
+While adversarial cloaking tools like Glaze and Nightshade defend against style hijacking by shifting features in the latent space, creators also require a mechanism to prove ownership of their work after it has been distributed. Conventional watermarks—such as visible stamps or simple metadata headers—are easily removed via cropping, compression, or screenshotting.
+
+To solve this, **Hope** implements a robust, invisible frequency-domain watermarking pipeline based on the Python library `blind_watermark` and its high-performance Rust port `blind-watermark-rust`. This approach embeds ownership signatures directly into the mathematical structure of the image, making the watermark indestructible under normal modifications.
+
+### The Mathematics of Blind Watermarking
+
+The watermarking algorithm utilizes three fundamental mathematical transformations in sequence: the **Discrete Wavelet Transform (DWT)**, the **Discrete Cosine Transform (DCT)**, and **Singular Value Decomposition (SVD)**. 
+
+Because the extraction is "blind," the signature can be recovered from a cropped or compressed image without access to the original, unwatermarked source.
+
+```mermaid
+graph TD
+    subgraph Embedding Pipeline
+        I[Original Image] --> DWT[DWT Decomposition]
+        DWT --> Sub[Sub-band Selection HL/LH]
+        Sub --> DCT[Block-wise DCT]
+        DCT --> SVD[SVD Decomposition U, S, V]
+        S[Singular Values S] --> EMB[Embed Watermark S' = S + alpha * W]
+        EMB --> ISVD[Inverse SVD]
+        ISVD --> IDCT[Inverse DCT]
+        IDCT --> IDWT[Inverse DWT]
+        IDWT --> WI[Watermarked Image]
+    end
+```
+
+#### 1. Discrete Wavelet Transform (DWT)
+DWT decomposes the 2D image into four frequency sub-bands, splitting high-frequency details from low-frequency approximations:
+
+$$
+I \xrightarrow{\text{DWT}} \{ LL, LH, HL, HH \}
+$$
+
+- $LL$ represents the low-frequency approximation of the image.
+- $LH$ and $HL$ capture the horizontal and vertical frequency details.
+- $HH$ captures diagonal high-frequency noise.
+
+Hope embeds watermarks within the mid-frequency sub-bands ($LH$ or $HL$). This ensures the watermark is invisible (avoiding the highly visible $LL$ band) yet remains resilient to attacks (avoiding the high-frequency $HH$ band, which is easily destroyed by compression).
+
+#### 2. Discrete Cosine Transform (DCT)
+The selected sub-band is divided into blocks (e.g., $4 \times 4$ or $8 \times 8$), and DCT is applied to each block:
+
+$$
+B_{DCT} = \mathcal{C}(B)
+$$
+
+DCT concentrates the signal energy into the low-frequency coefficients of the block, matching the compression profiles used by standards like JPEG.
+
+#### 3. Singular Value Decomposition (SVD)
+SVD is applied to the DCT coefficients of each block. SVD decomposes a matrix into rotation and scaling components:
+
+$$
+A = U \Sigma V^T
+$$
+
+Where $\Sigma$ is a diagonal matrix containing the singular values:
+
+$$
+\Sigma = \text{diag}(\sigma_1, \sigma_2, \dots, \sigma_n)
+$$
+
+The singular values $\sigma_i$ represent the core structural energy of the block. Because singular values are highly stable under geometric perturbations, modifying them provides maximum robustness against scaling, cropping, and rotation.
+
+#### 4. Embedding and Reconstruction
+The watermark bits $W$ are embedded by modifying the singular values with strength factor $\alpha$:
+
+$$
+\sigma'_i = \sigma_i + \alpha \cdot W_i
+$$
+
+The watermarked block is then reconstructed using inverse transforms:
+
+$$
+A' = U \Sigma' V^T \xrightarrow{\text{IDCT}} B' \xrightarrow{\text{IDWT}} I'
+$$
+
+```mermaid
+graph TD
+    subgraph Extraction Pipeline
+        WI[Protected Image] --> DWT[DWT Decomposition]
+        DWT --> Sub[Sub-band Selection HL/LH]
+        Sub --> DCT[Block-wise DCT]
+        DCT --> SVD[SVD Decomposition U, S_extracted, V]
+        S_extracted[Singular Values S_extracted] --> EXT[Extract Watermark Bits]
+        EXT --> W[Recovered Signature]
+    end
+```
+
+---
+
+### Rust Implementation and Client Integration
+
+To enable fast, client-side watermarking on creators' machines without relying on Python runtimes, the Hope application uses `blind-watermark-rust`. Written in pure Rust, it optimizes matrix transformations by replacing slow interpreters with compiled native code.
+
+Key architectural optimizations in our Rust implementation include:
+- **Matrix Math acceleration**: Utilizes the modern `faer` linear algebra crate to compute SVD decompositions at near-native hardware speed.
+- **Multithreading**: Employs `rayon` to perform block-wise DCT and SVD operations in parallel across CPU cores.
+- **Randomized Seeding**: Allows creators to seed block selection using a private passphrase, ensuring the signature cannot be read or forged by third parties.

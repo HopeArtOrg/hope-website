@@ -81,7 +81,7 @@ export async function GET(context: APIContext) {
         title: `[${post.lang.toUpperCase()}] ${post.data.title}`,
         pubDate: post.data.publishDate,
         description: post.data.description,
-        link: post.lang === "vn" ? `/blogs/${post.id}` : `/en/blogs/${post.id}`,
+        link: post.lang === "vn" ? `/blog/${post.id}` : `/en/blog/${post.id}`,
         author: "trananhquan1009@gmail.com (Noah Trần)",
         content: `<![CDATA[${sanitizedContent}]]>`,
       };
