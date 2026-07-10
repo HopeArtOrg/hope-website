@@ -1,18 +1,22 @@
+<script lang="ts" module>
+  import type { Locale } from "@/i18n/ui";
+
+  export type AboutVisualsProps = {
+    lang: Locale;
+    leftCol?: HTMLDivElement | null;
+  };
+</script>
+
 <script lang="ts">
   import AboutImage from "./about-image.svelte";
   import { setupSingleImageInteraction } from "./animations";
 
-  export type AboutVisualsProps = {
-    screenshotAlt: string;
-    leftCol?: HTMLDivElement | null;
-  };
-
   let {
-    screenshotAlt,
+    lang = "vn",
     leftCol = $bindable(null),
   }: AboutVisualsProps = $props();
 
-  let containerRef = $state<HTMLDivElement | null>(null);
+  let containerRef = $state<HTMLElement | null>(null);
 
   $effect(() => {
     if (!containerRef)
@@ -28,7 +32,7 @@
   style="perspective: 1200px;"
 >
   <AboutImage
-    {screenshotAlt}
+    {lang}
     bind:containerRef
   />
 </div>

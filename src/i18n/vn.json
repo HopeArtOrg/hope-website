@@ -27,18 +27,33 @@
   },
   "about": {
     "heading": "Hope:Re là gì?",
-    "description1": "Hope:Re là công cụ <strong>mã nguồn mở</strong> <strong>bảo vệ tác phẩm nghệ thuật của bạn</strong> khỏi việc bị AI học và bắt chước phong cách trái phép.",
-    "description2": "Ứng dụng áp dụng <strong>nhiễu loạn đối kháng vô hình</strong> lên hình ảnh, khiến các hệ thống AI tạo sinh <strong>không thể</strong> học hỏi hoặc tái tạo phong cách độc đáo của bạn mà không có sự đồng ý.",
+    "description1": "Hope:Re là một <strong>công cụ mã nguồn mở miễn phí</strong> giúp bảo vệ tranh vẽ của bạn khỏi bị quét dữ liệu, huấn luyện AI hoặc sao chép phong cách trái phép.",
+    "description2": "Nói một cách đơn giản, ứng dụng sẽ thêm <strong>những thay đổi vô hình</strong> (nhiễu đối kháng) và một <strong>chữ ký ẩn</strong> chống cắt xén/nén ảnh (qua <a href=\"https://github.com/guofei9987/blind_watermark\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline hover:text-foreground transition-colors\">blind_watermark</a>) vào tranh vẽ. Điều này giúp giữ an toàn cho phong cách vẽ của bạn và bảo vệ quyền sở hữu của bạn một cách dễ dàng nhất.",
     "cta": "Tìm hiểu thêm",
-    "screenshot": "Ảnh chụp màn hình đầy đủ ứng dụng Hope:Re"
+    "screenshot": "Ảnh chụp màn hình ứng dụng Hope:Re"
   },
   "messageAnimation": {
     "label": "Thông điệp từ Hope Art"
   },
   "demo": {
-    "heading": "Hoạt động như thế nào?",
-    "description": "Hope:Re tích hợp các thuật toán từ <strong>The Glaze Project</strong> (Đại học Chicago) — bao gồm <strong>Glaze</strong>, <strong>Nightshade</strong>, và <strong>Noise</strong> — để tạo ra một lớp nhiễu loạn đối kháng vô hình trên tác phẩm nghệ thuật của bạn, vô hiệu hóa khả năng tái tạo img2img trên hầu hết các mô hình AI tạo sinh.",
-    "courtesy": "Tài sản của"
+    "heading": "Hoạt động ra sao?",
+    "description": "Hope:Re tích hợp các thuật toán từ <strong>The Glaze Project</strong> (Glaze, Nightshade và Noise) để phủ một lớp bảo vệ vô hình lên tranh.<br /><br />Lớp nhiễu này vô hiệu hóa tính năng img2img, ngăn các mô hình AI sao chép hoặc học phong cách nghệ thuật của bạn.",
+    "courtesy": "Tài sản của",
+    "watermarkHeading": "Hoạt động ra sao?",
+    "watermarkDescription": "Hope:Re nhúng một <strong>chữ kí ẩn</strong> vào sâu trong phổ tần số của ảnh (hỗ trợ bởi <a href=\"https://github.com/guofei9987/blind_watermark\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">blind_watermark</a>).<br /><br />Khác với dấu mờ thông thường, chữ kí này <strong>không thể bị phá hủy</strong>—vẫn trích xuất được ngay cả khi ảnh bị cắt xén, nén mạnh hoặc chụp màn hình.",
+    "watermarkLabel": "Đã bảo vệ",
+    "originalLabel": "Ảnh gốc",
+    "triggerEmbed": "Nhúng chữ kí ẩn",
+    "triggerExtract": "Trích xuất chữ ký",
+    "triggerDistort": "Thử phá hủy ảnh",
+    "triggerReset": "Thử lại từ đầu",
+    "stateEmbedding": "Đang nhúng...",
+    "stateExtracting": "Đang trích xuất...",
+    "watermarkMethodDwt": "DWT (Sóng nhỏ)",
+    "watermarkMethodDct": "DCT (Cosin)",
+    "watermarkMethodSvd": "SVD (Phân tích giá trị)",
+    "prevSlide": "Slide trước",
+    "nextSlide": "Slide sau"
   },
   "author": {
     "heading": "Tác giả",

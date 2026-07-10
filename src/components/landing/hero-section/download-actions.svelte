@@ -1,8 +1,8 @@
 <script lang="ts" module>
+  import type { Locale } from "@/i18n/ui";
+
   export type DownloadActionsProps = {
-    downloadLabel: string;
-    downloadForLabel: string;
-    githubLabel: string;
+    lang: Locale;
   };
 </script>
 
@@ -17,14 +17,12 @@
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu";
+  import { useTranslations } from "@/i18n/utils";
   import { detectPlatform, GITHUB_REPO, GITHUB_REPO_URL, platforms } from "@/lib/constants";
   import { cn } from "@/lib/utils";
 
-  const {
-    downloadLabel,
-    downloadForLabel,
-    githubLabel,
-  }: DownloadActionsProps = $props();
+  const { lang = "vn" }: DownloadActionsProps = $props();
+  const t = (key: any) => useTranslations(lang)(key);
 
   let starCount = $state<number | null>(null);
   let downloadOpen = $state(false);
@@ -63,7 +61,7 @@
       target="_blank"
       rel="noopener noreferrer"
       class="rounded-r-none gap-2"
-      aria-label={detectedPlatform ? `${downloadForLabel} ${detectedPlatform.name}` : downloadLabel}
+      aria-label={detectedPlatform ? `${t("hero.downloadFor")} ${detectedPlatform.name}` : t("hero.download")}
       onclick={detectedPlatform ? undefined : () => { downloadOpen = !downloadOpen; }}
     >
       <Icon
@@ -71,10 +69,10 @@
         class=":uno: size-4"
       />
       {#if detectedPlatform}
-        {downloadForLabel} {detectedPlatform.name}
+        {t("hero.downloadFor")} {detectedPlatform.name}
         <span class=":uno: text-primary-foreground/70 font-mono">{detectedPlatform.arch}</span>
       {:else}
-        {downloadLabel}
+        {t("hero.download")}
       {/if}
     </Button>
     <DropdownMenu bind:open={downloadOpen}>
@@ -122,13 +120,13 @@
     target="_blank"
     rel="noopener noreferrer"
     class="gap-2"
-    aria-label={githubLabel}
+    aria-label={t("hero.github")}
   >
     <Icon
       icon="lucide:github"
       class=":uno: size-4"
     />
-    {githubLabel}
+    {t("hero.github")}
     {#if starCount !== null}
       <span class=":uno: text-muted-foreground pl-2 border-l border-border flex gap-1 items-center">
         <Icon

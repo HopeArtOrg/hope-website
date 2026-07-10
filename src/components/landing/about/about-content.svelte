@@ -1,25 +1,25 @@
 <script lang="ts">
+  import type { Locale } from "@/i18n/ui";
+
+  import { useTranslations } from "@/i18n/utils";
+
   import AboutCta from "./about-cta.svelte";
   import AboutHeading from "./about-heading.svelte";
   import { animateDoodleArrows, setupHeadingRipple } from "./animations";
 
   export type AboutContentProps = {
-    heading: string;
-    description1: string;
-    description2: string;
-    ctaLabel: string;
-    ctaHref: string;
+    lang: Locale;
     rightCol?: HTMLDivElement | null;
   };
 
   let {
-    heading,
-    description1,
-    description2,
-    ctaLabel,
-    ctaHref,
+    lang = "vn",
     rightCol = $bindable(null),
   }: AboutContentProps = $props();
+
+  const t = (key: any) => useTranslations(lang)(key);
+  const description1 = $derived(t("about.description1"));
+  const description2 = $derived(t("about.description2"));
 
   let doodleArrow1Ref = $state<HTMLImageElement | null>(null);
   let doodleArrow2Ref = $state<HTMLImageElement | null>(null);
@@ -47,7 +47,7 @@
   class=":uno: text-center flex flex-col invisible items-center order-1 lg:text-left lg:items-start lg:order-2"
 >
   <AboutHeading
-    {heading}
+    {lang}
     bind:headingContainerRef
     bind:headingJpLayerRef
   />
@@ -60,8 +60,7 @@
     {@html description2}
   </p>
   <AboutCta
-    {ctaLabel}
-    {ctaHref}
+    {lang}
     bind:doodleArrow1Ref
     bind:doodleArrow2Ref
     bind:doodleArrow3Ref

@@ -1,16 +1,8 @@
 <script lang="ts" module>
+  import type { Locale } from "@/i18n/ui";
+
   export type AuthorSectionProps = {
-    heading: string;
-    haruyuName: string;
-    haruyuQuote: string;
-    noahName: string;
-    noahQuote: string;
-    githubLabel: string;
-    vgenLabel: string;
-    facebookLabel: string;
-    portfolioLabel: string;
-    prevSlideLabel: string;
-    nextSlideLabel: string;
+    lang: Locale;
   };
 </script>
 
@@ -18,7 +10,6 @@
   import Icon from "@iconify/svelte";
 
   import type { CarouselAPI } from "@/components/ui/carousel/context";
-  import type { AuthorSocialLink } from "@/lib/constants";
 
   import {
     Carousel,
@@ -27,35 +18,16 @@
   } from "@/components/ui/carousel";
   import { CornerBrackets } from "@/components/ui/corner-brackets";
   import { DefinitionPanel } from "@/components/ui/definition-panel";
+  import { useTranslations } from "@/i18n/utils";
   import { animateScrollReveal } from "@/lib/animation-utils";
-  import { HARUYU_LINKS, NOAH_LINKS } from "@/lib/constants";
 
   import AuthorSlide from "./author-slide.svelte";
 
-  const {
-    heading,
-    haruyuName,
-    haruyuQuote,
-    noahName,
-    noahQuote,
-    githubLabel,
-    vgenLabel,
-    facebookLabel,
-    portfolioLabel,
-    prevSlideLabel,
-    nextSlideLabel,
-  }: AuthorSectionProps = $props();
+  const { lang = "vn" }: AuthorSectionProps = $props();
+  const t = (key: any) => useTranslations(lang)(key);
 
-  const labelMap: Record<string, string> = $derived({
-    "author.github": githubLabel,
-    "author.vgen": vgenLabel,
-    "author.facebook": facebookLabel,
-    "author.portfolio": portfolioLabel,
-  });
-
-  function resolveLabel(link: AuthorSocialLink): string {
-    return labelMap[link.labelKey] ?? link.labelKey;
-  }
+  const haruyuName = $derived(t("author.haruyuName"));
+  const noahName = $derived(t("author.noahName"));
 
   let sectionEl = $state<HTMLElement | null>(null);
   let definitionRef = $state<HTMLDivElement | null>(null);
@@ -125,12 +97,8 @@
       <CarouselContent>
         <CarouselItem aria-label="Slide 1 of 2: {haruyuName}">
           <AuthorSlide
-            {heading}
-            name={haruyuName}
-            quote={haruyuQuote}
-            links={HARUYU_LINKS}
-            {resolveLabel}
-            slideLabel="Profile of {haruyuName}"
+            {lang}
+            authorKey="haruyu"
           >
             {#snippet frontImage()}
               <enhanced:img
@@ -153,12 +121,8 @@
 
         <CarouselItem aria-label="Slide 2 of 2: {noahName}">
           <AuthorSlide
-            {heading}
-            name={noahName}
-            quote={noahQuote}
-            links={NOAH_LINKS}
-            {resolveLabel}
-            slideLabel="Profile of {noahName}"
+            {lang}
+            authorKey="noah"
           >
             {#snippet frontImage()}
               <enhanced:img
@@ -186,7 +150,7 @@
           class=":uno: text-muted-foreground border border-border/50 rounded-full inline-flex size-12 cursor-pointer transition-colors duration-200 items-center justify-center hover:text-foreground hover:border-border disabled:opacity-50 sm:size-10 disabled:pointer-events-none"
           onclick={() => carouselApi?.scrollPrev()}
           disabled={!carouselApi?.canScrollPrev()}
-          aria-label={prevSlideLabel}
+          aria-label={t("author.prevSlide")}
         >
           <Icon icon="lucide:arrow-left" class=":uno: size-5 sm:size-4" />
         </button>
@@ -195,7 +159,7 @@
           class=":uno: text-muted-foreground border border-border/50 rounded-full inline-flex size-12 cursor-pointer transition-colors duration-200 items-center justify-center hover:text-foreground hover:border-border disabled:opacity-50 sm:size-10 disabled:pointer-events-none"
           onclick={() => carouselApi?.scrollNext()}
           disabled={!carouselApi?.canScrollNext()}
-          aria-label={nextSlideLabel}
+          aria-label={t("author.nextSlide")}
         >
           <Icon icon="lucide:arrow-right" class=":uno: size-5 sm:size-4" />
         </button>

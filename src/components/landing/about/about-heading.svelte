@@ -1,6 +1,8 @@
 <script lang="ts" module>
+  import type { Locale } from "@/i18n/ui";
+
   export type AboutHeadingProps = {
-    heading: string;
+    lang: Locale;
     headingContainerRef?: HTMLDivElement | null;
     headingJpLayerRef?: HTMLSpanElement | null;
   };
@@ -8,14 +10,18 @@
 
 <script lang="ts">
   import { StarIcon } from "@/components/icons";
+  import { useTranslations } from "@/i18n/utils";
 
   import { tiltCornerStar } from "./animations";
 
   let {
-    heading,
+    lang = "vn",
     headingContainerRef = $bindable(null),
     headingJpLayerRef = $bindable(null),
   }: AboutHeadingProps = $props();
+
+  const t = (key: any) => useTranslations(lang)(key);
+  const heading = $derived(t("about.heading"));
 
   let cornerStarEl = $state<HTMLButtonElement | null>(null);
 </script>

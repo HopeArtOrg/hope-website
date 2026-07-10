@@ -1,15 +1,11 @@
 <script lang="ts" module>
   import type { Snippet } from "svelte";
 
-  import type { AuthorSocialLink } from "@/lib/constants";
+  import type { Locale } from "@/i18n/ui";
 
   export type AuthorSlideProps = {
-    heading: string;
-    name: string;
-    quote: string;
-    links: AuthorSocialLink[];
-    resolveLabel: (link: AuthorSocialLink) => string;
-    slideLabel: string;
+    lang: Locale;
+    authorKey: "haruyu" | "noah";
     frontImage: Snippet;
     backImage: Snippet;
   };
@@ -17,6 +13,9 @@
 
 <script lang="ts">
   import Icon from "@iconify/svelte";
+
+  import { useTranslations } from "@/i18n/utils";
+  import { HARUYU_LINKS, NOAH_LINKS } from "@/lib/constants";
 
   import {
     createShuffleState,
@@ -26,20 +25,24 @@
   } from "./animations";
 
   const {
-    heading,
-    name,
-    quote,
-    links,
-    resolveLabel,
-    slideLabel,
+    lang = "vn",
+    authorKey,
     frontImage,
     backImage,
   }: AuthorSlideProps = $props();
 
+  const t = (key: any) => useTranslations(lang)(key);
+
+  const name = $derived(authorKey === "haruyu" ? t("author.haruyuName") : t("author.noahName"));
+  const quote = $derived(authorKey === "haruyu" ? t("author.haruyuQuote") : t("author.noahQuote"));
+  const heading = $derived(t("author.heading"));
+  const slideLabel = $derived(name);
+
+  const links = $derived(authorKey === "haruyu" ? HARUYU_LINKS : NOAH_LINKS);
   const resolvedLinks = $derived(
     links.map(link => ({
       ...link,
-      resolvedLabel: resolveLabel(link),
+      resolvedLabel: t(link.labelKey as any),
     })),
   );
 

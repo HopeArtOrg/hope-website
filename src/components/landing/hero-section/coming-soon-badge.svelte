@@ -1,17 +1,22 @@
 <script lang="ts" module>
+  import type { Locale } from "@/i18n/ui";
+
   export type ComingSoonBadgeProps = {
-    label: string;
+    lang: Locale;
   };
 </script>
 
 <script lang="ts">
   import Icon from "@iconify/svelte";
 
-  const { label }: ComingSoonBadgeProps = $props();
+  import { useTranslations } from "@/i18n/utils";
+
+  const { lang = "vn" }: ComingSoonBadgeProps = $props();
+  const t = (key: any) => useTranslations(lang)(key);
 </script>
 
 <div class=":uno: text-sm text-muted-foreground mt-8 flex gap-2 items-center sm:text-base sm:mt-12">
-  <span>{label}</span>
+  <span>{t("hero.comingSoon")}</span>
   <Icon
     icon="cib:apple"
     class=":uno: size-4 sm:size-5"
