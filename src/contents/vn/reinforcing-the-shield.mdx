@@ -1,0 +1,92 @@
+---
+title: "Gia Cố Lá Chắn: Các Cập Nhật Từ Cộng Đồng Và Thắt Chặt Kiến Trúc"
+description: "Cái nhìn chi tiết về các cải tiến bảo mật, hiệu năng và bản địa hóa trong Hope:RE v2.3.0 đến v2.5.0, được định hình bởi cộng đồng nhà phát triển."
+publishDate: 2026-07-16
+---
+
+# Gia Cố Lá Chắn: Các Cập Nhật Từ Cộng Đồng Và Thắt Chặt Kiến Trúc
+
+Phần mềm được thiết kế để bảo vệ kỹ thuật số cần phải bền bỉ cả trong lý thuyết lẫn triển khai thực tế. Đối với Hope:RE, công cụ bảo vệ tác phẩm của nghệ sĩ khỏi việc bị thu thập và sao chép phong cách bởi AI, điều này đòi hỏi ứng dụng máy tính phải nhanh, an toàn và dễ tiếp cận.
+
+Gần đây, cộng đồng nhà đóng góp của chúng tôi đã giải quyết một loạt các yêu cầu kéo (pull request) quan trọng từ PR #93 đến #98. Những thay đổi này đánh dấu một cột mốc lớn: đưa Hope:RE từ một bản viết lại thử nghiệm trở thành một công cụ máy tính hoàn chỉnh và an toàn. Chúng tôi xin bày tỏ lòng biết ơn sâu sắc nhất tới các nhà phát triển đóng góp tích cực, [kiensony](https://github.com/kiensony) và [Coder-Blue](https://github.com/Coder-Blue) (tôi), những người đã cống hiến chuyên môn kỹ thuật để hoàn thiện phiên bản này.
+
+Dưới đây là phân tích kỹ thuật về những gì đã được giải quyết, lý do thực hiện và cách chúng cải thiện ứng dụng.
+
+### Phòng Thủ Không Biên Giới: Bản Địa Hóa Không Phụ Thuộc Thư Viện Ngoài (PR #94, #95, #97)
+
+Nghệ thuật không có ranh giới, và các công cụ bảo vệ nghệ thuật cũng vậy. Trong các PR #94, #95 và #97, một nỗ lực bản địa hóa lớn đã được hoàn thành để hỗ trợ bốn ngôn ngữ: Tiếng Anh, Tiếng Việt, Tiếng Nhật và Tiếng Trung.
+
+-   [kiensony](https://github.com/kiensony) (PR #94, #95) đã thiết kế và xây dựng lớp cốt lõi bản địa hóa (i18n) nhẹ, không phụ thuộc thư viện ngoài. Thay vì thêm một thư viện cồng kềnh, lớp tùy chỉnh này tích hợp trực tiếp với các Svelte 5 state runes, giúp giảm thiểu tối đa dung lượng bộ nhớ. Họ cũng thiết kế lại trình chuyển đổi ngôn ngữ trên thanh tiêu đề để đồng bộ trực quan với các nút chuyển chủ đề và thông tin hệ thống.
+-   [Coder-Blue](https://github.com/Coder-Blue) (tôi) (PR #97) đã thúc đẩy việc triển khai giao diện hoàn chỉnh, dịch thuật và thiết lập mọi nhãn hiển thị, nút bấm cũng như phần mô tả trên tất cả các thành phần giao diện, mang lại trải nghiệm bản địa hóa liền mạch.
+
+Bằng cách tránh các thư viện phụ thuộc nặng nề, dung lượng mã nguồn của webview được giữ ở mức cực kỳ gọn nhẹ, tôn trọng giới hạn bộ nhớ và dung lượng ổ cứng của người dùng trong khi mở rộng khả năng tiếp cận toàn cầu.
+
+### Thắt Chặt Bảo Mật: Bảo Vệ Ranh Giới Webview Và Backend (PR #93)
+
+Các ứng dụng máy tính xây dựng trên Tauri chạy giao diện web trong một webview hệ thống và giao tiếp với backend Rust nguyên bản. Ranh giới này là mục tiêu hàng đầu trong các đợt kiểm tra bảo mật. PR #93, do [kiensony](https://github.com/kiensony) chủ trì, giải quyết ba vấn đề lớn về bảo mật và cô lập:
+
+1.  **Tích hợp DOMPurify**: Ứng dụng tự động kiểm tra các bản cập nhật mới qua một tệp cấu hình và hiển thị ghi chú bằng markdown. Để loại bỏ nguy cơ chèn mã độc HTML/script từ máy chủ cập nhật bị xâm nhập, chúng tôi đã tích hợp gói `dompurify` để làm sạch tất cả ghi chú phiên bản trước khi hiển thị.
+2.  **Loại bỏ các lệnh Tauri không an toàn**: Lệnh `create_ort_session` không còn sử dụng đã được gỡ bỏ. Lệnh này từng cho phép webview truyền các đường dẫn tệp tùy ý, gây ra rủi ro duyệt thư mục hệ thống và rò rỉ dữ liệu.
+3.  **Sửa đổi máy chủ cập nhật**: Địa chỉ kiểm tra cập nhật đã được chuyển về tổ chức chính thức `HopeArtOrg` thay vì các kho lưu trữ tạm thời, ngăn chặn việc giả mạo bản cập nhật.
+
+---
+
+### Phân Tích Sâu: Rò Rỉ Bộ Nhớ Và Gia Cố Động Cơ (PR #93)
+
+Trong các phiên bản đầu của bản viết lại bằng Rust, backend đã gặp phải các vấn đề nghiêm trọng về quản lý bộ nhớ và đồng thời (concurrency). Khi xử lý các khung ảnh lớn và các tensor nhiều chiều, các lỗi tiềm ẩn trong mã máy (native code) không chỉ làm chậm hệ thống mà còn gây ra các vụ sập ứng dụng nghiêm trọng.
+
+#### 1. Lỗi Sử Dụng Bộ Nhớ Sau Khi Giải Phóng (Use-After-Free) Và `STATUS_ACCESS_VIOLATION`
+Khi biên dịch logic làm nhiễu đối kháng SPSA (Simultaneous Perturbation Stochastic Approximation) trong Rust, chúng ta liên kết với thư viện C++ ONNX Runtime. Nếu Rust truyền một con trỏ vùng đệm pixel ảnh cho ONNX, nhưng vòng đời (lifetime) của vùng đệm này kết thúc hoặc bị di chuyển trước khi phiên suy luận bất đồng bộ (`session.run()`) hoàn thành, nó sẽ dẫn đến lỗi **use-after-free**.
+
+Trong các môi trường chạy mã máy, vi phạm an toàn bộ nhớ này sẽ kích hoạt lỗi truy cập nghiêm trọng `STATUS_ACCESS_VIOLATION` (segmentation fault). Vì Tauri ánh xạ các lỗi sập luồng (panic/abort) của Rust thành việc dừng ứng dụng ngay lập tức, cửa sổ ứng dụng sẽ bị đóng băng hoặc chuyển sang màu trắng xóa mà không hiển thị bất kỳ thông báo lỗi nào. Đối với nghệ sĩ đã dành hàng chục phút để xử lý tác phẩm độ phân giải cao, lỗi sập đột ngột này đồng nghĩa với việc mất toàn bộ tiến trình.
+
+Chúng tôi đã khắc phục lỗi này bằng cách đóng gói việc tạo tensor hình ảnh ngay trong các trình chạy mô hình Glaze và Nightshade, sử dụng các lát cắt được đóng hộp (boxed slices) để quản lý rõ ràng quyền sở hữu dữ liệu và ghim các vùng đệm trong bộ nhớ nhằm đảm bảo tính hợp lệ của chúng trong suốt vòng đời của phiên ONNX.
+
+#### 2. Rò Rỉ Bộ Nhớ Khi Hủy Tác Vụ Trong Nền
+Một vấn đề lớn khác là an toàn luồng khi hủy tác vụ. Khi người dùng nhấp vào nút "Hủy" tiến trình bảo vệ trong giao diện Svelte, giao diện người dùng sẽ lập tức thiết lập lại. Tuy nhiên, luồng Rust chạy ngầm thực hiện các vòng lặp tối ưu hóa SPSA nặng nề vẫn tiếp tục chạy ẩn.
+
+Nếu người dùng bắt đầu lại tiến trình bảo vệ, ứng dụng sẽ sinh ra luồng SPSA thứ hai song song. Điều này dẫn đến sự bùng nổ số lượng luồng và **rò rỉ VRAM/RAM nghiêm trọng**, nhanh chóng gây đóng băng toàn bộ hệ thống hoặc sập ứng dụng do tràn bộ nhớ (Out-of-Memory).
+
+Chúng tôi đã chèn các kiểm tra hủy tác vụ an toàn luồng bằng `AtomicBool` bên trong tất cả các vòng lặp nội bộ. Hiện tại, khi người dùng nhấp hủy, luồng ngầm sẽ dừng lại ngay lập tức, các bộ hẹn giờ đặt lại được dọn sạch và bộ nhớ được giải phóng ngay.
+
+---
+
+### Tích Hợp GPU: Cầu Nối Giữa Tăng Tốc Phần Cứng Và Sự Ổn Định
+
+Các thuật toán làm nhiễu đối kháng đòi hỏi hàng trăm lượt suy luận mô hình trên mỗi hình ảnh. Việc chạy các thuật toán này trên CPU là một nút thắt cổ chai lớn về hiệu năng: một tiến trình chỉ mất chưa đầy 30 giây trên GPU có thể kéo dài hơn 30 phút trên CPU. Điều này làm quá tải các nhân CPU, tăng nhiệt độ máy, vắt kiệt pin máy tính xách tay và làm giảm nghiêm trọng trải nghiệm người dùng.
+
+Tuy nhiên, việc tích hợp tăng tốc GPU trên các môi trường khách nhau (NVIDIA CUDA, macOS CoreML, Windows DirectML) từng gây ra các vấn đề mất ổn định nghiêm trọng:
+
+-   **Xung Đột DirectML**: Trên Windows, nhà cung cấp thực thi DirectML của ONNX Runtime gặp lỗi sập `STATUS_ACCESS_VIOLATION` liên tục do xung đột với đường ống trình điều khiển đồ họa. Để đảm bảo tính ổn định, chúng tôi chọn giải pháp rút lui về suy luận CPU/CUDA trên Windows, trong khi vẫn giữ kích hoạt tăng tốc GPU trên các nền tảng khác.
+-   **Lỗi Phân Tích Giao Diện GPU Trên Mac**: Trên macOS, việc phân tích sai các nhà cung cấp thực thi hệ thống đã khiến ứng dụng tự động chuyển về chế độ CPU mặc dù chip Apple Silicon có sẵn nhân xử lý trí tuệ nhân tạo Neural Engine. Chúng tôi đã thắt chặt logic phân tích để đảm bảo CoreML được nhận diện chính xác.
+-   **Cấu Hình Nhà Cung Cấp Thực Thi**: Chúng tôi tách biệt mã cấu hình nhà cung cấp thực thi giữa Linux và Android, đồng thời thêm một khai báo `cancel_protection` tượng trưng để ngăn ngừa lỗi biên dịch đặc thù trên từng nền tảng.
+
+Bằng cách khắc phục những lỗi ẩn này, Hope:RE hiện tại có thể khai thác sức mạnh tăng tốc phần cứng một cách an toàn ở những nơi ổn định, và tự động chuyển về xử lý CPU không lỗi ở những hệ thống có trình điều khiển đồ họa không lường trước được.
+
+### Hệ Lụy Thực Tế: Tại Sao Những Lỗi Này Lại Nguy Hiểm
+
+Các lỗi ngầm dưới tầng mã máy không chỉ là vấn đề lý thuyết trên dòng lệnh; chúng gây ra những tác động tiêu cực trực tiếp đến cả nghệ sĩ sử dụng ứng dụng lẫn nhà phát triển duy trì dự án.
+
+#### Đối với Nhà Phát Triển:
+- **Hố Sâu Thử Nghiệm**: Các lỗi an toàn bộ nhớ như use-after-free hoạt động không xác định. Chúng có thể vượt qua các bài kiểm tra nội bộ nhưng lại làm sập ứng dụng dưới các áp lực bộ nhớ khác nhau trên máy của người dùng. Vì lỗi truy cập vùng nhớ (`STATUS_ACCESS_VIOLATION`) kích hoạt lệnh dừng tức thì từ hệ điều hành, chúng không để lại bất kỳ nhật ký (log) hay vết ngăn xếp (stack trace) nào, khiến việc dò lỗi trở nên vô cùng gian nan.
+- **Quá Tải Hỗ Trợ**: Những lỗi sập ứng dụng trong im lặng dẫn đến các báo cáo lỗi không rõ ràng (ví dụ: "cửa sổ bỗng dưng trắng xóa"). Điều này làm ngập lụt kho lưu trữ mã nguồn mở với những khiếu nại mơ hồ, tiêu tốn thời gian lẽ ra có thể dùng để phát triển tính năng mới.
+- **Nguy Cơ Bảo Mật**: Lỗi bộ nhớ như use-after-free là điểm yếu bảo mật tiềm ẩn. Việc gia cố ranh giới này giúp bảo vệ ứng dụng khỏi các hành vi khai thác bộ nhớ độc hại.
+
+#### Đối với Người Dùng (Nghệ Sĩ):
+- **Phá Hủy Tiến Trình Công Việc**: Việc tối ưu hóa SPSA trên các khung vẽ lớn đòi hỏi thời gian. Một cú sập ứng dụng đột ngột khi tiến trình đã chạy được 90% buộc nghệ sĩ phải làm lại từ đầu, phá hỏng mạch cảm xúc sáng tạo.
+- **Mất Ổn Định Hệ Thống**: Rò rỉ luồng chạy ngầm vắt kiệt RAM và VRAM của hệ điều hành. Sự thiếu hụt này có thể làm treo toàn bộ máy tính hoặc làm sập các phần mềm vẽ tranh đang mở khác như Photoshop hay Krita.
+- **Hao Mòn Phần Cứng**: Việc ép buộc xử lý bằng CPU do tích hợp GPU bị lỗi khiến các nhân xử lý phải chạy hết công suất 100% trong hơn 30 phút, gây ra lượng nhiệt cực lớn, tiếng quạt rú ga và làm giảm nhanh tuổi thọ pin của các thiết bị di động.
+
+---
+
+### Cơ Cấu Cho Tương Lai: Hạ Tầng Cho Nhà Phát Triển (PR #98)
+
+Một mã nguồn an toàn phải là một mã nguồn dễ đọc và dễ bảo trì. Trong PR #98, [kiensony](https://github.com/kiensony) tái cấu trúc toàn bộ tài liệu kỹ thuật của dự án thành các tài liệu chuyên biệt:
+
+-   `CODEBASE.md`: Sơ đồ kiến trúc, cấu trúc dự án và quy trình xử lý mô hình ONNX.
+-   `CONTRIBUTE.md`: Hướng dẫn thiết lập môi trường, kiểm tra mã nguồn và quy trình phát hành.
+-   `CODING_CONVENTION.md`: Quy chuẩn viết mã cho TypeScript, Svelte 5 và Rust.
+
+Ngoài ra, họ đã chuyển đổi quy trình CI/CD sang cơ chế kích hoạt bằng thẻ phiên bản (tag-driven release). Việc đẩy một thẻ phiên bản Git chuẩn (SemVer) giờ đây sẽ tự động chạy ma trận biên dịch đa nền tảng, đóng gói và tải các bản cài đặt an toàn trực tiếp lên GitHub.
+
+Thông qua sự hợp tác nguồn mở, Hope:RE tiếp tục mang lại cho các nghệ sĩ một lá chắn bảo vệ minh bạch, hiệu năng cao và an toàn. Chúng tôi khuyến khích các nhà sáng tạo cập nhật phiên bản mới nhất để thụ hưởng các cải tiến về bảo mật và độ ổn định này.
