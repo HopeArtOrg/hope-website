@@ -8,7 +8,7 @@ publishDate: 2026-07-16
 
 Phần mềm được thiết kế để bảo vệ kỹ thuật số cần phải bền bỉ cả trong lý thuyết lẫn triển khai thực tế. Đối với Hope:RE, công cụ bảo vệ tác phẩm của nghệ sĩ khỏi việc bị thu thập và sao chép phong cách bởi AI, điều này đòi hỏi ứng dụng máy tính phải nhanh, an toàn và dễ tiếp cận.
 
-Gần đây, cộng đồng nhà đóng góp của chúng tôi đã giải quyết một loạt các yêu cầu kéo (pull request) quan trọng từ PR #93 đến #98. Những thay đổi này đánh dấu một cột mốc lớn: đưa Hope:RE từ một bản viết lại thử nghiệm trở thành một công cụ máy tính hoàn chỉnh và an toàn. Chúng tôi xin bày tỏ lòng biết ơn sâu sắc nhất tới các nhà phát triển đóng góp tích cực, **kiensony** và **Coder-Blue**, những người đã cống hiến chuyên môn kỹ thuật để hoàn thiện phiên bản này.
+Gần đây, cộng đồng nhà đóng góp của chúng tôi đã giải quyết một loạt các yêu cầu kéo (pull request) quan trọng từ PR #93 đến #98. Những thay đổi này đánh dấu một cột mốc lớn: đưa Hope:RE từ một bản viết lại thử nghiệm trở thành một công cụ máy tính hoàn chỉnh và an toàn. Chúng tôi xin bày tỏ lòng biết ơn sâu sắc nhất tới các nhà phát triển đóng góp tích cực, [kiensony](https://github.com/kiensony) và [Coder-Blue](https://github.com/Coder-Blue) (tôi), những người đã cống hiến chuyên môn kỹ thuật để hoàn thiện phiên bản này.
 
 Dưới đây là phân tích kỹ thuật về những gì đã được giải quyết, lý do thực hiện và cách chúng cải thiện ứng dụng.
 
@@ -16,14 +16,14 @@ Dưới đây là phân tích kỹ thuật về những gì đã được giải
 
 Nghệ thuật không có ranh giới, và các công cụ bảo vệ nghệ thuật cũng vậy. Trong các PR #94, #95 và #97, một nỗ lực bản địa hóa lớn đã được hoàn thành để hỗ trợ bốn ngôn ngữ: Tiếng Anh, Tiếng Việt, Tiếng Nhật và Tiếng Trung.
 
--   **kiensony** (PR #94, #95) đã thiết kế và xây dựng lớp cốt lõi bản địa hóa (i18n) nhẹ, không phụ thuộc thư viện ngoài. Thay vì thêm một thư viện cồng kềnh, lớp tùy chỉnh này tích hợp trực tiếp với các Svelte 5 state runes, giúp giảm thiểu tối đa dung lượng bộ nhớ. Họ cũng thiết kế lại trình chuyển đổi ngôn ngữ trên thanh tiêu đề để đồng bộ trực quan với các nút chuyển chủ đề và thông tin hệ thống.
--   **Coder-Blue** (PR #97) đã thúc đẩy việc triển khai giao diện hoàn chỉnh, dịch thuật và thiết lập mọi nhãn hiển thị, nút bấm cũng như phần mô tả trên tất cả các thành phần giao diện, mang lại trải nghiệm bản địa hóa liền mạch.
+-   [kiensony](https://github.com/kiensony) (PR #94, #95) đã thiết kế và xây dựng lớp cốt lõi bản địa hóa (i18n) nhẹ, không phụ thuộc thư viện ngoài. Thay vì thêm một thư viện cồng kềnh, lớp tùy chỉnh này tích hợp trực tiếp với các Svelte 5 state runes, giúp giảm thiểu tối đa dung lượng bộ nhớ. Họ cũng thiết kế lại trình chuyển đổi ngôn ngữ trên thanh tiêu đề để đồng bộ trực quan với các nút chuyển chủ đề và thông tin hệ thống.
+-   [Coder-Blue](https://github.com/Coder-Blue) (tôi) (PR #97) đã thúc đẩy việc triển khai giao diện hoàn chỉnh, dịch thuật và thiết lập mọi nhãn hiển thị, nút bấm cũng như phần mô tả trên tất cả các thành phần giao diện, mang lại trải nghiệm bản địa hóa liền mạch.
 
 Bằng cách tránh các thư viện phụ thuộc nặng nề, dung lượng mã nguồn của webview được giữ ở mức cực kỳ gọn nhẹ, tôn trọng giới hạn bộ nhớ và dung lượng ổ cứng của người dùng trong khi mở rộng khả năng tiếp cận toàn cầu.
 
 ### Thắt Chặt Bảo Mật: Bảo Vệ Ranh Giới Webview Và Backend (PR #93)
 
-Các ứng dụng máy tính xây dựng trên Tauri chạy giao diện web trong một webview hệ thống và giao tiếp với backend Rust nguyên bản. Ranh giới này là mục tiêu hàng đầu trong các đợt kiểm tra bảo mật. PR #93, do **kiensony** chủ trì, giải quyết ba vấn đề lớn về bảo mật và cô lập:
+Các ứng dụng máy tính xây dựng trên Tauri chạy giao diện web trong một webview hệ thống và giao tiếp với backend Rust nguyên bản. Ranh giới này là mục tiêu hàng đầu trong các đợt kiểm tra bảo mật. PR #93, do [kiensony](https://github.com/kiensony) chủ trì, giải quyết ba vấn đề lớn về bảo mật và cô lập:
 
 1.  **Tích hợp DOMPurify**: Ứng dụng tự động kiểm tra các bản cập nhật mới qua một tệp cấu hình và hiển thị ghi chú bằng markdown. Để loại bỏ nguy cơ chèn mã độc HTML/script từ máy chủ cập nhật bị xâm nhập, chúng tôi đã tích hợp gói `dompurify` để làm sạch tất cả ghi chú phiên bản trước khi hiển thị.
 2.  **Loại bỏ các lệnh Tauri không an toàn**: Lệnh `create_ort_session` không còn sử dụng đã được gỡ bỏ. Lệnh này từng cho phép webview truyền các đường dẫn tệp tùy ý, gây ra rủi ro duyệt thư mục hệ thống và rò rỉ dữ liệu.
@@ -31,7 +31,7 @@ Các ứng dụng máy tính xây dựng trên Tauri chạy giao diện web tron
 
 ### Độ Bền Và An Toàn Bộ Nhớ Trong Động Cơ Rust/ONNX (PR #93)
 
-Trọng tâm của Hope:RE là ONNX Runtime, được truy cập thông qua thư viện Rust `ort`. Việc chạy các phép toán ma trận nặng (như SPSA và thuật toán làm nhiễu đối kháng) trên hình ảnh đòi hỏi sự ổn định và an toàn bộ nhớ tuyệt đối. Trong PR #93, **kiensony** đã thực hiện nhiều sửa đổi quan trọng cho động cơ xử lý:
+Trọng tâm của Hope:RE là ONNX Runtime, được truy cập thông qua thư viện Rust `ort`. Việc chạy các phép toán ma trận nặng (như SPSA và thuật toán làm nhiễu đối kháng) trên hình ảnh đòi hỏi sự ổn định và an toàn bộ nhớ tuyệt đối. Trong PR #93, [kiensony](https://github.com/kiensony) đã thực hiện nhiều sửa đổi quan trọng cho động cơ xử lý:
 
 -   **Giới hạn giá trị đầu vào**: Các tham số đầu vào như epsilon và cường độ nhiễu hiện được kiểm tra nghiêm ngặt để tránh các giá trị âm nhằm ngăn chặn luồng xử lý CPU/GPU bị lỗi dẫn đến sập ứng dụng.
 -   **Hủy tác vụ an toàn luồng**: Vòng lặp tối ưu hóa SPSA hiện thực hiện kiểm tra trạng thái thông qua biến an toàn luồng `AtomicBool`. Khi người dùng hủy quá trình bảo vệ, luồng backend sẽ dừng lại ngay lập tức, giải phóng bộ nhớ hệ thống và xóa các bộ hẹn giờ đặt lại đang chờ xử lý.
@@ -42,7 +42,7 @@ Nhờ mô hình quản lý quyền sở hữu bộ nhớ của Rust (ownership m
 
 ### Cơ Cấu Cho Tương Lai: Hạ Tầng Cho Nhà Phát Triển (PR #98)
 
-Một mã nguồn an toàn phải là một mã nguồn dễ đọc và dễ bảo trì. Trong PR #98, **kiensony** tái cấu trúc toàn bộ tài liệu kỹ thuật của dự án thành các tài liệu chuyên biệt:
+Một mã nguồn an toàn phải là một mã nguồn dễ đọc và dễ bảo trì. Trong PR #98, [kiensony](https://github.com/kiensony) tái cấu trúc toàn bộ tài liệu kỹ thuật của dự án thành các tài liệu chuyên biệt:
 
 -   `CODEBASE.md`: Sơ đồ kiến trúc, cấu trúc dự án và quy trình xử lý mô hình ONNX.
 -   `CONTRIBUTE.md`: Hướng dẫn thiết lập môi trường, kiểm tra mã nguồn và quy trình phát hành.
