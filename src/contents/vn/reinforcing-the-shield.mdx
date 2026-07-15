@@ -20,6 +20,7 @@ Nghệ thuật không có ranh giới, và các công cụ bảo vệ nghệ thu
 -   [Coder-Blue](https://github.com/Coder-Blue) (tôi) (PR #97) đã thúc đẩy việc triển khai giao diện hoàn chỉnh, dịch thuật và thiết lập mọi nhãn hiển thị, nút bấm cũng như phần mô tả trên tất cả các thành phần giao diện, mang lại trải nghiệm bản địa hóa liền mạch.
 
 ```typescript
+// src/lib/stores/use-i18n.svelte.ts
 let locale = $state<Locale>(detectLocale());
 
 export function t(key: string, params?: Record<string, string | number>): string {
@@ -64,6 +65,7 @@ Trong các môi trường chạy mã máy, vi phạm an toàn bộ nhớ này s�
 Chúng tôi đã khắc phục lỗi này bằng cách đóng gói việc tạo tensor hình ảnh ngay trong các trình chạy mô hình Glaze và Nightshade, sử dụng các lát cắt được đóng hộp (boxed slices) để quản lý rõ ràng quyền sở hữu dữ liệu và ghim các vùng đệm trong bộ nhớ nhằm đảm bảo tính hợp lệ của chúng trong suốt vòng đời của phiên ONNX:
 
 ```rust
+// src-tauri/src/onnx_integration/protection/algorithms.rs
 pub fn run_noise_model(session: &mut Session, input: &Array4<f32>) -> Result<f32, String> {
     let shape = input.shape();
     let data: Box<[f32]> = input
@@ -92,6 +94,7 @@ Nếu người dùng bắt đầu lại tiến trình bảo vệ, ứng dụng s
 Chúng tôi đã chèn các kiểm tra hủy tác vụ an toàn luồng bằng `AtomicBool` bên trong tất cả các vòng lặp nội bộ. Hiện tại, khi người dùng nhấp hủy, luồng ngầm sẽ dừng lại ngay lập tức, các bộ hẹn giờ đặt lại được dọn sạch và bộ nhớ được giải phóng ngay:
 
 ```rust
+// src-tauri/src/onnx_integration/protection/spsa.rs
 for k in 0..iterations {
     if state.is_cancelled.load(Ordering::SeqCst) {
         return Err("Protection cancelled".to_string());

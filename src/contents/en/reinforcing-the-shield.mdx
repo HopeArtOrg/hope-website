@@ -20,6 +20,7 @@ Art knows no borders, and the tools that protect it should not either. In PR #94
 -   [Coder-Blue](https://github.com/Coder-Blue) (me) (PR #97) drove the comprehensive UI implementation, translating and mapping every user-facing label, button, and description across all components to ensure a seamless, localized experience.
 
 ```typescript
+// src/lib/stores/use-i18n.svelte.ts
 let locale = $state<Locale>(detectLocale());
 
 export function t(key: string, params?: Record<string, string | number>): string {
@@ -64,6 +65,7 @@ In native runtimes, this memory safety violation triggers a `STATUS_ACCESS_VIOLA
 We resolved this by inlining image tensor creation in Glaze and Nightshade model runners, using boxed slices to explicitly manage data ownership and pinning buffers in memory to guarantee their validity throughout the entire lifecycle of the ONNX session:
 
 ```rust
+// src-tauri/src/onnx_integration/protection/algorithms.rs
 pub fn run_noise_model(session: &mut Session, input: &Array4<f32>) -> Result<f32, String> {
     let shape = input.shape();
     let data: Box<[f32]> = input
@@ -92,6 +94,7 @@ If the user then restarted the protection run, the application would spawn a sec
 We introduced thread-safe `AtomicBool` cancellation checks within all inner loops. Now, when a user clicks cancel, the background thread stops instantly, pending reset timers are cleared, and memory is immediately reclaimed:
 
 ```rust
+// src-tauri/src/onnx_integration/protection/spsa.rs
 for k in 0..iterations {
     if state.is_cancelled.load(Ordering::SeqCst) {
         return Err("Protection cancelled".to_string());
