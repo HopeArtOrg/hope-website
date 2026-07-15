@@ -29,16 +29,41 @@ Desktop applications built on Tauri run a web frontend inside a system webview, 
 2.  **Removal of Unsafe Command Surfaces**: The unused `create_ort_session` command was removed. This command accepted arbitrary filesystem paths from the webview, posing a path traversal and file disclosure risk.
 3.  **Updater Endpoint Correction**: The update check endpoint was pointed directly to the official `HopeArtOrg` organization, preventing spoofed update vectors.
 
-### Robustness & Memory Safety in the Rust/ONNX Engine (PR #93)
+---
 
-At the core of Hope:RE is the ONNX Runtime, accessed via the Rust `ort` crate. Running heavy mathematical operations (like SPSA and adversarial perturbations) on images requires absolute memory safety and stability. In PR #93, [kiensony](https://github.com/kiensony) implemented several crucial engine fixes:
+### Deep Dive: Memory Leaks and Engine Hardening (PR #93)
 
--   **Value Clamping**: Input parameters such as epsilon and intensity are now strictly validated and guarded against negative values to prevent tensor operations from panicking the CPU or GPU worker threads.
--   **Cancellation Thread Safety**: SPSA optimization loops now perform thread-safe checks using `AtomicBool`. When a user cancels a protection run, the backend thread stops instantly, clearing pending reset timers and freeing system memory immediately.
--   **Re-entrancy Guards**: Guards were added to stop existing progress listeners before registering new ones, preventing UI state corruption during rapid, repeated clicks.
--   **Resource Cleanup**: Model downloads now implement connection and read timeouts. If a download fails, temporary files are immediately removed, and stale temporary files are swept on startup to prevent disk space bloat.
+In early versions of the Rust rewrite, the backend encountered critical memory management and concurrency issues. When dealing with large image canvases and high-dimensional tensors, hidden bugs in native code do not just slow down the system; they cause catastrophic crashes.
 
-By leveraging Rust's ownership model, we guarantee that the backing memory buffers for image tensors remain valid during asynchronous ONNX inference sessions, eliminating the `STATUS_ACCESS_VIOLATION` issues common in native bindings.
+#### 1. Use-After-Free and `STATUS_ACCESS_VIOLATION`
+When compiling SPSA (Simultaneous Perturbation Stochastic Approximation) perturbation logic in Rust, we interface with the C++ ONNX Runtime. If Rust passes a pointer to an image pixel buffer to ONNX, but that buffer's lifetime ends or is relocated before the asynchronous inference session (`session.run()`) completes, it results in a **use-after-free** error. 
+
+In native runtimes, this memory safety violation triggers a `STATUS_ACCESS_VIOLATION` (segmentation fault). Because Tauri maps Rust panics and segmentation faults to a hard abort, the desktop window would instantly freeze or turn completely blank without showing any error message. For artists who may have spent 20 minutes processing high-resolution artwork, a sudden silent crash meant all progress was lost. 
+
+We resolved this by inlining image tensor creation in Glaze and Nightshade model runners, using boxed slices to explicitly manage data ownership and pinning buffers in memory to guarantee their validity throughout the entire lifecycle of the ONNX session.
+
+#### 2. Background Cancellation Memory Leaks
+Another major issue was cancellation thread safety. When a user clicked "Cancel" on a running protection process in Svelte, the UI would instantly reset. However, the background Rust thread executing the heavy SPSA optimization loops would keep running silently in the background. 
+
+If the user then restarted the protection run, the application would spawn a second parallel SPSA thread. This led to a thread explosion and severe **VRAM/RAM leaks**, quickly causing system-wide freezes or Out-of-Memory (OOM) crashes. 
+
+We introduced thread-safe `AtomicBool` cancellation checks within all inner loops. Now, when a user clicks cancel, the background thread stops instantly, pending reset timers are cleared, and memory is immediately reclaimed.
+
+---
+
+### GPU Integration: Bridging Hardware Acceleration and Stability
+
+Adversarial perturbations require hundreds of model inferences per image. Running these algorithms on CPU is a major performance bottleneck: a process that takes less than 30 seconds on a GPU can take upwards of 30 minutes on a CPU. This locks up CPU cores, increases thermal loads, drains laptop batteries, and degrades the overall user experience.
+
+However, integrating GPU acceleration across diverse client environments (NVIDIA CUDA, macOS CoreML, Windows DirectML) introduced severe stability issues:
+
+-   **DirectML Incompatibility**: On Windows, the ONNX Runtime's DirectML execution provider suffered from persistent `STATUS_ACCESS_VIOLATION` crashes due to graphics driver pipeline conflicts. To safeguard stability, we chose to fallback to stable CPU/CUDA inference on Windows, while keeping GPU acceleration active on other platforms.
+-   **Mac GPU Detection Parsing**: On macOS, incorrect parsing of system execution providers caused the application to default to CPU-only mode despite Apple Silicon's Neural Engine availability. We hardened macOS GPU detection parsing to ensure CoreML is correctly resolved.
+-   **Execution Provider Configurations**: We split the Linux and Android execution-provider configuration code and added a dedicated `cancel_protection` stub to prevent platform-specific build failures.
+
+By resolving these hidden errors, Hope:RE now safely leverages hardware acceleration where stable, and drops back to verified, panic-free CPU execution where drivers are unpredictable.
+
+---
 
 ### Structuring for the Future: Developer Infrastructure (PR #98)
 

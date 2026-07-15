@@ -12,7 +12,7 @@ Gần đây, cộng đồng nhà đóng góp của chúng tôi đã giải quy�
 
 Dưới đây là phân tích kỹ thuật về những gì đã được giải quyết, lý do thực hiện và cách chúng cải thiện ứng dụng.
 
-### Phòng Phòng Thủ Không Biên Giới: Bản Địa Hóa Không Phụ Thuộc Thư Viện Ngoài (PR #94, #95, #97)
+### Phòng Thủ Không Biên Giới: Bản Địa Hóa Không Phụ Thuộc Thư Viện Ngoài (PR #94, #95, #97)
 
 Nghệ thuật không có ranh giới, và các công cụ bảo vệ nghệ thuật cũng vậy. Trong các PR #94, #95 và #97, một nỗ lực bản địa hóa lớn đã được hoàn thành để hỗ trợ bốn ngôn ngữ: Tiếng Anh, Tiếng Việt, Tiếng Nhật và Tiếng Trung.
 
@@ -29,16 +29,41 @@ Các ứng dụng máy tính xây dựng trên Tauri chạy giao diện web tron
 2.  **Loại bỏ các lệnh Tauri không an toàn**: Lệnh `create_ort_session` không còn sử dụng đã được gỡ bỏ. Lệnh này từng cho phép webview truyền các đường dẫn tệp tùy ý, gây ra rủi ro duyệt thư mục hệ thống và rò rỉ dữ liệu.
 3.  **Sửa đổi máy chủ cập nhật**: Địa chỉ kiểm tra cập nhật đã được chuyển về tổ chức chính thức `HopeArtOrg` thay vì các kho lưu trữ tạm thời, ngăn chặn việc giả mạo bản cập nhật.
 
-### Độ Bền Và An Toàn Bộ Nhớ Trong Động Cơ Rust/ONNX (PR #93)
+---
 
-Trọng tâm của Hope:RE là ONNX Runtime, được truy cập thông qua thư viện Rust `ort`. Việc chạy các phép toán ma trận nặng (như SPSA và thuật toán làm nhiễu đối kháng) trên hình ảnh đòi hỏi sự ổn định và an toàn bộ nhớ tuyệt đối. Trong PR #93, [kiensony](https://github.com/kiensony) đã thực hiện nhiều sửa đổi quan trọng cho động cơ xử lý:
+### Phân Tích Sâu: Rò Rỉ Bộ Nhớ Và Gia Cố Động Cơ (PR #93)
 
--   **Giới hạn giá trị đầu vào**: Các tham số đầu vào như epsilon và cường độ nhiễu hiện được kiểm tra nghiêm ngặt để tránh các giá trị âm nhằm ngăn chặn luồng xử lý CPU/GPU bị lỗi dẫn đến sập ứng dụng.
--   **Hủy tác vụ an toàn luồng**: Vòng lặp tối ưu hóa SPSA hiện thực hiện kiểm tra trạng thái thông qua biến an toàn luồng `AtomicBool`. Khi người dùng hủy quá trình bảo vệ, luồng backend sẽ dừng lại ngay lập tức, giải phóng bộ nhớ hệ thống và xóa các bộ hẹn giờ đặt lại đang chờ xử lý.
--   **Tránh xung đột tài nguyên (Re-entrancy)**: Chúng tôi đã thêm các chốt chặn để dừng các trình lắng nghe tiến trình cũ trước khi đăng ký trình lắng nghe mới, tránh làm hỏng trạng thái giao diện khi người dùng nhấp chuột liên tục.
--   **Dọn dẹp tài nguyên**: Quá trình tải mô hình AI hiện tích hợp cơ chế giới hạn thời gian kết nối và đọc dữ liệu. Nếu tải xuống thất bại, các tệp tạm thời sẽ bị xóa ngay, và các tệp tạm cũ sẽ được quét dọn sạch sẽ khi khởi động ứng dụng để tránh làm đầy ổ cứng.
+Trong các phiên bản đầu của bản viết lại bằng Rust, backend đã gặp phải các vấn đề nghiêm trọng về quản lý bộ nhớ và đồng thời (concurrency). Khi xử lý các khung ảnh lớn và các tensor nhiều chiều, các lỗi tiềm ẩn trong mã máy (native code) không chỉ làm chậm hệ thống mà còn gây ra các vụ sập ứng dụng nghiêm trọng.
 
-Nhờ mô hình quản lý quyền sở hữu bộ nhớ của Rust (ownership model), chúng tôi đảm bảo các vùng đệm bộ nhớ cho hình ảnh luôn hợp lệ trong suốt các phiên suy luận ONNX bất đồng bộ, loại bỏ hoàn toàn lỗi truy cập bộ nhớ nghiêm trọng `STATUS_ACCESS_VIOLATION` thường gặp.
+#### 1. Lỗi Sử Dụng Bộ Nhớ Sau Khi Giải Phóng (Use-After-Free) Và `STATUS_ACCESS_VIOLATION`
+Khi biên dịch logic làm nhiễu đối kháng SPSA (Simultaneous Perturbation Stochastic Approximation) trong Rust, chúng ta liên kết với thư viện C++ ONNX Runtime. Nếu Rust truyền một con trỏ vùng đệm pixel ảnh cho ONNX, nhưng vòng đời (lifetime) của vùng đệm này kết thúc hoặc bị di chuyển trước khi phiên suy luận bất đồng bộ (`session.run()`) hoàn thành, nó sẽ dẫn đến lỗi **use-after-free**.
+
+Trong các môi trường chạy mã máy, vi phạm an toàn bộ nhớ này sẽ kích hoạt lỗi truy cập nghiêm trọng `STATUS_ACCESS_VIOLATION` (segmentation fault). Vì Tauri ánh xạ các lỗi sập luồng (panic/abort) của Rust thành việc dừng ứng dụng ngay lập tức, cửa sổ ứng dụng sẽ bị đóng băng hoặc chuyển sang màu trắng xóa mà không hiển thị bất kỳ thông báo lỗi nào. Đối với nghệ sĩ đã dành hàng chục phút để xử lý tác phẩm độ phân giải cao, lỗi sập đột ngột này đồng nghĩa với việc mất toàn bộ tiến trình.
+
+Chúng tôi đã khắc phục lỗi này bằng cách đóng gói việc tạo tensor hình ảnh ngay trong các trình chạy mô hình Glaze và Nightshade, sử dụng các lát cắt được đóng hộp (boxed slices) để quản lý rõ ràng quyền sở hữu dữ liệu và ghim các vùng đệm trong bộ nhớ nhằm đảm bảo tính hợp lệ của chúng trong suốt vòng đời của phiên ONNX.
+
+#### 2. Rò Rỉ Bộ Nhớ Khi Hủy Tác Vụ Trong Nền
+Một vấn đề lớn khác là an toàn luồng khi hủy tác vụ. Khi người dùng nhấp vào nút "Hủy" tiến trình bảo vệ trong giao diện Svelte, giao diện người dùng sẽ lập tức thiết lập lại. Tuy nhiên, luồng Rust chạy ngầm thực hiện các vòng lặp tối ưu hóa SPSA nặng nề vẫn tiếp tục chạy ẩn.
+
+Nếu người dùng bắt đầu lại tiến trình bảo vệ, ứng dụng sẽ sinh ra luồng SPSA thứ hai song song. Điều này dẫn đến sự bùng nổ số lượng luồng và **rò rỉ VRAM/RAM nghiêm trọng**, nhanh chóng gây đóng băng toàn bộ hệ thống hoặc sập ứng dụng do tràn bộ nhớ (Out-of-Memory).
+
+Chúng tôi đã chèn các kiểm tra hủy tác vụ an toàn luồng bằng `AtomicBool` bên trong tất cả các vòng lặp nội bộ. Hiện tại, khi người dùng nhấp hủy, luồng ngầm sẽ dừng lại ngay lập tức, các bộ hẹn giờ đặt lại được dọn sạch và bộ nhớ được giải phóng ngay.
+
+---
+
+### Tích Hợp GPU: Cầu Nối Giữa Tăng Tốc Phần Cứng Và Sự Ổn Định
+
+Các thuật toán làm nhiễu đối kháng đòi hỏi hàng trăm lượt suy luận mô hình trên mỗi hình ảnh. Việc chạy các thuật toán này trên CPU là một nút thắt cổ chai lớn về hiệu năng: một tiến trình chỉ mất chưa đầy 30 giây trên GPU có thể kéo dài hơn 30 phút trên CPU. Điều này làm quá tải các nhân CPU, tăng nhiệt độ máy, vắt kiệt pin máy tính xách tay và làm giảm nghiêm trọng trải nghiệm người dùng.
+
+Tuy nhiên, việc tích hợp tăng tốc GPU trên các môi trường khách nhau (NVIDIA CUDA, macOS CoreML, Windows DirectML) từng gây ra các vấn đề mất ổn định nghiêm trọng:
+
+-   **Xung Đột DirectML**: Trên Windows, nhà cung cấp thực thi DirectML của ONNX Runtime gặp lỗi sập `STATUS_ACCESS_VIOLATION` liên tục do xung đột với đường ống trình điều khiển đồ họa. Để đảm bảo tính ổn định, chúng tôi chọn giải pháp rút lui về suy luận CPU/CUDA trên Windows, trong khi vẫn giữ kích hoạt tăng tốc GPU trên các nền tảng khác.
+-   **Lỗi Phân Tích Giao Diện GPU Trên Mac**: Trên macOS, việc phân tích sai các nhà cung cấp thực thi hệ thống đã khiến ứng dụng tự động chuyển về chế độ CPU mặc dù chip Apple Silicon có sẵn nhân xử lý trí tuệ nhân tạo Neural Engine. Chúng tôi đã thắt chặt logic phân tích để đảm bảo CoreML được nhận diện chính xác.
+-   **Cấu Hình Nhà Cung Cấp Thực Thi**: Chúng tôi tách biệt mã cấu hình nhà cung cấp thực thi giữa Linux và Android, đồng thời thêm một khai báo `cancel_protection` tượng trưng để ngăn ngừa lỗi biên dịch đặc thù trên từng nền tảng.
+
+Bằng cách khắc phục những lỗi ẩn này, Hope:RE hiện tại có thể khai thác sức mạnh tăng tốc phần cứng một cách an toàn ở những nơi ổn định, và tự động chuyển về xử lý CPU không lỗi ở những hệ thống có trình điều khiển đồ họa không lường trước được.
+
+---
 
 ### Cơ Cấu Cho Tương Lai: Hạ Tầng Cho Nhà Phát Triển (PR #98)
 
