@@ -128,6 +128,13 @@ function GridBackground() {
 }
 
 function DefaultOG({ title, description, version }: DefaultOGProps) {
+  const isLongTitle = title.length > 50;
+  const isMediumTitle = title.length > 30 && title.length <= 50;
+  const titleFontSize = isLongTitle ? "36px" : isMediumTitle ? "48px" : "64px";
+  const titleMarginBottom = isLongTitle ? "16px" : "24px";
+  const descFontSize = isLongTitle ? "18px" : "22px";
+  const separatorMarginBottom = isLongTitle ? "16px" : "24px";
+
   return (
     <div
       tw="w-full h-full flex relative overflow-hidden"
@@ -151,7 +158,7 @@ function DefaultOG({ title, description, version }: DefaultOGProps) {
         <CornerFrame position="br" version={version} />
       </div>
 
-      <div tw="flex w-full h-full px-24 py-20 relative z-10">
+      <div tw="flex w-full h-full px-24 py-16 relative z-10">
         <div tw="flex items-center justify-center w-[45%]">
           <StarLogo />
         </div>
@@ -168,27 +175,35 @@ function DefaultOG({ title, description, version }: DefaultOGProps) {
           </div>
 
           <div
-            tw="text-7xl font-bold tracking-tight mb-6"
+            tw="font-bold tracking-tight"
             style={{
               fontFamily: "JetBrains Mono",
               color: zenColors.foreground,
-              lineHeight: 1.1,
+              lineHeight: 1.15,
+              fontSize: titleFontSize,
+              marginBottom: titleMarginBottom,
             }}
           >
             {title}
           </div>
 
           <div
-            tw="mb-8 h-[2px] w-32"
-            style={{ backgroundColor: zenColors.foreground, opacity: 0.15 }}
+            tw="w-32"
+            style={{
+              backgroundColor: zenColors.foreground,
+              opacity: 0.15,
+              height: "2px",
+              marginBottom: separatorMarginBottom,
+            }}
           />
 
           <div
-            tw="text-2xl leading-relaxed"
+            tw="leading-relaxed"
             style={{
               color: zenColors.muted,
-              lineHeight: 1.6,
+              lineHeight: 1.5,
               maxWidth: "500px",
+              fontSize: descFontSize,
             }}
           >
             {description}

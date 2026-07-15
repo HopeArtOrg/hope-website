@@ -19,6 +19,27 @@ Nghệ thuật không có ranh giới, và các công cụ bảo vệ nghệ thu
 -   [kiensony](https://github.com/kiensony) (PR #94, #95) đã thiết kế và xây dựng lớp cốt lõi bản địa hóa (i18n) nhẹ, không phụ thuộc thư viện ngoài. Thay vì thêm một thư viện cồng kềnh, lớp tùy chỉnh này tích hợp trực tiếp với các Svelte 5 state runes, giúp giảm thiểu tối đa dung lượng bộ nhớ. Họ cũng thiết kế lại trình chuyển đổi ngôn ngữ trên thanh tiêu đề để đồng bộ trực quan với các nút chuyển chủ đề và thông tin hệ thống.
 -   [Coder-Blue](https://github.com/Coder-Blue) (tôi) (PR #97) đã thúc đẩy việc triển khai giao diện hoàn chỉnh, dịch thuật và thiết lập mọi nhãn hiển thị, nút bấm cũng như phần mô tả trên tất cả các thành phần giao diện, mang lại trải nghiệm bản địa hóa liền mạch.
 
+```typescript
+let locale = $state<Locale>(detectLocale());
+
+export function t(key: string, params?: Record<string, string | number>): string {
+  let message = resolveMessage(dictionaries[locale], key);
+  if (typeof message !== "string") {
+    message = resolveMessage(dictionaries.en, key);
+  }
+  if (typeof message !== "string") {
+    return key;
+  }
+  if (!params) {
+    return message;
+  }
+  return message.replace(/\{(\w+)\}/g, (match, name: string) => {
+    const value = params[name];
+    return value === undefined ? match : String(value);
+  });
+}
+```
+
 Bằng cách tránh các thư viện phụ thuộc nặng nề, dung lượng mã nguồn của webview được giữ ở mức cực kỳ gọn nhẹ, tôn trọng giới hạn bộ nhớ và dung lượng ổ cứng của người dùng trong khi mở rộng khả năng tiếp cận toàn cầu.
 
 ### Thắt Chặt Bảo Mật: Bảo Vệ Ranh Giới Webview Và Backend (PR #93)
@@ -40,14 +61,56 @@ Khi biên dịch logic làm nhiễu đối kháng SPSA (Simultaneous Perturbatio
 
 Trong các môi trường chạy mã máy, vi phạm an toàn bộ nhớ này sẽ kích hoạt lỗi truy cập nghiêm trọng `STATUS_ACCESS_VIOLATION` (segmentation fault). Vì Tauri ánh xạ các lỗi sập luồng (panic/abort) của Rust thành việc dừng ứng dụng ngay lập tức, cửa sổ ứng dụng sẽ bị đóng băng hoặc chuyển sang màu trắng xóa mà không hiển thị bất kỳ thông báo lỗi nào. Đối với nghệ sĩ đã dành hàng chục phút để xử lý tác phẩm độ phân giải cao, lỗi sập đột ngột này đồng nghĩa với việc mất toàn bộ tiến trình.
 
-Chúng tôi đã khắc phục lỗi này bằng cách đóng gói việc tạo tensor hình ảnh ngay trong các trình chạy mô hình Glaze và Nightshade, sử dụng các lát cắt được đóng hộp (boxed slices) để quản lý rõ ràng quyền sở hữu dữ liệu và ghim các vùng đệm trong bộ nhớ nhằm đảm bảo tính hợp lệ của chúng trong suốt vòng đời của phiên ONNX.
+Chúng tôi đã khắc phục lỗi này bằng cách đóng gói việc tạo tensor hình ảnh ngay trong các trình chạy mô hình Glaze và Nightshade, sử dụng các lát cắt được đóng hộp (boxed slices) để quản lý rõ ràng quyền sở hữu dữ liệu và ghim các vùng đệm trong bộ nhớ nhằm đảm bảo tính hợp lệ của chúng trong suốt vòng đời của phiên ONNX:
+
+```rust
+pub fn run_noise_model(session: &mut Session, input: &Array4<f32>) -> Result<f32, String> {
+    let shape = input.shape();
+    let data: Box<[f32]> = input
+        .iter()
+        .copied()
+        .collect::<Vec<f32>>()
+        .into_boxed_slice();
+    let input_tensor = Tensor::from_array(([shape[0], shape[1], shape[2], shape[3]], data))
+        .map_err(|e| format!("Failed to create input tensor: {}", e))?;
+
+    let outputs = session
+        .run(ort::inputs![input_tensor])
+        .map_err(|e| format!("Failed to run noise model: {}", e))?;
+
+    outputs[0]
+        .try_extract_scalar::<f32>()
+        .map_err(|e| format!("Failed to extract noise model output: {}", e))
+}
+```
 
 #### 2. Rò Rỉ Bộ Nhớ Khi Hủy Tác Vụ Trong Nền
 Một vấn đề lớn khác là an toàn luồng khi hủy tác vụ. Khi người dùng nhấp vào nút "Hủy" tiến trình bảo vệ trong giao diện Svelte, giao diện người dùng sẽ lập tức thiết lập lại. Tuy nhiên, luồng Rust chạy ngầm thực hiện các vòng lặp tối ưu hóa SPSA nặng nề vẫn tiếp tục chạy ẩn.
 
 Nếu người dùng bắt đầu lại tiến trình bảo vệ, ứng dụng sẽ sinh ra luồng SPSA thứ hai song song. Điều này dẫn đến sự bùng nổ số lượng luồng và **rò rỉ VRAM/RAM nghiêm trọng**, nhanh chóng gây đóng băng toàn bộ hệ thống hoặc sập ứng dụng do tràn bộ nhớ (Out-of-Memory).
 
-Chúng tôi đã chèn các kiểm tra hủy tác vụ an toàn luồng bằng `AtomicBool` bên trong tất cả các vòng lặp nội bộ. Hiện tại, khi người dùng nhấp hủy, luồng ngầm sẽ dừng lại ngay lập tức, các bộ hẹn giờ đặt lại được dọn sạch và bộ nhớ được giải phóng ngay.
+Chúng tôi đã chèn các kiểm tra hủy tác vụ an toàn luồng bằng `AtomicBool` bên trong tất cả các vòng lặp nội bộ. Hiện tại, khi người dùng nhấp hủy, luồng ngầm sẽ dừng lại ngay lập tức, các bộ hẹn giờ đặt lại được dọn sạch và bộ nhớ được giải phóng ngay:
+
+```rust
+for k in 0..iterations {
+    if state.is_cancelled.load(Ordering::SeqCst) {
+        return Err("Protection cancelled".to_string());
+    }
+
+    let ck = ck_initial / ((k + 1) as f32).powf(0.101);
+    let ak = alpha / ((k + 1) as f32).powf(0.602);
+
+    let (grad_accum, valid_count) = (0..SPSA_DIRECTIONS_PER_ITER).try_fold(
+        (vec![0.0f32; num_elements], 0u32),
+        |(mut acc, count), _| {
+            if state.is_cancelled.load(Ordering::SeqCst) {
+                return Err("Protection cancelled".to_string());
+            }
+            Ok((acc, count + 1))
+        },
+    )?;
+}
+```
 
 ---
 
