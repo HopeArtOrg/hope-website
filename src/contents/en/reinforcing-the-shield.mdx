@@ -63,6 +63,20 @@ However, integrating GPU acceleration across diverse client environments (NVIDIA
 
 By resolving these hidden errors, Hope:RE now safely leverages hardware acceleration where stable, and drops back to verified, panic-free CPU execution where drivers are unpredictable.
 
+### The Human Cost: Why These Bugs Are Dangerous
+
+Hidden native bugs are not just abstract code issues; they have direct, negative impacts on both the creators using the application and the developers maintaining it.
+
+#### For the Developers:
+- **The Debugging Abyss**: Memory safety bugs like use-after-free are non-deterministic. They might pass local tests but crash under different memory pressures on user machines. Because segmentation faults (`STATUS_ACCESS_VIOLATION`) trigger immediate OS-level aborts, they leave no logs or stack traces, making troubleshooting incredibly difficult.
+- **Support Overhead**: Silent crashes lead to un-actionable bug reports (e.g., "the window went blank"). This floods the open-source repository with vague issues, consuming developer time that could be spent building features.
+- **Security Implications**: Memory errors like use-after-free are potential security weaknesses. Hardening this boundary prevents malicious memory exploits.
+
+#### For the Users (Artists):
+- **Progress Destruction**: SPSA optimizations on large canvases take time. A sudden crash 90% of the way through a run forces the artist to restart from scratch, ruining their creative workflow.
+- **System Instability**: Background thread leaks starve the OS of RAM and VRAM. This can freeze the entire operating system or crash other open drawing programs like Photoshop or Krita.
+- **Hardware Wear**: Forcing CPU rendering due to broken GPU integration runs cores at 100% for 30+ minutes, causing high thermal loads, loud fan noise, and rapid battery degradation on portable devices.
+
 ---
 
 ### Structuring for the Future: Developer Infrastructure (PR #98)

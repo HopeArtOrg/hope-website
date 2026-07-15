@@ -63,6 +63,20 @@ Tuy nhiên, việc tích hợp tăng tốc GPU trên các môi trường khách 
 
 Bằng cách khắc phục những lỗi ẩn này, Hope:RE hiện tại có thể khai thác sức mạnh tăng tốc phần cứng một cách an toàn ở những nơi ổn định, và tự động chuyển về xử lý CPU không lỗi ở những hệ thống có trình điều khiển đồ họa không lường trước được.
 
+### Hệ Lụy Thực Tế: Tại Sao Những Lỗi Này Lại Nguy Hiểm
+
+Các lỗi ngầm dưới tầng mã máy không chỉ là vấn đề lý thuyết trên dòng lệnh; chúng gây ra những tác động tiêu cực trực tiếp đến cả nghệ sĩ sử dụng ứng dụng lẫn nhà phát triển duy trì dự án.
+
+#### Đối với Nhà Phát Triển:
+- **Hố Sâu Thử Nghiệm**: Các lỗi an toàn bộ nhớ như use-after-free hoạt động không xác định. Chúng có thể vượt qua các bài kiểm tra nội bộ nhưng lại làm sập ứng dụng dưới các áp lực bộ nhớ khác nhau trên máy của người dùng. Vì lỗi truy cập vùng nhớ (`STATUS_ACCESS_VIOLATION`) kích hoạt lệnh dừng tức thì từ hệ điều hành, chúng không để lại bất kỳ nhật ký (log) hay vết ngăn xếp (stack trace) nào, khiến việc dò lỗi trở nên vô cùng gian nan.
+- **Quá Tải Hỗ Trợ**: Những lỗi sập ứng dụng trong im lặng dẫn đến các báo cáo lỗi không rõ ràng (ví dụ: "cửa sổ bỗng dưng trắng xóa"). Điều này làm ngập lụt kho lưu trữ mã nguồn mở với những khiếu nại mơ hồ, tiêu tốn thời gian lẽ ra có thể dùng để phát triển tính năng mới.
+- **Nguy Cơ Bảo Mật**: Lỗi bộ nhớ như use-after-free là điểm yếu bảo mật tiềm ẩn. Việc gia cố ranh giới này giúp bảo vệ ứng dụng khỏi các hành vi khai thác bộ nhớ độc hại.
+
+#### Đối với Người Dùng (Nghệ Sĩ):
+- **Phá Hủy Tiến Trình Công Việc**: Việc tối ưu hóa SPSA trên các khung vẽ lớn đòi hỏi thời gian. Một cú sập ứng dụng đột ngột khi tiến trình đã chạy được 90% buộc nghệ sĩ phải làm lại từ đầu, phá hỏng mạch cảm xúc sáng tạo.
+- **Mất Ổn Định Hệ Thống**: Rò rỉ luồng chạy ngầm vắt kiệt RAM và VRAM của hệ điều hành. Sự thiếu hụt này có thể làm treo toàn bộ máy tính hoặc làm sập các phần mềm vẽ tranh đang mở khác như Photoshop hay Krita.
+- **Hao Mòn Phần Cứng**: Việc ép buộc xử lý bằng CPU do tích hợp GPU bị lỗi khiến các nhân xử lý phải chạy hết công suất 100% trong hơn 30 phút, gây ra lượng nhiệt cực lớn, tiếng quạt rú ga và làm giảm nhanh tuổi thọ pin của các thiết bị di động.
+
 ---
 
 ### Cơ Cấu Cho Tương Lai: Hạ Tầng Cho Nhà Phát Triển (PR #98)
