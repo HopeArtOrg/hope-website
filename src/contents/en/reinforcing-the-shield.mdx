@@ -19,6 +19,28 @@ Art knows no borders, and the tools that protect it should not either. In PR #94
 -   [kiensony](https://github.com/kiensony) (PR #94, #95) designed and built the lightweight, zero-dependency internationalization (i18n) core layer. Instead of adding a heavy external library, this custom layer integrates directly with Svelte 5 state runes, keeping memory overhead minimal. They also restyled the header language switcher to align visually with the theme toggle and system info controls.
 -   [Coder-Blue](https://github.com/Coder-Blue) (me) (PR #97) drove the comprehensive UI implementation, translating and mapping every user-facing label, button, and description across all components to ensure a seamless, localized experience.
 
+```typescript
+// src/lib/stores/use-i18n.svelte.ts
+let locale = $state<Locale>(detectLocale());
+
+export function t(key: string, params?: Record<string, string | number>): string {
+  let message = resolveMessage(dictionaries[locale], key);
+  if (typeof message !== "string") {
+    message = resolveMessage(dictionaries.en, key);
+  }
+  if (typeof message !== "string") {
+    return key;
+  }
+  if (!params) {
+    return message;
+  }
+  return message.replace(/\{(\w+)\}/g, (match, name: string) => {
+    const value = params[name];
+    return value === undefined ? match : String(value);
+  });
+}
+```
+
 By avoiding bulky dependencies, we keep the webview bundle size compact, respecting user memory and disk limits while expanding global accessibility.
 
 ### Security Hardening: Securing the Webview-Backend Boundary (PR #93)
@@ -40,14 +62,58 @@ When compiling SPSA (Simultaneous Perturbation Stochastic Approximation) perturb
 
 In native runtimes, this memory safety violation triggers a `STATUS_ACCESS_VIOLATION` (segmentation fault). Because Tauri maps Rust panics and segmentation faults to a hard abort, the desktop window would instantly freeze or turn completely blank without showing any error message. For artists who may have spent 20 minutes processing high-resolution artwork, a sudden silent crash meant all progress was lost. 
 
-We resolved this by inlining image tensor creation in Glaze and Nightshade model runners, using boxed slices to explicitly manage data ownership and pinning buffers in memory to guarantee their validity throughout the entire lifecycle of the ONNX session.
+We resolved this by inlining image tensor creation in Glaze and Nightshade model runners, using boxed slices to explicitly manage data ownership and pinning buffers in memory to guarantee their validity throughout the entire lifecycle of the ONNX session:
+
+```rust
+// src-tauri/src/onnx_integration/protection/algorithms.rs
+pub fn run_noise_model(session: &mut Session, input: &Array4<f32>) -> Result<f32, String> {
+    let shape = input.shape();
+    let data: Box<[f32]> = input
+        .iter()
+        .copied()
+        .collect::<Vec<f32>>()
+        .into_boxed_slice();
+    let input_tensor = Tensor::from_array(([shape[0], shape[1], shape[2], shape[3]], data))
+        .map_err(|e| format!("Failed to create input tensor: {}", e))?;
+
+    let outputs = session
+        .run(ort::inputs![input_tensor])
+        .map_err(|e| format!("Failed to run noise model: {}", e))?;
+
+    outputs[0]
+        .try_extract_scalar::<f32>()
+        .map_err(|e| format!("Failed to extract noise model output: {}", e))
+}
+```
 
 #### 2. Background Cancellation Memory Leaks
 Another major issue was cancellation thread safety. When a user clicked "Cancel" on a running protection process in Svelte, the UI would instantly reset. However, the background Rust thread executing the heavy SPSA optimization loops would keep running silently in the background. 
 
 If the user then restarted the protection run, the application would spawn a second parallel SPSA thread. This led to a thread explosion and severe **VRAM/RAM leaks**, quickly causing system-wide freezes or Out-of-Memory (OOM) crashes. 
 
-We introduced thread-safe `AtomicBool` cancellation checks within all inner loops. Now, when a user clicks cancel, the background thread stops instantly, pending reset timers are cleared, and memory is immediately reclaimed.
+We introduced thread-safe `AtomicBool` cancellation checks within all inner loops. Now, when a user clicks cancel, the background thread stops instantly, pending reset timers are cleared, and memory is immediately reclaimed:
+
+```rust
+// src-tauri/src/onnx_integration/protection/spsa.rs
+for k in 0..iterations {
+    if state.is_cancelled.load(Ordering::SeqCst) {
+        return Err("Protection cancelled".to_string());
+    }
+
+    let ck = ck_initial / ((k + 1) as f32).powf(0.101);
+    let ak = alpha / ((k + 1) as f32).powf(0.602);
+
+    let (grad_accum, valid_count) = (0..SPSA_DIRECTIONS_PER_ITER).try_fold(
+        (vec![0.0f32; num_elements], 0u32),
+        |(mut acc, count), _| {
+            if state.is_cancelled.load(Ordering::SeqCst) {
+                return Err("Protection cancelled".to_string());
+            }
+            Ok((acc, count + 1))
+        },
+    )?;
+}
+```
 
 ---
 
